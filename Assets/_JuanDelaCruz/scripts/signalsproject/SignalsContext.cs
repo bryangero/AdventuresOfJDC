@@ -42,7 +42,7 @@ namespace JuanDelaCruz {
 		protected override void mapBindings() {
 			injectionBinder.Bind<Player>().To<IPlayer>().ToSingleton();
 			injectionBinder.Bind<ShowWindowSignal>().ToSingleton();
-//			commandBinder.Bind<ShowWindowSignal>().To<showw
+			commandBinder.Bind<ShowWindowSignal>().To<ShowWindowCommand>();
 			mediationBinder.Bind<LandingPageView>().To<LandingPageMediator>();
 			mediationBinder.Bind<CharacterSelectView>().To<CharacterSelectMediator>();
 			//StartSignal is now fired instead of the START event.

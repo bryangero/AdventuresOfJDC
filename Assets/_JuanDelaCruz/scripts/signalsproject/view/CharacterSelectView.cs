@@ -8,23 +8,24 @@ using strange.extensions.signal.impl;
 namespace JuanDelaCruz {
 
 	public class CharacterSelectView : View {
-		
-		public Signal clickSignal = new Signal();
-		[SerializeField] private Instructions instructions;
 
+		[SerializeField] GameObject holder;
+		public Signal clickSignal = new Signal();
 
 		internal void init() {
 		}
 
-		public void OnClickNewGame() {
-			
-			Debug.Log("Clicked New Game");
+		public void EnableCharacterSelect() {
+			holder.SetActive(true);
 		}
 
-		public void OnClickLoadGame() {
-			Debug.Log("Clicked Load Game");
+		public void OnClickMale() {
+			Debug.Log("Clicked Male");
 		}
 
+		public void OnClickFemale() {
+			Debug.Log("Clicked Female");
+		}
 
 	}
 

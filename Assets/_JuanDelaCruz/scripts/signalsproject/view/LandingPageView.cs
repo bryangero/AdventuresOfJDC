@@ -11,11 +11,15 @@ namespace JuanDelaCruz {
 		
 		public Signal clickNewGameSignal = new Signal();
 		public Signal clickLoadGameSignal = new Signal();
+		[SerializeField] private GameObject holder;
 		[SerializeField] private Instructions instructions;
+
+		public void DisableLandingPage() {
+			holder.SetActive(false);
+		}
 
 		public void OnClickNewGame() {
 			clickNewGameSignal.Dispatch();
-			Debug.Log("Clicked New Game");
 		}
 
 		public void OnClickLoadGame() {
