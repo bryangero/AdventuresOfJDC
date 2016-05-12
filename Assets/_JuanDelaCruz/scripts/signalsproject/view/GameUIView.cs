@@ -10,7 +10,7 @@ namespace JuanDelaCruz {
 	public class GameUIView : View {
 
 		[SerializeField] GameObject holder;
-		public Signal clickSignal = new Signal();
+		public Signal endBattleSignal = new Signal();
 
 		internal void init() {
 		}
@@ -19,8 +19,12 @@ namespace JuanDelaCruz {
 			holder.SetActive(true);
 		}
 
+		public void DisableGameUI() {
+			holder.SetActive(false);
+		}
+
 		public void OnClickBattle() {
-			Debug.Log("Clicked Male");
+			Debug.Log("Clicked END BATTLE");
 		}
 
 	}

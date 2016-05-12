@@ -20,7 +20,13 @@ namespace JuanDelaCruz {
 			switch(gameWindow) {
 				case GAME_WINDOWS.CHARACTER_SELECT: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
+					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<CharacterSelectView>().EnableCharacterSelect();
+					break;
+				case GAME_WINDOWS.GAME: 
+					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
+					GameObject.FindObjectOfType<CharacterSelectView>().DisableCharacterSelect();
+					GameObject.FindObjectOfType<GameUIView>().EnableGameUI();
 					break;
 
 			}
