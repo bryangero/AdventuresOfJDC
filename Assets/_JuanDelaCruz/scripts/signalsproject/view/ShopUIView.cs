@@ -7,7 +7,7 @@ using strange.extensions.signal.impl;
 
 namespace JuanDelaCruz {
 
-	public class GameUIView : View {
+	public class ShopUIView : View {
 
 		[SerializeField] GameObject holder;
 		public Signal endBattleSignal = new Signal();
@@ -15,17 +15,15 @@ namespace JuanDelaCruz {
 		internal void init() {
 		}
 
-		public void EnableGameUI() {
+		public void EnableShopUI() {
 			holder.SetActive(true);
 		}
 
-		public void DisableGameUI() {
+		public void DisableShopUI() {
 			holder.SetActive(false);
 		}
 
 		public void OnClickBattle() {
-			endBattleSignal.Dispatch();
-			Debug.Log("Clicked END BATTLE");
 		}
 
 	}

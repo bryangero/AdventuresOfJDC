@@ -6,6 +6,7 @@ namespace JuanDelaCruz {
 		
 		string name { get; set; }
 		string gender { get; set; }
+		int stage { get; set; }
 
 	}
 

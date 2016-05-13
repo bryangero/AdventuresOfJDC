@@ -7,25 +7,24 @@ using strange.extensions.signal.impl;
 
 namespace JuanDelaCruz {
 
-	public class GameUIView : View {
+	public class RewardUIView : View {
 
 		[SerializeField] GameObject holder;
-		public Signal endBattleSignal = new Signal();
+		public Signal claimRewardSignal = new Signal();
 
 		internal void init() {
 		}
 
-		public void EnableGameUI() {
+		public void EnableRewardUI() {
 			holder.SetActive(true);
 		}
 
-		public void DisableGameUI() {
+		public void DisableRewardUI() {
 			holder.SetActive(false);
 		}
 
-		public void OnClickBattle() {
-			endBattleSignal.Dispatch();
-			Debug.Log("Clicked END BATTLE");
+		public void OnClickClaim() {
+			claimRewardSignal.Dispatch();
 		}
 
 	}

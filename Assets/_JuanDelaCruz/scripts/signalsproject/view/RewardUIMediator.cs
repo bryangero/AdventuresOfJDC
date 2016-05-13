@@ -9,26 +9,25 @@ using strange.extensions.mediation.impl;
 
 namespace JuanDelaCruz {
 	//Not extending EventMediator anymore
-	public class GameUIMediator : Mediator {
+	public class RewardUIMediator : Mediator {
 		[Inject]
-		public GameUIView view { get; set; }
+		public RewardUIView view { get; set; }
 
 		[Inject]
 		public ShowWindowSignal showWindowSignal { get; set; }
-		
+
 		public override void OnRegister() {
-			view.endBattleSignal.AddListener(EndBattleSignal);
+			view.claimRewardSignal.AddListener(ClickClaim);
 			view.init();
 		}
 		
 		public override void OnRemove() {
-			view.endBattleSignal.RemoveListener(EndBattleSignal);
+			view.claimRewardSignal.RemoveListener(ClickClaim);
 		}
 
-		private void EndBattleSignal() {
-			showWindowSignal.Dispatch(GAME_WINDOWS.REWARD);
-		} 
-
+		private void ClickClaim() {
+			showWindowSignal.Dispatch(GAME_WINDOWS.SHOP);
+		}
 	}
 }
 

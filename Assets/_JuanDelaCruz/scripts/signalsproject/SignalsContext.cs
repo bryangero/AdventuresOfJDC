@@ -46,9 +46,11 @@ namespace JuanDelaCruz {
 			mediationBinder.Bind<LandingPageView>().To<LandingPageMediator>();
 			mediationBinder.Bind<CharacterSelectView>().To<CharacterSelectMediator>();
 			mediationBinder.Bind<GameUIView>().To<GameUIMediator>();
+			mediationBinder.Bind<RewardUIView>().To<RewardUIMediator>();
+			mediationBinder.Bind<ShopUIView>().To<ShopUIMediator>();
 			//StartSignal is now fired instead of the START event.
 			//Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
-			commandBinder.Bind<StartSignal>().To<StartCommand>().Once ();			
+			commandBinder.Bind<StartSignal>().To<StartCommand>().Once();			
 		}
 	}
 }
