@@ -14,7 +14,12 @@ namespace JuanDelaCruz {
 		public GameObject contextView{get;set;}
 		
 		public override void Execute() {
-            Debug.Log("SHET");
+			Player player = new Player();
+			string strSerializedPlayer = JsonFx.Json.JsonWriter.Serialize(player);
+			Debug.Log(strSerializedPlayer);
+
+			Player deserializedPlayer = JsonFx.Json.JsonReader.Deserialize<Player>(strSerializedPlayer);
+			Debug.Log(deserializedPlayer.weapon);
 		}
 
 	}
