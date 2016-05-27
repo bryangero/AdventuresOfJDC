@@ -23,7 +23,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickLoadGame() {
-			Debug.Log("Clicked Load Game");
+			clickLoadGameSignal.Dispatch();
 		}
 
 		public void OnClickInstructions() {

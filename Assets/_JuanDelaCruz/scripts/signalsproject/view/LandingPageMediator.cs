@@ -15,23 +15,35 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public ShowWindowSignal showWindowSignal { get; set; }
+
+		[Inject]
+		public CreateNewGameSignal createNewGameSignal { get; set; }
+
+		[Inject]
+		public LoadGameSignal loadGameSignal { get; set; }
 		
 		public override void OnRegister() {
 			showWindowSignal.AddListener(OnShowWindow);
 			view.clickNewGameSignal.AddListener(ClickNewGame);
+			view.clickLoadGameSignal.AddListener(ClickLoadGame);
 		}
 		
 		public override void OnRemove() {
 			showWindowSignal.RemoveListener(OnShowWindow);
 			view.clickNewGameSignal.RemoveListener(ClickNewGame);
+			view.clickLoadGameSignal.RemoveListener(ClickLoadGame);
 		}
 
 		private void ClickNewGame() {
-			showWindowSignal.Dispatch(GAME_WINDOWS.CHARACTER_SELECT);
+			createNewGameSignal.Dispatch();
+		}
+
+		private void ClickLoadGame() {
+			loadGameSignal.Dispatch();
 		}
 
 		private void OnShowWindow(GAME_WINDOWS gameWindow) {
-			Debug.Log(name + " " + gameWindow);
+//			Debug.Log(name + " " + gameWindow);
 		}
 
 	}

@@ -7,6 +7,8 @@ namespace JuanDelaCruz {
 
 	public class StartSignal : Signal {}
 	public class ShowWindowSignal : Signal<GAME_WINDOWS> {}
+	public class CreateNewGameSignal : Signal {}
+	public class LoadGameSignal : Signal {}
 
 }
 

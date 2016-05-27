@@ -8,7 +8,8 @@ namespace JuanDelaCruz {
 		CHARACTER_SELECT,
 		GAME,
 		REWARD,
-		SHOP
+		SHOP,
+		MAP,
 	}
 
 	public enum GENDER {

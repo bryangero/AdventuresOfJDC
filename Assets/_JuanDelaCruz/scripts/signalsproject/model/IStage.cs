@@ -5,6 +5,7 @@ namespace JuanDelaCruz {
 	public interface IStage {
 		
 		int level { get; set; }
+		Monster[] monsters { get; set; }
 
 	}
 
