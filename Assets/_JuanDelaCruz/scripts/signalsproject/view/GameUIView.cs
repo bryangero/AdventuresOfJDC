@@ -12,11 +12,7 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IPlayer player { get; set; }
 
-//		[Inject("ActiveStage")]
-//		public IStage stage { get; set; }
-
-
-
+		public Monster monster;
 
 		[SerializeField] GameObject holder;
 		public GameView gameView;
@@ -34,12 +30,29 @@ namespace JuanDelaCruz {
 		public UISprite enemyHp;
 		public int enemyHpHolder;
 		public int enemyDamageTaken;
+		public float enemyConvertedHp;
+		public UILabel timerLabel;
 
-		internal void init() {
-			player = new Player();
-			Debug.Log(player.hitPoints);
+		public UILabel winLoseLbl;
+		public TweenScale winLoseTweenScale;
+		private bool isTimesUp = false;
+
+		public void EnableGameUI() {
+			holder.SetActive(true);
+		}
+
+		public void DisableGameUI() {
+			holder.SetActive(false);
+		}
+
+		internal void init(Monster monster) {
+			holder.SetActive(true);
+			this.monster = monster;
 			playerHpHolder = player.hitPoints;
-			playerConvertedHp = playerDamageTaken / playerHpHolder;
+			playerHp.fillAmount = 1;
+			enemyHpHolder = monster.hitPoints;
+			enemyHp.fillAmount = 1;
+			StartCoroutine("UpdateTimer");
 			MoveAttackBarUp();
 		}
 
@@ -85,33 +98,141 @@ namespace JuanDelaCruz {
 			MoveAttackBarUp();
 		}
 
-		public void EnableGameUI() {
-			holder.SetActive(true);
-		}
-
-		public void DisableGameUI() {
-			holder.SetActive(false);
-		}
-
 		public void OnClickBattle() {
 			endBattleSignal.Dispatch();
 			Debug.Log("Clicked END BATTLE");
 		}
 
 		public void ClickAttack() {
+			if(gameView.isRoundEnd == true) {
+				return;
+			}
 			iTween.StopByName("MoveAttackBarUp");
 			iTween.StopByName("MoveAttackBarDown");
-			StartCoroutine("AnimateAttack");
+			float test = Math.Abs(0.5f - scrollbar.value);
+			int range = player.maxDamage - player.minDamage;
+			float rangeDifference = 0.5f /(float)range;
+			int[] damageArray = new int[range];
+			for(int i = 0; i < damageArray.Length; i++) {
+				damageArray[i] = player.maxDamage - i;
+			}
+			float max = 0; 
+			for(int j = 0; j < damageArray.Length; j++) {
+				float min = max;
+				max = rangeDifference * j;
+				if(test >= min && test <= max) {
+					enemyDamageTaken += damageArray[j];
+					UpdateEnemyHpBar();
+					return;
+				}
+			}
+			UpdateEnemyHpBar();
 		}
 
-		public IEnumerator AnimateAttack() {
-			yield return new WaitForSeconds(1);
-			if (isDirUp) {
+		public void FinishedAnimation() {
+			if(isDirUp) {
 				MoveAttackBarUp();
 			} else {
 				MoveAttackBarDown();
 			}
-			Debug.Log("FINISHED ANIMATION");
+		}
+
+		private IEnumerator UpdateTimer() {
+			int timer = 10;
+			while(timer > 0 && gameView.isRoundEnd == false) {
+				timer--;
+				timerLabel.text = timer.ToString("00");
+				yield return new WaitForSeconds(1);
+			}
+			if(gameView.isRoundEnd != true) {
+				gameView.isRoundEnd = true;
+				winLoseLbl.text = "Times Up!";
+				winLoseTweenScale.Play();
+				iTween.StopByName("MoveAttackBarUp");
+				iTween.StopByName("MoveAttackBarDown");
+				isTimesUp = true;
+				Debug.Log("TIMES UP");
+			}
+		}
+
+		private void UpdatePlayerHpBar() {
+			if(playerDamageTaken > playerHpHolder) {
+				playerDamageTaken = playerHpHolder;
+			}
+			playerConvertedHp =((float)playerHpHolder -(float)playerDamageTaken) /(float)playerHpHolder;
+			iTween.ValueTo(gameObject, iTween.Hash(
+				"name", "MoveAttackBarUp",
+				"from", playerHp.fillAmount,
+				"to", playerConvertedHp, 
+				"onupdatetarget", gameObject, 
+				"onupdate", "UpdatePlayerHpBarFillAmount",
+				"oncompletetarget", gameObject, 
+				"oncomplete", "FinishedUpdatePlayerHpBarFillAmount",
+				"time", 0.5f));
+		}
+
+		public void UpdatePlayerHpBarFillAmount(float val) {
+			playerHp.fillAmount = val;
+		}
+
+		public void FinishedUpdatePlayerHpBarFillAmount() {
+			if(playerHp.fillAmount <= 0) {
+				winLoseLbl.text = "You Lose!";
+				winLoseTweenScale.Play();
+				gameView.isRoundEnd = true;
+				Debug.Log("Player KILLED");
+			} else {
+				FinishedAnimation();
+			}
+		}
+
+		private void UpdateEnemyHpBar() {
+			if(enemyDamageTaken > enemyHpHolder) {
+				enemyDamageTaken = enemyHpHolder;
+			}
+			enemyConvertedHp =((float)enemyHpHolder -(float)enemyDamageTaken)/(float)enemyHpHolder;
+			iTween.ValueTo(gameObject, iTween.Hash(
+				"name", "MoveAttackBarUp",
+				"from", enemyHp.fillAmount,
+				"to", enemyConvertedHp, 
+				"onupdatetarget", gameObject, 
+				"onupdate", "UpdateEnemyHpBarFillAmount",
+				"oncompletetarget", gameObject, 
+				"oncomplete", "FinishedUpdateEnemyHpBarFillAmount",
+				"time", 0.5f));
+		}
+
+		public void UpdateEnemyHpBarFillAmount(float val) {
+			enemyHp.fillAmount = val;
+		}
+
+		public void FinishedUpdateEnemyHpBarFillAmount() {
+			if(enemyHp.fillAmount <= 0) {
+				winLoseLbl.text = "You Win!";
+				winLoseTweenScale.Play();
+				gameView.isRoundEnd = true;
+				Debug.Log("Enemy KILLED");
+			} else {
+				EnemyAttack();
+			}
+		}
+
+		public void EnemyAttack() {
+			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
+			playerDamageTaken += enemyDamage;
+			UpdatePlayerHpBar();
+		}
+
+		public void FinishedWinLoseAnimation() {
+			if(isTimesUp == true) {
+				if(playerHp.fillAmount > enemyHp.fillAmount) {
+					winLoseLbl.text = "You Win!";
+					winLoseTweenScale.Play();
+				} else {
+					winLoseLbl.text = "You Lose!";
+					winLoseTweenScale.Play();
+				}
+			}
 		}
 
 	}

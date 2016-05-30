@@ -10,21 +10,25 @@ namespace JuanDelaCruz {
 	public class GameView : View {
 
 		[Inject]
+		public IPlayer player { get; set; }
+
+		[Inject]
 		public IStage stage { get; set; }
 
+		public int round;
+		public bool isRoundEnd = false;
 
 		public GameObject holder;
-		public GameObject gameUI;
+		public GameUIView gameUIView;
 		public GameObject rewardUI;
 		public GameObject shopUI;
 		public GameObject getHelpUI;
 
-		public GameUIView gameUIView;
-
 		internal void init() {
+			player = new Player();
 			stage = new Stage(1);
-			Debug.Log (stage.monsters[0].hitPoints);
-
+			round = 0;
+			gameUIView.init(stage.monsters[round]);
 		}
 
 		public void EnableGame() {

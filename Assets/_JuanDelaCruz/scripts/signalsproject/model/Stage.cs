@@ -25,6 +25,8 @@ namespace JuanDelaCruz {
 				monsters = new Monster[5];
 				monsters [0] = new Monster ();
 				monsters [0].hitPoints = 20;
+				monsters [0].minDamage = 1;
+				monsters [0].maxDamage = 5;
 //				monsters [1].hitPoints = 50;
 //				monsters [2].hitPoints = 80;
 //				monsters [3].hitPoints = 100;

@@ -18,7 +18,6 @@ namespace JuanDelaCruz {
 		
 		public override void OnRegister() {
 			view.endBattleSignal.AddListener(EndBattleSignal);
-			view.init();
 		}
 		
 		public override void OnRemove() {
