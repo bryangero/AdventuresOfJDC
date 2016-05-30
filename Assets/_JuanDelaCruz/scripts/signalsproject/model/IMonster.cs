@@ -9,7 +9,7 @@ namespace JuanDelaCruz {
 		int minDamage { get; set; }
 		int maxDamage { get; set; }
 		int goldReward { get; set; }
-		int experienceGiven { get; set; }
+		int expReward { get; set; }
 
 	}
 

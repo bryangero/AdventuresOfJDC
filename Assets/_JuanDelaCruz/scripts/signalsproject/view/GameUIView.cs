@@ -53,6 +53,7 @@ namespace JuanDelaCruz {
 			enemyHpHolder = monster.hitPoints;
 			enemyHp.fillAmount = 1;
 			StartCoroutine("UpdateTimer");
+			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
 			MoveAttackBarUp();
 		}
 
@@ -138,7 +139,7 @@ namespace JuanDelaCruz {
 		}
 
 		private IEnumerator UpdateTimer() {
-			int timer = 10;
+			int timer = 99;
 			while(timer > 0 && gameView.isRoundEnd == false) {
 				timer--;
 				timerLabel.text = timer.ToString("00");
@@ -187,6 +188,7 @@ namespace JuanDelaCruz {
 		}
 
 		private void UpdateEnemyHpBar() {
+			enemyDamageTaken += ApplyWeaponBonus();
 			if(enemyDamageTaken > enemyHpHolder) {
 				enemyDamageTaken = enemyHpHolder;
 			}
@@ -224,17 +226,48 @@ namespace JuanDelaCruz {
 		}
 
 		public void FinishedWinLoseAnimation() {
-			if(isTimesUp == true) {
-				if(playerHp.fillAmount > enemyHp.fillAmount) {
+			if (isTimesUp == true) {
+				if (playerHp.fillAmount > enemyHp.fillAmount) {
 					winLoseLbl.text = "You Win!";
-					winLoseTweenScale.Play();
+					winLoseTweenScale.Play ();
+					gameView.OnFinishedRound (true);
 				} else {
 					winLoseLbl.text = "You Lose!";
-					winLoseTweenScale.Play();
+					winLoseTweenScale.Play ();
+					gameView.OnFinishedRound (false);
+				}
+			} else {
+				if (playerHp.fillAmount > enemyHp.fillAmount) {
+					gameView.OnFinishedRound (true);
+				} else {
+					gameView.OnFinishedRound (false);
 				}
 			}
+			DisableGameUI ();
 		}
 
+		public int ApplyWeaponBonus() {
+			switch (player.weapon) {
+			case WEAPON_TYPE.SWORD:
+				return 25;
+				break;
+			case WEAPON_TYPE.BOW:
+				return 30;
+				break;
+			case WEAPON_TYPE.WHIP:
+				return 40;
+				break;
+			case WEAPON_TYPE.SPEAR:
+				return 45;
+				break;
+			case WEAPON_TYPE.SHIELD:
+				return 60;
+				break;
+			default:
+				return 0;
+				break;
+			}
+		}
 	}
 
 }

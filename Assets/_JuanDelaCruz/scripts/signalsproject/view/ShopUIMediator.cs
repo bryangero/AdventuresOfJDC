@@ -14,11 +14,9 @@ namespace JuanDelaCruz {
 		public ShopUIView view { get; set; }
 		
 		public override void OnRegister() {
-			view.init();
 		}
 		
 		public override void OnRemove() {
-			
 		}
 		
 	}

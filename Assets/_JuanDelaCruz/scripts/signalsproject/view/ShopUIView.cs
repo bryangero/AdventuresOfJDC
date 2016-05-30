@@ -9,10 +9,17 @@ namespace JuanDelaCruz {
 
 	public class ShopUIView : View {
 
+		[Inject]
+		public IPlayer player {get;set;}
+
 		[SerializeField] GameObject holder;
-		public Signal endBattleSignal = new Signal();
+		public GameView gameView;
+		public UILabel goldLabel;
+
 
 		internal void init() {
+			EnableShopUI();
+			goldLabel.text = "Gold: " + player.gold;
 		}
 
 		public void EnableShopUI() {
@@ -23,7 +30,34 @@ namespace JuanDelaCruz {
 			holder.SetActive(false);
 		}
 
-		public void OnClickBattle() {
+		public void BuySword() {
+			player.weapon = WEAPON_TYPE.SWORD;
+			Close();
+		}
+
+		public void BuyBow() {
+			player.weapon = WEAPON_TYPE.BOW;
+			Close();
+		}
+
+		public void BuyWhip() {
+			player.weapon = WEAPON_TYPE.WHIP;
+			Close();
+		}
+
+		public void BuySpear() {
+			player.weapon = WEAPON_TYPE.SPEAR;
+			Close();
+		}
+
+		public void BuyShield() {
+			player.weapon = WEAPON_TYPE.SHIELD;
+			Close();
+		}
+
+		public void Close() {
+			gameView.OnFinishShop();
+			DisableShopUI();
 		}
 
 	}

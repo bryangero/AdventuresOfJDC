@@ -15,12 +15,14 @@ namespace JuanDelaCruz {
 		public int level { get; set; }
 		public int currentExperience { get; set; }
 		public int experienceNeeded { get; set; }
+		public int gold { get; set; }
 
 		public Player() {
-			name = "noName";
+			name = "Juan";
 			stage = 1;
 			level = 1;
 			gender = GENDER.MALE;
+			weapon = WEAPON_TYPE.NONE;
 			ComputeHp();
 		}
 

@@ -15,6 +15,7 @@ namespace JuanDelaCruz {
 		int level { get; set; }
 		int currentExperience { get; set; }
 		int experienceNeeded { get; set; }
+		int gold { get; set; }
 
 		void SavePlayer();
 		void LoadPlayer();

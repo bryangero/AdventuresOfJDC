@@ -30,6 +30,7 @@ namespace JuanDelaCruz {
 	}
 
 	public enum WEAPON_TYPE {
+		NONE,
 		SWORD,
 		BOW,
 		WHIP,

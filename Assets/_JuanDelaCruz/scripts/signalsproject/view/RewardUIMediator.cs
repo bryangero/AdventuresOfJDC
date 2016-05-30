@@ -17,17 +17,11 @@ namespace JuanDelaCruz {
 		public ShowWindowSignal showWindowSignal { get; set; }
 
 		public override void OnRegister() {
-			view.claimRewardSignal.AddListener(ClickClaim);
-			view.init();
 		}
 		
 		public override void OnRemove() {
-			view.claimRewardSignal.RemoveListener(ClickClaim);
 		}
 
-		private void ClickClaim() {
-			showWindowSignal.Dispatch(GAME_WINDOWS.SHOP);
-		}
 	}
 }
 

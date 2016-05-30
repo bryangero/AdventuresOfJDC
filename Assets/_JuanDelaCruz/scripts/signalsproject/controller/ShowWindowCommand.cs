@@ -21,38 +21,26 @@ namespace JuanDelaCruz {
 				case GAME_WINDOWS.CHARACTER_SELECT: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
-					GameObject.FindObjectOfType<RewardUIView>().DisableRewardUI();
-					GameObject.FindObjectOfType<CharacterSelectView>().EnableCharacterSelect();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
 					break;
 				case GAME_WINDOWS.GAME: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
-					GameObject.FindObjectOfType<CharacterSelectView>().DisableCharacterSelect();
-					GameObject.FindObjectOfType<RewardUIView>().DisableRewardUI();
 					GameObject.FindObjectOfType<GameUIView>().EnableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
 					break;
 				case GAME_WINDOWS.REWARD: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
-					GameObject.FindObjectOfType<CharacterSelectView>().DisableCharacterSelect();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
-					GameObject.FindObjectOfType<RewardUIView>().EnableRewardUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
 					break;
 				case GAME_WINDOWS.SHOP:
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
-					GameObject.FindObjectOfType<CharacterSelectView>().DisableCharacterSelect();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
-					GameObject.FindObjectOfType<RewardUIView>().DisableRewardUI();
-					GameObject.FindObjectOfType<ShopUIView>().EnableShopUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
 					break;
 			case GAME_WINDOWS.MAP:
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
-					GameObject.FindObjectOfType<CharacterSelectView>().DisableCharacterSelect();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
-					GameObject.FindObjectOfType<RewardUIView>().DisableRewardUI();
-					GameObject.FindObjectOfType<ShopUIView>().DisableShopUI();
 					GameObject.FindObjectOfType<MapView>().EnableMap();
 					break;
 			}

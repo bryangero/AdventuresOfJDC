@@ -9,11 +9,13 @@ namespace JuanDelaCruz {
 
 	public class RewardUIView : View {
 
-		[SerializeField] GameObject holder;
-		public Signal claimRewardSignal = new Signal();
+		[Inject]
+		public IPlayer player {get;set;}
 
-		internal void init() {
-		}
+		[SerializeField] GameObject holder;
+		public GameView gameView;
+		public UILabel goldRewardLabel;
+		public UILabel expRewardLabel;
 
 		public void EnableRewardUI() {
 			holder.SetActive(true);
@@ -23,8 +25,37 @@ namespace JuanDelaCruz {
 			holder.SetActive(false);
 		}
 
+		internal void init(int goldReward, int expReward) {
+			EnableRewardUI();
+			iTween.ValueTo(gameObject, iTween.Hash(
+				"from", 0,
+				"to", goldReward, 
+				"onupdatetarget", gameObject,
+				"onupdate", "UpdateGoldLabelValue",
+				"time", 1));
+
+			iTween.ValueTo(gameObject, iTween.Hash(
+				"from", 0,
+				"to", expReward, 
+				"onupdatetarget", gameObject,
+				"onupdate", "UpdateExperienceLabelValue",
+				"time", 1));
+
+			player.currentExperience += expReward;
+			player.gold += goldReward;
+		}
+
+		public void UpdateGoldLabelValue(int val) {
+			goldRewardLabel.text = val.ToString();
+		} 
+
+		public void UpdateExperienceLabelValue(int val) {
+			expRewardLabel.text = val.ToString();
+		} 
+
 		public void OnClickClaim() {
-			claimRewardSignal.Dispatch();
+			gameView.OnFinishReward();
+			DisableRewardUI();
 		}
 
 	}
