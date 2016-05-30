@@ -19,9 +19,6 @@ namespace JuanDelaCruz {
 
 		public override void Execute() {
 			player = new Player();
-			player.name = "Juan";
-			player.stage = 1;
-			player.gender = GENDER.MALE;
 			player.SavePlayer();
 			showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 		}

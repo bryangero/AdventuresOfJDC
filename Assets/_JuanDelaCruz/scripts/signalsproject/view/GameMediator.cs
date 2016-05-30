@@ -15,7 +15,7 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public ShowWindowSignal showWindowSignal { get; set; }
-		
+
 		public override void OnRegister() {
 			view.init();
 		}

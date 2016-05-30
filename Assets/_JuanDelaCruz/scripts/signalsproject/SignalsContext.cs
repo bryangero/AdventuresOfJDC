@@ -43,7 +43,7 @@ namespace JuanDelaCruz {
 			injectionBinder.Bind<IRoutineRunner>().To<RoutineRunner>().ToSingleton();
 
 			injectionBinder.Bind<IPlayer>().To<Player>().ToSingleton();
-			injectionBinder.Bind<IStage>().To<Stage>().ToSingleton().ToName("ActiveStage");
+			injectionBinder.Bind<IStage>().To<Stage>().ToSingleton();
 
 			injectionBinder.Bind<ShowWindowSignal>().ToSingleton();
 			commandBinder.Bind<ShowWindowSignal>().To<ShowWindowCommand>();

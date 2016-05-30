@@ -9,7 +9,8 @@ namespace JuanDelaCruz {
 		int stage { get; set; }
 
 		int hitPoints { get; set; }
-		int damage { get; set; }
+		int minDamage { get; set; }
+		int maxDamage { get; set; }
 		WEAPON_TYPE weapon { get; set; }
 		int level { get; set; }
 		int currentExperience { get; set; }
