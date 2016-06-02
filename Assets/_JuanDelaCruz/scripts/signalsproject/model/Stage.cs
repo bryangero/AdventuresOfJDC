@@ -18,6 +18,11 @@ namespace JuanDelaCruz {
 			CreateLevel();
 		}
 
+		public void LoadStage(int level) {
+			this.level = level;
+			CreateLevel();
+		}
+
 		private void CreateLevel() {
 			Debug.Log (level);
 			switch (level) {

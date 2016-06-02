@@ -15,6 +15,8 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IStage stage { get; set; }
 
+		public Signal returnToMapSignal = new Signal();
+
 		public int round;
 		public bool isRoundEnd = false;
 
@@ -24,10 +26,14 @@ namespace JuanDelaCruz {
 		public ShopUIView shopUIView;
 		public GameObject getHelpUI;
 
+		public SpriteRenderer currentStage;
+		public Sprite[] stageBGs;
+
 		internal void init() {
-			player = new Player();
-			stage = new Stage(1);
+			currentStage.sprite = stageBGs [stage.level - 1];
+			isRoundEnd = false;
 			round = 0;
+			EnableGame ();
 			gameUIView.init(stage.monsters[round]);
 		}
 
@@ -41,31 +47,42 @@ namespace JuanDelaCruz {
 
 		public void OnFinishedRound(bool isWin) {
 			if (isWin == true) {
+				DisableGame();
 				rewardUIView.init(stage.monsters[round].goldReward, stage.monsters[round].expReward);
 			} else {
+				DisableGame();
+				returnToMapSignal.Dispatch();
 			}
 		}
 
 		public void OnFinishReward() {
 			round++;
 			if (round >= stage.monsters.Length) {
-				Debug.Log("END OF STAGE");
+				DisableGame();
+				if (player.stage == stage.level) {
+					player.stage++;
+					Debug.Log ("NEXT STAGE UNLOCKED");
+				} else {
+					Debug.Log ("FINISHED ALREADY");
+				}
+				returnToMapSignal.Dispatch();
 				return;
 			}
-
 			if (round <= 3) {
 				isRoundEnd = false;
 				gameUIView.init(stage.monsters[round]);
+				EnableGame();
 			} else {
+				DisableGame();
 				shopUIView.init();
-				Debug.Log("SHOP/NFC");
 			}
 		}
 
 
 		public void OnFinishShop() {
-			isRoundEnd = false;				
+			isRoundEnd = false;
 			gameUIView.init(stage.monsters[round]);
+			EnableGame();
 		}
 	}
 

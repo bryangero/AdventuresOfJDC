@@ -55,6 +55,7 @@ namespace JuanDelaCruz {
 			StartCoroutine("UpdateTimer");
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
 			MoveAttackBarUp();
+			Debug.Log (player.weapon);
 		}
 
 		public void MoveAttackBarUp() {
@@ -148,11 +149,10 @@ namespace JuanDelaCruz {
 			if(gameView.isRoundEnd != true) {
 				gameView.isRoundEnd = true;
 				winLoseLbl.text = "Times Up!";
-				winLoseTweenScale.Play();
+				winLoseTweenScale.PlayForward();
 				iTween.StopByName("MoveAttackBarUp");
 				iTween.StopByName("MoveAttackBarDown");
 				isTimesUp = true;
-				Debug.Log("TIMES UP");
 			}
 		}
 
@@ -179,9 +179,8 @@ namespace JuanDelaCruz {
 		public void FinishedUpdatePlayerHpBarFillAmount() {
 			if(playerHp.fillAmount <= 0) {
 				winLoseLbl.text = "You Lose!";
-				winLoseTweenScale.Play();
+				winLoseTweenScale.PlayForward();
 				gameView.isRoundEnd = true;
-				Debug.Log("Player KILLED");
 			} else {
 				FinishedAnimation();
 			}
@@ -211,9 +210,8 @@ namespace JuanDelaCruz {
 		public void FinishedUpdateEnemyHpBarFillAmount() {
 			if(enemyHp.fillAmount <= 0) {
 				winLoseLbl.text = "You Win!";
-				winLoseTweenScale.Play();
+				winLoseTweenScale.PlayForward();
 				gameView.isRoundEnd = true;
-				Debug.Log("Enemy KILLED");
 			} else {
 				EnemyAttack();
 			}
@@ -229,11 +227,11 @@ namespace JuanDelaCruz {
 			if (isTimesUp == true) {
 				if (playerHp.fillAmount > enemyHp.fillAmount) {
 					winLoseLbl.text = "You Win!";
-					winLoseTweenScale.Play ();
+					winLoseTweenScale.PlayForward ();
 					gameView.OnFinishedRound (true);
 				} else {
 					winLoseLbl.text = "You Lose!";
-					winLoseTweenScale.Play ();
+					winLoseTweenScale.PlayForward ();
 					gameView.OnFinishedRound (false);
 				}
 			} else {
@@ -243,29 +241,23 @@ namespace JuanDelaCruz {
 					gameView.OnFinishedRound (false);
 				}
 			}
-			DisableGameUI ();
+			DisableGameUI();
 		}
 
 		public int ApplyWeaponBonus() {
 			switch (player.weapon) {
 			case WEAPON_TYPE.SWORD:
 				return 25;
-				break;
 			case WEAPON_TYPE.BOW:
 				return 30;
-				break;
 			case WEAPON_TYPE.WHIP:
 				return 40;
-				break;
 			case WEAPON_TYPE.SPEAR:
 				return 45;
-				break;
 			case WEAPON_TYPE.SHIELD:
 				return 60;
-				break;
 			default:
 				return 0;
-				break;
 			}
 		}
 	}

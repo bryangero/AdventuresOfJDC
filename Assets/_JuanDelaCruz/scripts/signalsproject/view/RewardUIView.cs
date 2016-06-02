@@ -43,6 +43,7 @@ namespace JuanDelaCruz {
 
 			player.currentExperience += expReward;
 			player.gold += goldReward;
+			Debug.Log (player.weapon);
 		}
 
 		public void UpdateGoldLabelValue(int val) {

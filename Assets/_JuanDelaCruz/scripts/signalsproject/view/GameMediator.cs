@@ -17,10 +17,15 @@ namespace JuanDelaCruz {
 		public ShowWindowSignal showWindowSignal { get; set; }
 
 		public override void OnRegister() {
-			view.init();
+			view.returnToMapSignal.AddListener(OnReturnToMapSignal);
 		}
 		
 		public override void OnRemove() {
+			view.returnToMapSignal.RemoveListener(OnReturnToMapSignal);
+		}
+
+		public void OnReturnToMapSignal() {
+			showWindowSignal.Dispatch (GAME_WINDOWS.MAP);
 		}
 
 

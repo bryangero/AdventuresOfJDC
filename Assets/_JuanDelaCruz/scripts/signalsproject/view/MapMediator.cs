@@ -19,14 +19,22 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public IPlayer player { get; set; }
+
+		[Inject]
+		public LoadStageSignal loadStageSignal {get;set;}
 		
 		public override void OnRegister() {
+			view.loadStage.AddListener (OnLoadStage);
 			view.init();
 		}
 		
 		public override void OnRemove() {
+			view.loadStage.RemoveListener (OnLoadStage);
 		}
 
+		public void OnLoadStage(int stageId) {
+			loadStageSignal.Dispatch (stageId);
+		}
 
 	}
 }

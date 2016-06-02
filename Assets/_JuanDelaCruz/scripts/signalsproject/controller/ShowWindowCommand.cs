@@ -38,7 +38,7 @@ namespace JuanDelaCruz {
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
 					break;
-			case GAME_WINDOWS.MAP:
+				case GAME_WINDOWS.MAP:
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().EnableMap();

@@ -12,6 +12,9 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IPlayer player { get; set; }
 
+		public Signal<int> loadStage = new Signal<int>();
+
+
 		[SerializeField] GameObject holder;
 
 		internal void init() {
@@ -26,7 +29,11 @@ namespace JuanDelaCruz {
 		}
 
 		public void LoadStage(int stageId) {
-			Debug.Log(stageId);	
+			if (player.stage >= stageId) {
+				loadStage.Dispatch (stageId);
+			} else {
+				Debug.Log("NOT YET UNLOCKED");	
+			}
 		}
 
 	}
