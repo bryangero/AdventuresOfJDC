@@ -29,7 +29,7 @@ namespace JuanDelaCruz {
 		public void SavePlayer() {
 			string serializedPlayer = JsonFx.Json.JsonWriter.Serialize(this);
 			PlayerPrefs.SetString("PLAYER", serializedPlayer);
-			Debug.Log("New Player Created");
+			Debug.Log("SAVED Player");
 		}
 
 		public void LoadPlayer() {
@@ -49,6 +49,34 @@ namespace JuanDelaCruz {
 			level = temp.level;
 			currentExperience = temp.currentExperience;
 			experienceNeeded = temp.experienceNeeded;
+		}
+
+		public void IncreaseExperience(int exp) {
+			currentExperience += exp;
+			if (currentExperience >= experienceNeeded) {
+				int extraExp = currentExperience - experienceNeeded;
+				currentExperience = 0;
+				level++;
+				ComputeHp();
+				IncreaseExperience(extraExp);
+				Debug.Log ("LEVEL UP");
+			}
+		}
+
+		public void IncreaseGold(int gold) {
+			this.gold += gold;
+		}
+
+		public bool DecreaseGold(int gold) {
+			int newGoldVal = this.gold - gold;
+			if (newGoldVal < 0) {
+				Debug.Log ("NOT ENOUGH GOLD");
+				return false;
+			} else {
+				gold = newGoldVal;
+				return true;
+			}
+			return false;
 		}
 
 		private void ComputeHp() {

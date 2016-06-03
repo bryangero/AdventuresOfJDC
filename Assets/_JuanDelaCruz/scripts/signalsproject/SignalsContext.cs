@@ -57,6 +57,8 @@ namespace JuanDelaCruz {
 			injectionBinder.Bind<LoadStageSignal> ().ToSingleton ();
 			commandBinder.Bind<LoadStageSignal> ().To<LoadStageCommand> ();
 
+			injectionBinder.Bind<LoadDialogueBoxSignal> ().ToSingleton ();
+
 			mediationBinder.Bind<LandingPageView>().To<LandingPageMediator>();
 			mediationBinder.Bind<CharacterSelectView>().To<CharacterSelectMediator>();
 			mediationBinder.Bind<GameUIView>().To<GameUIMediator>();
@@ -64,6 +66,7 @@ namespace JuanDelaCruz {
 			mediationBinder.Bind<RewardUIView>().To<RewardUIMediator>();
 			mediationBinder.Bind<ShopUIView>().To<ShopUIMediator>();
 			mediationBinder.Bind<MapView>().To<MapMediator>();
+			mediationBinder.Bind<DialogueBoxView>().To<DialogueBoxMediator>();
 
 			//StartSignal is now fired instead of the START event.
 			//Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.

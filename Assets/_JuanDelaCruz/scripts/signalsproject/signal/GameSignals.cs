@@ -10,6 +10,7 @@ namespace JuanDelaCruz {
 	public class CreateNewGameSignal : Signal {}
 	public class LoadGameSignal : Signal {}
 	public class LoadStageSignal : Signal<int> {}
+	public class LoadDialogueBoxSignal : Signal {}
 
 }
 

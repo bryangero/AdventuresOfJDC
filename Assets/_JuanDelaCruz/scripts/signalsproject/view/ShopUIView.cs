@@ -13,12 +13,36 @@ namespace JuanDelaCruz {
 		public IPlayer player {get;set;}
 
 		[SerializeField] GameObject holder;
+		public GameObject isEquippedSprite;
 		public GameView gameView;
 		public UILabel goldLabel;
 
 
 		internal void init() {
 			EnableShopUI();
+			if (player.weapon != WEAPON_TYPE.NONE) {
+				isEquippedSprite.SetActive (true);
+				switch (player.weapon) {
+				case WEAPON_TYPE.SWORD:
+					isEquippedSprite.transform.localPosition = new Vector3 (-500,-200,0);
+					break;
+				case WEAPON_TYPE.BOW:
+					isEquippedSprite.transform.localPosition = new Vector3 (-250,-200,0);
+					break;
+				case WEAPON_TYPE.WHIP:
+					isEquippedSprite.transform.localPosition = new Vector3 (0,-200,0);
+					break;
+				case WEAPON_TYPE.SPEAR:
+					isEquippedSprite.transform.localPosition = new Vector3 (250,-200,0);
+					break;
+				case WEAPON_TYPE.SHIELD:
+					isEquippedSprite.transform.localPosition = new Vector3 (500,-200,0);
+					break;
+				default:
+					isEquippedSprite.SetActive (false);
+					break;
+				}
+			}
 			goldLabel.text = "Gold: " + player.gold;
 		}
 
@@ -31,28 +55,48 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuySword() {
-			player.weapon = WEAPON_TYPE.SWORD;
-			Close();
+			if (player.DecreaseGold (200) == true) {
+				player.weapon = WEAPON_TYPE.SWORD;
+				Close();
+			} else {
+				Debug.Log ("NotEnoughGold");
+			}
 		}
 
 		public void BuyBow() {
-			player.weapon = WEAPON_TYPE.BOW;
-			Close();
+			if (player.DecreaseGold (400) == true) {
+				player.weapon = WEAPON_TYPE.BOW;
+				Close();
+			} else {
+				Debug.Log ("NotEnoughGold");
+			}
 		}
 
 		public void BuyWhip() {
-			player.weapon = WEAPON_TYPE.WHIP;
-			Close();
+			if (player.DecreaseGold (800) == true) {
+				player.weapon = WEAPON_TYPE.WHIP;
+				Close();
+			} else {
+				Debug.Log ("NotEnoughGold");
+			}
 		}
 
 		public void BuySpear() {
-			player.weapon = WEAPON_TYPE.SPEAR;
-			Close();
+			if (player.DecreaseGold (1600) == true) {
+				player.weapon = WEAPON_TYPE.SPEAR;
+				Close();
+			} else {
+				Debug.Log ("NotEnoughGold");
+			}
 		}
 
 		public void BuyShield() {
-			player.weapon = WEAPON_TYPE.SHIELD;
-			Close();
+			if (player.DecreaseGold (3000) == true) {
+				player.weapon = WEAPON_TYPE.SHIELD;
+				Close();
+			} else {
+				Debug.Log ("NotEnoughGold");
+			}
 		}
 
 		public void Close() {

@@ -33,7 +33,7 @@ namespace JuanDelaCruz {
 			currentStage.sprite = stageBGs [stage.level - 1];
 			isRoundEnd = false;
 			round = 0;
-			EnableGame ();
+			EnableGame();
 			gameUIView.init(stage.monsters[round]);
 		}
 
@@ -61,6 +61,7 @@ namespace JuanDelaCruz {
 				DisableGame();
 				if (player.stage == stage.level) {
 					player.stage++;
+					player.SavePlayer();
 					Debug.Log ("NEXT STAGE UNLOCKED");
 				} else {
 					Debug.Log ("FINISHED ALREADY");
@@ -69,6 +70,7 @@ namespace JuanDelaCruz {
 				return;
 			}
 			if (round <= 3) {
+				player.SavePlayer();
 				isRoundEnd = false;
 				gameUIView.init(stage.monsters[round]);
 				EnableGame();
@@ -80,6 +82,7 @@ namespace JuanDelaCruz {
 
 
 		public void OnFinishShop() {
+			player.SavePlayer();
 			isRoundEnd = false;
 			gameUIView.init(stage.monsters[round]);
 			EnableGame();

@@ -16,7 +16,6 @@ namespace JuanDelaCruz {
 
 		[SerializeField] GameObject holder;
 		public GameView gameView;
-		public Signal endBattleSignal = new Signal();
 		public Signal<int> animateAttack = new Signal<int>();
 
 		public UIScrollBar scrollbar;
@@ -54,6 +53,7 @@ namespace JuanDelaCruz {
 			enemyHp.fillAmount = 1;
 			StartCoroutine("UpdateTimer");
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
+			winLoseTweenScale.ResetToBeginning ();
 			MoveAttackBarUp();
 			Debug.Log (player.weapon);
 		}
@@ -98,11 +98,6 @@ namespace JuanDelaCruz {
 
 		public void CompleteMoveDownValue() {
 			MoveAttackBarUp();
-		}
-
-		public void OnClickBattle() {
-			endBattleSignal.Dispatch();
-			Debug.Log("Clicked END BATTLE");
 		}
 
 		public void ClickAttack() {
@@ -219,6 +214,7 @@ namespace JuanDelaCruz {
 
 		public void EnemyAttack() {
 			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
+			Debug.Log ("enemyDamage " + enemyDamage);
 			playerDamageTaken += enemyDamage;
 			UpdatePlayerHpBar();
 		}

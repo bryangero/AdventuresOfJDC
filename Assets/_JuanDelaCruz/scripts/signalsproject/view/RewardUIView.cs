@@ -17,6 +17,9 @@ namespace JuanDelaCruz {
 		public UILabel goldRewardLabel;
 		public UILabel expRewardLabel;
 
+		public UILabel playerLevelLabel;
+		public UILabel playerGoldLabel;
+
 		public void EnableRewardUI() {
 			holder.SetActive(true);
 		}
@@ -41,8 +44,11 @@ namespace JuanDelaCruz {
 				"onupdate", "UpdateExperienceLabelValue",
 				"time", 1));
 
-			player.currentExperience += expReward;
-			player.gold += goldReward;
+			player.IncreaseExperience(expReward);
+			Debug.Log ("player.gold " + player.gold + "gold reward "  + goldReward);
+			player.IncreaseGold(goldReward);
+			playerLevelLabel.text = "Player Level: " + player.level + "\nPlayer Current Exp: " + player.currentExperience;
+			playerGoldLabel.text = "Player Gold: " + player.gold;
 			Debug.Log (player.weapon);
 		}
 

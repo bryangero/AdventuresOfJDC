@@ -19,7 +19,9 @@ namespace JuanDelaCruz {
 
 		void SavePlayer();
 		void LoadPlayer();
-
+		void IncreaseExperience(int exp);
+		void IncreaseGold(int gold);
+		bool DecreaseGold(int gold);
 	}
 
 }
