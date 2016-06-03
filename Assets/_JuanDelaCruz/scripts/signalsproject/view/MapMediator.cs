@@ -23,17 +23,23 @@ namespace JuanDelaCruz {
 		[Inject]
 		public LoadStageSignal loadStageSignal {get;set;}
 		
+		[Inject]
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
+
 		public override void OnRegister() {
-			view.loadStage.AddListener (OnLoadStage);
-			view.init();
+			view.loadStage.AddListener(OnLoadStage);
 		}
 		
 		public override void OnRemove() {
-			view.loadStage.RemoveListener (OnLoadStage);
+			view.loadStage.RemoveListener(OnLoadStage);
 		}
 
 		public void OnLoadStage(int stageId) {
-			loadStageSignal.Dispatch (stageId);
+			if (player.stage >= stageId) {
+				loadStageSignal.Dispatch(stageId);
+			} else {
+				loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.OK, "Stage is still Locked");
+			}
 		}
 
 	}

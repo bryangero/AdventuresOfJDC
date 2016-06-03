@@ -12,6 +12,8 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IPlayer player {get;set;}
 
+		public Signal notEnoughGold =  new Signal();
+
 		[SerializeField] GameObject holder;
 		public GameObject isEquippedSprite;
 		public GameView gameView;
@@ -59,7 +61,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SWORD;
 				Close();
 			} else {
-				Debug.Log ("NotEnoughGold");
+				notEnoughGold.Dispatch();
 			}
 		}
 
@@ -68,7 +70,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.BOW;
 				Close();
 			} else {
-				Debug.Log ("NotEnoughGold");
+				notEnoughGold.Dispatch();
 			}
 		}
 
@@ -77,7 +79,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.WHIP;
 				Close();
 			} else {
-				Debug.Log ("NotEnoughGold");
+				notEnoughGold.Dispatch();
 			}
 		}
 
@@ -86,7 +88,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SPEAR;
 				Close();
 			} else {
-				Debug.Log ("NotEnoughGold");
+				notEnoughGold.Dispatch();
 			}
 		}
 
@@ -95,7 +97,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SHIELD;
 				Close();
 			} else {
-				Debug.Log ("NotEnoughGold");
+				notEnoughGold.Dispatch();
 			}
 		}
 

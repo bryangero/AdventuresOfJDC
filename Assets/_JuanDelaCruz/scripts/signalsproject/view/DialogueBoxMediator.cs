@@ -15,27 +15,16 @@ namespace JuanDelaCruz {
 		public DialogueBoxView view { get; set; }
 
 		[Inject]
-		public ShowWindowSignal showWindowSignal { get; set; }
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
 
-		[Inject]
-		public IPlayer player { get; set; }
-
-		[Inject]
-		public LoadStageSignal loadStageSignal {get;set;}
-		
 		public override void OnRegister() {
-			view.loadStage.AddListener (OnLoadStage);
-			view.init();
+			loadDialogueBoxSignal.AddListener (view.OnReceiveDialogue);
 		}
 		
 		public override void OnRemove() {
-			view.loadStage.RemoveListener (OnLoadStage);
+			loadDialogueBoxSignal.RemoveListener (view.OnReceiveDialogue);
 		}
-
-		public void OnLoadStage(int stageId) {
-			loadStageSignal.Dispatch (stageId);
-		}
-
+			
 	}
 }
 

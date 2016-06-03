@@ -21,6 +21,9 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public LoadGameSignal loadGameSignal { get; set; }
+
+		[Inject]
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
 		
 		public override void OnRegister() {
 			showWindowSignal.AddListener(OnShowWindow);
@@ -35,7 +38,13 @@ namespace JuanDelaCruz {
 		}
 
 		private void ClickNewGame() {
-			createNewGameSignal.Dispatch();
+			if (PlayerPrefs.HasKey ("PLAYER")) {
+				DialogueBoxView.OnClickYesEvent += OnClickYes;
+				DialogueBoxView.OnClickNoEvent += OnClickNo;
+				loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.YES_NO, "There is currently a saved game. Continuing will erase all saved data. Proceed?");
+			} else {
+				createNewGameSignal.Dispatch();
+			}
 		}
 
 		private void ClickLoadGame() {
@@ -46,6 +55,15 @@ namespace JuanDelaCruz {
 //			Debug.Log(name + " " + gameWindow);
 		}
 
+		private void OnClickYes() {
+			DialogueBoxView.OnClickYesEvent -= OnClickYes;
+			createNewGameSignal.Dispatch();
+		}
+
+		private void OnClickNo() {
+			DialogueBoxView.OnClickYesEvent -= OnClickNo;
+
+		}
 	}
 }
 

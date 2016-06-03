@@ -55,7 +55,6 @@ namespace JuanDelaCruz {
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
 			winLoseTweenScale.ResetToBeginning ();
 			MoveAttackBarUp();
-			Debug.Log (player.weapon);
 		}
 
 		public void MoveAttackBarUp() {
@@ -214,7 +213,6 @@ namespace JuanDelaCruz {
 
 		public void EnemyAttack() {
 			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
-			Debug.Log ("enemyDamage " + enemyDamage);
 			playerDamageTaken += enemyDamage;
 			UpdatePlayerHpBar();
 		}

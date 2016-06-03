@@ -8,7 +8,7 @@ using strange.extensions.signal.impl;
 namespace JuanDelaCruz {
 	
 	public class LandingPageView : View {
-		
+
 		public Signal clickNewGameSignal = new Signal();
 		public Signal clickLoadGameSignal = new Signal();
 		[SerializeField] private GameObject holder;

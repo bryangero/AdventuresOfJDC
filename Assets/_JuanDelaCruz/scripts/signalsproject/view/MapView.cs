@@ -9,16 +9,9 @@ namespace JuanDelaCruz {
 
 	public class MapView : View {
 
-		[Inject]
-		public IPlayer player { get; set; }
-
 		public Signal<int> loadStage = new Signal<int>();
 
-
 		[SerializeField] GameObject holder;
-
-		internal void init() {
-		}
 
 		public void EnableMap() {
 			holder.SetActive(true);
@@ -29,11 +22,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void LoadStage(int stageId) {
-			if (player.stage >= stageId) {
-				loadStage.Dispatch (stageId);
-			} else {
-				Debug.Log("NOT YET UNLOCKED");	
-			}
+			loadStage.Dispatch (stageId);
 		}
 
 	}
