@@ -7,7 +7,6 @@ namespace JuanDelaCruz {
 		string name { get; set; }
 		GENDER gender { get; set; }
 		int stage { get; set; }
-
 		int hitPoints { get; set; }
 		int minDamage { get; set; }
 		int maxDamage { get; set; }
@@ -16,12 +15,15 @@ namespace JuanDelaCruz {
 		int currentExperience { get; set; }
 		int experienceNeeded { get; set; }
 		int gold { get; set; }
+		int lives { get; set; }
 
 		void SavePlayer();
 		void LoadPlayer();
 		void IncreaseExperience(int exp);
 		void IncreaseGold(int gold);
 		bool DecreaseGold(int gold);
+		void ReplenishLives();
+		bool ReduceLives(int val);
 	}
 
 }

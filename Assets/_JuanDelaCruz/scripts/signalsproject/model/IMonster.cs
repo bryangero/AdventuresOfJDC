@@ -10,7 +10,7 @@ namespace JuanDelaCruz {
 		int maxDamage { get; set; }
 		int goldReward { get; set; }
 		int expReward { get; set; }
-
+		string monsterImg {get;set;}
 	}
 
 }

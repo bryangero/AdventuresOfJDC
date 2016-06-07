@@ -16,6 +16,7 @@ namespace JuanDelaCruz {
 
 		[SerializeField] GameObject holder;
 		public GameView gameView;
+		public EnemyDisplay enemyDisplay;
 		public Signal<int> animateAttack = new Signal<int>();
 
 		public UIScrollBar scrollbar;
@@ -47,6 +48,7 @@ namespace JuanDelaCruz {
 		internal void init(Monster monster) {
 			holder.SetActive(true);
 			this.monster = monster;
+			enemyDisplay.ChangeEnemy(monster.monsterType);
 			playerHpHolder = player.hitPoints;
 			playerHp.fillAmount = 1;
 			enemyHpHolder = monster.hitPoints;

@@ -30,7 +30,7 @@ namespace JuanDelaCruz {
 		public Sprite[] stageBGs;
 
 		internal void init() {
-			currentStage.sprite = stageBGs [stage.level - 1];
+			currentStage.sprite = stageBGs[stage.level - 1];
 			isRoundEnd = false;
 			round = 0;
 			EnableGame();

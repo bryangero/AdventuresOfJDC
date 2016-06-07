@@ -16,6 +16,7 @@ namespace JuanDelaCruz {
 		public int currentExperience { get; set; }
 		public int experienceNeeded { get; set; }
 		public int gold { get; set; }
+		public int lives { get; set; }
 
 		public Player() {
 			name = "Juan";
@@ -49,6 +50,18 @@ namespace JuanDelaCruz {
 			level = temp.level;
 			currentExperience = temp.currentExperience;
 			experienceNeeded = temp.experienceNeeded;
+		}
+
+		public void ReplenishLives() {
+			lives = 3;
+		}
+
+		public bool ReduceLives(int val) {
+			int tempLives = lives - val;
+			if (tempLives <= 0) {
+				return false;
+			}
+			return true;	
 		}
 
 		public void IncreaseExperience(int exp) {

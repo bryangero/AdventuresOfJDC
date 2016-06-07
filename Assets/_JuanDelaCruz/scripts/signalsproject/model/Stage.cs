@@ -24,16 +24,10 @@ namespace JuanDelaCruz {
 		}
 
 		private void CreateLevel() {
-			Debug.Log (level);
 			switch (level) {
 			case 1:
 				monsters = new Monster[5];
-				monsters [0] = new Monster ();
-				monsters [0].hitPoints = 20;
-				monsters [0].minDamage = 1;
-				monsters [0].maxDamage = 5;
-				monsters [0].goldReward = 30;
-				monsters [0].expReward = 30;
+				monsters [0] = new Dwende();
 				monsters [1] = new Monster ();
 				monsters [1].hitPoints = 50;
 				monsters [1].minDamage = 5;
@@ -52,12 +46,7 @@ namespace JuanDelaCruz {
 				monsters [3].maxDamage = 40;
 				monsters [3].goldReward = 60;
 				monsters [3].expReward = 90;
-				monsters [4] = new Monster ();
-				monsters [4].hitPoints = 250;
-				monsters [4].minDamage = 30;
-				monsters [4].maxDamage = 80;
-				monsters [4].goldReward = 100;
-				monsters [4].expReward = 200;
+				monsters [4] = new Tiyanak();
 				Debug.Log ("MONSTER CREATED");
 				break;
 			case 2:
