@@ -36,6 +36,7 @@ namespace JuanDelaCruz {
 	public enum DIALOGUE_TYPE {
 		YES_NO,
 		OK,
+		CONTINUE,
 	}
 
 

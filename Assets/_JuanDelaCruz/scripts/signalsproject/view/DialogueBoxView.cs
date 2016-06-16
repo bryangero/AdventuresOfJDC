@@ -49,13 +49,27 @@ namespace JuanDelaCruz {
 			case DIALOGUE_TYPE.OK:
 				ok.SetActive(true);
 				break;
-
+			case DIALOGUE_TYPE.CONTINUE:
+				StartCoroutine ("Continue");
+				yesNo.SetActive(true);
+				break;
 			}
 			EnableDialogue();
 		}
 
+		private IEnumerator Continue() {
+			int countDown = 10;
+			while (countDown > 0) {
+				dialogueLabel.text = "Continue?\n" + countDown + "\nLives: " + player.lives;
+				countDown--;
+				yield return new WaitForSeconds(1);
+			}
+			ClickNo();
+		}
+
 		public void ClickYes() {
 			if(OnClickYesEvent != null) {
+				StopCoroutine("Continue");
 				OnClickYesEvent();
 			}
 			DisableDialogue();
@@ -63,6 +77,7 @@ namespace JuanDelaCruz {
 
 		public void ClickNo() {
 			if(OnClickNoEvent != null) {
+				StopCoroutine("Continue");
 				OnClickNoEvent();
 			}
 			DisableDialogue();
@@ -74,7 +89,6 @@ namespace JuanDelaCruz {
 			}
 			DisableDialogue();
 		}
-			
 	}
 
 }

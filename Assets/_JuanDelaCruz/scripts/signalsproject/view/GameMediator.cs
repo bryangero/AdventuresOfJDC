@@ -16,18 +16,36 @@ namespace JuanDelaCruz {
 		[Inject]
 		public ShowWindowSignal showWindowSignal { get; set; }
 
+		[Inject]
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
+
 		public override void OnRegister() {
 			view.returnToMapSignal.AddListener(OnReturnToMapSignal);
+			view.displayContinueSignal.AddListener(OnDisplayContinueSignal);
 		}
 		
 		public override void OnRemove() {
 			view.returnToMapSignal.RemoveListener(OnReturnToMapSignal);
+			view.displayContinueSignal.RemoveListener(OnDisplayContinueSignal);
 		}
 
 		public void OnReturnToMapSignal() {
-			showWindowSignal.Dispatch (GAME_WINDOWS.MAP);
+			showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 		}
 
+		public void OnDisplayContinueSignal() {
+			DialogueBoxView.OnClickYesEvent += OnClickYes;
+			DialogueBoxView.OnClickNoEvent += OnClickNo;
+			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.CONTINUE,"Continue?\n10");
+		}
+
+		private void OnClickYes() {
+			view.RestartRound();
+		}
+
+		private void OnClickNo() {
+			OnReturnToMapSignal();
+		}
 
 	}
 }

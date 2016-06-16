@@ -182,9 +182,6 @@ namespace JuanDelaCruz {
 				break;
 			}
 		}
-
-
 	}
-
 }
 

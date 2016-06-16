@@ -45,11 +45,9 @@ namespace JuanDelaCruz {
 				"time", 1));
 
 			player.IncreaseExperience(expReward);
-			Debug.Log ("player.gold " + player.gold + "gold reward "  + goldReward);
 			player.IncreaseGold(goldReward);
 			playerLevelLabel.text = "Player Level: " + player.level + "\nPlayer Current Exp: " + player.currentExperience;
 			playerGoldLabel.text = "Player Gold: " + player.gold;
-			Debug.Log (player.weapon);
 		}
 
 		public void UpdateGoldLabelValue(int val) {

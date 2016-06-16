@@ -13,6 +13,9 @@ namespace JuanDelaCruz {
 		[Inject]
 		public GameUIView view { get; set; }
 
+		[Inject]
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
+
 		public override void OnRegister() {
 		}
 		

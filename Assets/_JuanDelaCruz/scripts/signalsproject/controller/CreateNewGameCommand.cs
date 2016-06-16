@@ -34,13 +34,10 @@ namespace JuanDelaCruz {
 
 		public void RegisterPlayer() {
 			new GameSparks.Api.Requests.RegistrationRequest().SetDisplayName("Juan").SetPassword("password").SetUserName(GameSparksManager.instance.DEVICE_ID).Send((response) => {
-				if (!response.HasErrors)
-				{
+				if (!response.HasErrors) {
 					SavePlayer();
 					Debug.Log("Player Registered");
-				}
-				else
-				{
+				} else {
 					SavePlayer();
 					Debug.Log("Error Registering Player");
 				}

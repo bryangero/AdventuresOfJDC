@@ -65,7 +65,6 @@ namespace JuanDelaCruz {
 					Debug.Log("Player Weapon: " + data.GetInt("playerWeapon").ToString());
 					Debug.Log("Player Gold: " + data.GetInt("playerGold").ToString());
 					Debug.Log("Player Current Experience: " + data.GetInt("playerCurrentExperiance").ToString());
-
 					player.name = data.GetString("playerName").ToString();
 					player.level = (int)data.GetInt("playerLevel");
 					player.stage = (int)data.GetInt("playerStage");

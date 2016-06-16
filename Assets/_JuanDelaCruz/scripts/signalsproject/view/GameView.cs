@@ -16,6 +16,7 @@ namespace JuanDelaCruz {
 		public IStage stage { get; set; }
 
 		public Signal returnToMapSignal = new Signal();
+		public Signal displayContinueSignal = new Signal();
 
 		public int round;
 		public bool isRoundEnd = false;
@@ -33,7 +34,13 @@ namespace JuanDelaCruz {
 			currentStage.sprite = stageBGs[stage.level - 1];
 			isRoundEnd = false;
 			round = 0;
+			player.lives = 3;
 			EnableGame();
+			gameUIView.init(stage.monsters[round]);
+		}
+
+		public void RestartRound() {
+			isRoundEnd = false;
 			gameUIView.init(stage.monsters[round]);
 		}
 
@@ -50,8 +57,13 @@ namespace JuanDelaCruz {
 				DisableGame();
 				rewardUIView.init(stage.monsters[round].goldReward, stage.monsters[round].expReward);
 			} else {
-				DisableGame();
-				returnToMapSignal.Dispatch();
+				player.lives--;
+				if (player.lives < 0) {
+					DisableGame();
+					returnToMapSignal.Dispatch();
+				} else {
+					displayContinueSignal.Dispatch();
+				}
 			}
 		}
 
@@ -67,9 +79,9 @@ namespace JuanDelaCruz {
 				if (player.stage == stage.level) {
 					player.stage++;
 					yield return StartCoroutine(SavePlayer());
-					Debug.Log ("NEXT STAGE UNLOCKED");
 				} else {
-					Debug.Log ("FINISHED ALREADY");
+					rewardUIView.DisableRewardUI();
+					shopUIView.DisableShopUI();
 				}
 				returnToMapSignal.Dispatch();
 			} else {
@@ -88,11 +100,12 @@ namespace JuanDelaCruz {
 
 
 		public void OnFinishShop() {
-			StartCoroutine (OnFinishShopInOrder ());
+			StartCoroutine (OnFinishShopInOrder());
 		}
 
 		private IEnumerator OnFinishShopInOrder() {
 			yield return StartCoroutine(SavePlayer());
+			rewardUIView.DisableRewardUI();
 			shopUIView.DisableShopUI();
 			isRoundEnd = false;
 			gameUIView.init(stage.monsters[round]);
