@@ -6,23 +6,21 @@ namespace JuanDelaCruz {
 	public class Player : IPlayer {
 		
 		public string name { get; set; }
-		public GENDER gender { get; set; }
+		public int level { get; set; }
 		public int stage { get; set; }
+		public WEAPON_TYPE weapon { get; set; }
+		public int gold { get; set; }
+		public int currentExperience { get; set; }
+		public int experienceNeeded { get; set; }
 		public int hitPoints { get; set; }
 		public int minDamage { get; set; }
 		public int maxDamage { get; set; }
-		public WEAPON_TYPE weapon { get; set; }
-		public int level { get; set; }
-		public int currentExperience { get; set; }
-		public int experienceNeeded { get; set; }
-		public int gold { get; set; }
 		public int lives { get; set; }
 
 		public Player() {
 			name = "Juan";
 			stage = 1;
 			level = 1;
-			gender = GENDER.MALE;
 			weapon = WEAPON_TYPE.NONE;
 			ComputeHp();
 		}
@@ -39,17 +37,15 @@ namespace JuanDelaCruz {
 			if(PlayerPrefs.HasKey("PLAYER")) {
 				playerPrefs = PlayerPrefs.GetString("PLAYER");
 				temp = JsonFx.Json.JsonReader.Deserialize<Player>(playerPrefs);
+				Debug.Log (playerPrefs);
 			} 
 			name = temp.name;
-			gender = temp.gender;
 			stage = temp.stage;
-			hitPoints = temp.hitPoints;
-			minDamage = temp.minDamage;
-			maxDamage = temp.maxDamage;
 			weapon = temp.weapon;
 			level = temp.level;
 			currentExperience = temp.currentExperience;
 			experienceNeeded = temp.experienceNeeded;
+			ComputeHp();
 		}
 
 		public void ReplenishLives() {

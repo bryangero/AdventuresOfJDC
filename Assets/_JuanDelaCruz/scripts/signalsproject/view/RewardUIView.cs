@@ -62,7 +62,6 @@ namespace JuanDelaCruz {
 
 		public void OnClickClaim() {
 			gameView.OnFinishReward();
-			DisableRewardUI();
 		}
 
 	}

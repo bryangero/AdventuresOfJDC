@@ -10,7 +10,6 @@ namespace JuanDelaCruz {
 	public class CharacterSelectView : View {
 
 		[SerializeField] GameObject holder;
-		public Signal<GENDER> clickGenderSignal = new Signal<GENDER>();
 
 		internal void init() {
 		}
@@ -24,12 +23,10 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickMale() {
-			clickGenderSignal.Dispatch(GENDER.MALE);
 			Debug.Log("Clicked Male");
 		}
 
 		public void OnClickFemale() {
-			clickGenderSignal.Dispatch(GENDER.FEMALE);
 			Debug.Log("Clicked Female");
 		}
 

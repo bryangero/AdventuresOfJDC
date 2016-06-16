@@ -56,37 +56,79 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnFinishReward() {
+			StartCoroutine(OnFinishRewardInOrder());
+		}
+
+		public IEnumerator OnFinishRewardInOrder() {
+			yield return null;
 			round++;
 			if (round >= stage.monsters.Length) {
 				DisableGame();
 				if (player.stage == stage.level) {
 					player.stage++;
-					player.SavePlayer();
+					yield return StartCoroutine(SavePlayer());
 					Debug.Log ("NEXT STAGE UNLOCKED");
 				} else {
 					Debug.Log ("FINISHED ALREADY");
 				}
 				returnToMapSignal.Dispatch();
-				return;
-			}
-			if (round <= 3) {
-				player.SavePlayer();
-				isRoundEnd = false;
-				gameUIView.init(stage.monsters[round]);
-				EnableGame();
 			} else {
-				DisableGame();
-				shopUIView.init();
+				if (round <= 3) {
+					yield return StartCoroutine(SavePlayer());
+					rewardUIView.DisableRewardUI();
+					isRoundEnd = false;
+					gameUIView.init(stage.monsters[round]);
+					EnableGame();
+				} else {
+					DisableGame();
+					shopUIView.init();
+				}
 			}
 		}
 
 
 		public void OnFinishShop() {
-			player.SavePlayer();
+			StartCoroutine (OnFinishShopInOrder ());
+		}
+
+		private IEnumerator OnFinishShopInOrder() {
+			yield return StartCoroutine(SavePlayer());
+			shopUIView.DisableShopUI();
 			isRoundEnd = false;
 			gameUIView.init(stage.monsters[round]);
 			EnableGame();
 		}
+
+		public IEnumerator SavePlayer() {
+			if (GameSparksManager.instance.isAvailable) {
+				bool isRunning = true;
+				player.SavePlayer();
+				new GameSparks.Api.Requests.LogEventRequest().SetEventKey("SET_PLAYER").
+				SetEventAttribute("NAME", player.name).
+				SetEventAttribute("LEVEL", player.level).
+				SetEventAttribute("STAGE", player.stage).
+				SetEventAttribute("WEAPON_TYPE", (int)player.weapon).
+				SetEventAttribute("GOLD", player.gold).
+				SetEventAttribute("CURRENT_EXP", player.currentExperience).Send((response) => {
+					if (!response.HasErrors) {
+						isRunning = false;
+						Debug.Log("Player Saved To GameSparks...");
+					} else {
+						isRunning = false;
+						Debug.Log("Error Saving Player Data...");
+					}
+				});
+				while (isRunning == true) {
+					yield return null;
+				}
+			} else {
+				player.SavePlayer();
+			}
+			yield return null;
+		}
+
+
+
 	}
 
 }

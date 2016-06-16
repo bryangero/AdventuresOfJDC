@@ -18,18 +18,13 @@ namespace JuanDelaCruz {
 		public ShowWindowSignal showWindowSignal { get; set; }
 		
 		public override void OnRegister() {
-			view.clickGenderSignal.AddListener(OnClickGender);
 			view.init();
 		}
 		
 		public override void OnRemove() {
-			view.clickGenderSignal.RemoveListener(OnClickGender);
 		}
 
-		public void OnClickGender(GENDER gender) {
-			showWindowSignal.Dispatch(GAME_WINDOWS.GAME);
-		}
-		
+
 	}
 }
 

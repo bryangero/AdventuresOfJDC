@@ -103,7 +103,6 @@ namespace JuanDelaCruz {
 
 		public void Close() {
 			gameView.OnFinishShop();
-			DisableShopUI();
 		}
 
 	}

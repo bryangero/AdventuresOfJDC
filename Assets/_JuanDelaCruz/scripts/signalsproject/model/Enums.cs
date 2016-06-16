@@ -11,12 +11,7 @@ namespace JuanDelaCruz {
 		SHOP,
 		MAP,
 	}
-
-	public enum GENDER {
-		MALE,
-		FEMALE,
-	}
-
+		
 	public enum MONSTER_TYPE {
 		ASWANG,
 		DRACULA,
@@ -30,12 +25,12 @@ namespace JuanDelaCruz {
 	}
 
 	public enum WEAPON_TYPE {
-		NONE,
-		SWORD,
-		BOW,
-		WHIP,
-		SPEAR,
-		SHIELD
+		NONE   = 0,
+		SWORD  = 1,
+		BOW    = 2,
+		WHIP   = 3,
+		SPEAR  = 4,
+		SHIELD = 5
 	}
 
 	public enum DIALOGUE_TYPE {
