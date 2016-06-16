@@ -34,7 +34,7 @@ namespace JuanDelaCruz {
 			currentStage.sprite = stageBGs[stage.level - 1];
 			isRoundEnd = false;
 			round = 0;
-			player.lives = 3;
+			player.lives = 4;
 			EnableGame();
 			gameUIView.init(stage.monsters[round]);
 		}
@@ -58,7 +58,7 @@ namespace JuanDelaCruz {
 				rewardUIView.init(stage.monsters[round].goldReward, stage.monsters[round].expReward);
 			} else {
 				player.lives--;
-				if (player.lives < 0) {
+				if (player.lives <= 0) {
 					DisableGame();
 					returnToMapSignal.Dispatch();
 				} else {
