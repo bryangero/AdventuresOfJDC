@@ -9,6 +9,7 @@ namespace JuanDelaCruz {
 		public int level { get; set; }
 		public int stage { get; set; }
 		public WEAPON_TYPE weapon { get; set; }
+		public bool[] weaponsBought { get; set; }
 		public int gold { get; set; }
 		public int currentExperience { get; set; }
 		public int experienceNeeded { get; set; }
@@ -22,6 +23,13 @@ namespace JuanDelaCruz {
 			stage = 1;
 			level = 1;
 			weapon = WEAPON_TYPE.NONE;
+			weaponsBought =  new bool[6];
+			for (int i = 0; i < weaponsBought.Length; i++) {
+				weaponsBought[i] = false;
+				if (i == (int)weapon) {
+					weaponsBought[i] = true;
+				}
+			}
 			ComputeHp();
 		}
 
@@ -30,6 +38,13 @@ namespace JuanDelaCruz {
 			stage = 1;
 			this.level = level;
 			weapon = WEAPON_TYPE.NONE;
+			weaponsBought =  new bool[6];
+			for (int i = 0; i < weaponsBought.Length; i++) {
+				weaponsBought[i] = false;
+				if (i == (int)weapon) {
+					weaponsBought[i] = true;
+				}
+			}
 			ComputeHp();
 		}
 
@@ -38,6 +53,13 @@ namespace JuanDelaCruz {
 			stage = 1;
 			this.level = level;
 			this.weapon = weapon;
+			weaponsBought =  new bool[6];
+			for (int i = 0; i < weaponsBought.Length; i++) {
+				weaponsBought[i] = false;
+				if (i == (int)weapon) {
+					weaponsBought[i] = true;
+				}
+			}
 			ComputeHp();
 		}
 
@@ -58,6 +80,8 @@ namespace JuanDelaCruz {
 			name = temp.name;
 			stage = temp.stage;
 			weapon = temp.weapon;
+			weaponsBought = temp.weaponsBought;
+			gold = temp.gold;
 			level = temp.level;
 			currentExperience = temp.currentExperience;
 			experienceNeeded = temp.experienceNeeded;
@@ -98,7 +122,7 @@ namespace JuanDelaCruz {
 				Debug.Log ("NOT ENOUGH GOLD");
 				return false;
 			} else {
-				gold = newGoldVal;
+				this.gold = newGoldVal;
 				return true;
 			}
 			return false;

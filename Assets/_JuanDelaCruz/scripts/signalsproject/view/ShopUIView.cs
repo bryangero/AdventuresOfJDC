@@ -13,6 +13,9 @@ namespace JuanDelaCruz {
 		public IPlayer player {get;set;}
 
 		public Signal notEnoughGold =  new Signal();
+		public UILabel[] buyLbls;
+		public UILabel[] priceLbls;
+
 
 		[SerializeField] GameObject holder;
 		public GameObject isEquippedSprite;
@@ -23,7 +26,7 @@ namespace JuanDelaCruz {
 		internal void init() {
 			EnableShopUI();
 			if (player.weapon != WEAPON_TYPE.NONE) {
-				isEquippedSprite.SetActive (true);
+				isEquippedSprite.SetActive(true);
 				switch (player.weapon) {
 				case WEAPON_TYPE.SWORD:
 					isEquippedSprite.transform.localPosition = new Vector3 (-500,-200,0);
@@ -45,6 +48,14 @@ namespace JuanDelaCruz {
 					break;
 				}
 			}
+
+			for (int i = 1; i < player.weaponsBought.Length; i++) {
+				if (player.weaponsBought [i] == true) {
+					buyLbls [i].text = "Equip";
+					priceLbls [i].gameObject.SetActive (false);
+				}
+			}
+
 			goldLabel.text = "Gold: " + player.gold;
 		}
 
@@ -57,47 +68,77 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuySword() {
-			if (player.DecreaseGold (200) == true) {
+			if (player.weaponsBought [(int)WEAPON_TYPE.SWORD] == true) {
 				player.weapon = WEAPON_TYPE.SWORD;
 				Close();
 			} else {
-				notEnoughGold.Dispatch();
+				if (player.DecreaseGold (200) == true) {
+					player.weapon = WEAPON_TYPE.SWORD;
+					player.weaponsBought [(int)WEAPON_TYPE.SWORD] = true;
+					Close();
+				} else {
+					notEnoughGold.Dispatch();
+				}
 			}
 		}
 
 		public void BuyBow() {
-			if (player.DecreaseGold (400) == true) {
+			if (player.weaponsBought [(int)WEAPON_TYPE.BOW] == true) {
 				player.weapon = WEAPON_TYPE.BOW;
 				Close();
 			} else {
-				notEnoughGold.Dispatch();
+				if (player.DecreaseGold (400) == true) {
+					player.weapon = WEAPON_TYPE.BOW;
+					player.weaponsBought [(int)WEAPON_TYPE.BOW] = true;
+					Close();
+				} else {
+					notEnoughGold.Dispatch();
+				}
 			}
 		}
 
 		public void BuyWhip() {
-			if (player.DecreaseGold (800) == true) {
+			if (player.weaponsBought [(int)WEAPON_TYPE.WHIP] == true) {
 				player.weapon = WEAPON_TYPE.WHIP;
 				Close();
 			} else {
-				notEnoughGold.Dispatch();
+				if (player.DecreaseGold (800) == true) {
+					player.weapon = WEAPON_TYPE.WHIP;
+					player.weaponsBought [(int)WEAPON_TYPE.WHIP] = true;
+					Close();
+				} else {
+					notEnoughGold.Dispatch();
+				}
 			}
 		}
 
 		public void BuySpear() {
-			if (player.DecreaseGold (1600) == true) {
+			if (player.weaponsBought [(int)WEAPON_TYPE.SPEAR] == true) {
 				player.weapon = WEAPON_TYPE.SPEAR;
 				Close();
 			} else {
-				notEnoughGold.Dispatch();
+				if (player.DecreaseGold (1600) == true) {
+					player.weapon = WEAPON_TYPE.SPEAR;
+					player.weaponsBought [(int)WEAPON_TYPE.SPEAR] = true;
+					Close();
+				} else {
+					notEnoughGold.Dispatch();
+				}
 			}
 		}
 
 		public void BuyShield() {
-			if (player.DecreaseGold (3000) == true) {
+			if (player.weaponsBought [(int)WEAPON_TYPE.SHIELD] == true) {
 				player.weapon = WEAPON_TYPE.SHIELD;
 				Close();
 			} else {
-				notEnoughGold.Dispatch();
+				if (player.DecreaseGold (3000) == true) {
+					player.weapon = WEAPON_TYPE.SHIELD;
+					player.weaponsBought [(int)WEAPON_TYPE.SHIELD] = true;
+					Close();
+				} else {
+					notEnoughGold.Dispatch();
+				}
 			}
 		}
 

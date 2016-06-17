@@ -8,6 +8,7 @@ namespace JuanDelaCruz {
 		int level { get; set; }
 		int stage { get; set; }
 		WEAPON_TYPE weapon { get; set; }
+		bool[] weaponsBought { get; set; }
 		int gold { get; set; }
 		int currentExperience { get; set; }
 		int experienceNeeded { get; set; }
