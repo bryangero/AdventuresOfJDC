@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using GameSparks.Api;
 using GameSparks.Api.Messages;
@@ -10,12 +11,26 @@ namespace JuanDelaCruz {
 	public class GameSparksManager : MonoBehaviour {
 
 		public bool isAvailable;
+		public bool isConnected;
 		public string DEVICE_ID;
+		public bool isForcedOffline;
+		public GameObject loading;
+		public GameSparksUnity gsu;
 
 		/// <summary>The GameSparks Manager singleton</summary>
 		public static GameSparksManager instance = null;
-
 		private void Awake() {
+			if (isForcedOffline) {
+				gsu.enabled = false;
+				isAvailable = false;
+			} else {
+				StartCoroutine(checkInternetConnection((isConnected)=> {
+					this.isConnected = isConnected;
+					gsu.enabled = isConnected;
+					if(isConnected == false)
+						loading.SetActive(false);
+				}));
+			}
 			GS.GameSparksAvailable += HandleGameSparksAvailable;
 			DEVICE_ID = SystemInfo.deviceUniqueIdentifier;
 			if (instance == null) // check to see if the instance has a reference
@@ -27,6 +42,17 @@ namespace JuanDelaCruz {
 				Destroy(this.gameObject);
 			}
 		}
+
+		public IEnumerator checkInternetConnection(Action<bool> action) {
+			WWW www = new WWW("http://google.com");
+			loading.SetActive(true);
+			yield return www;
+			if (www.error != null) {
+				action (false);
+			} else {
+				action (true);
+			}
+		} 
 
 		private void HandleGameSparksAvailable (bool isAvailable) {
 			if(isAvailable) {
@@ -42,6 +68,7 @@ namespace JuanDelaCruz {
 			} else {
 				Debug.Log("GAMESPARKS NOT AVAILABLE...");
 			}
+			loading.SetActive(false);
 		}
 
 		public void SavePlayer() {

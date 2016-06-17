@@ -23,6 +23,15 @@ namespace JuanDelaCruz {
 		public ShowWindowSignal showWindowSignal { get; set; }
 
 		public override void Execute() {
+//			if (PlayerPrefs.HasKey ("PLAYER")) {
+//				DialogueBoxView.OnClickYesEvent += OnClickYes;
+//				DialogueBoxView.OnClickNoEvent += OnClickNo;
+//				loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.YES_NO, "There is currently a saved game. Continuing will erase all saved data. Proceed?");
+//			} else {
+//				createNewGameSignal.Dispatch();
+//			}
+
+
 			player = new Player();
 			player.SavePlayer();
 			if (GameSparksManager.instance.isAvailable) {

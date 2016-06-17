@@ -12,15 +12,13 @@ using GameSparks.Platforms.Native;
 /// This is the starting point for GameSparks in your Unity game.
 /// Add this class to a GameObject to get started.
 /// </summary>
-public class GameSparksUnity : MonoBehaviour
-{
+public class GameSparksUnity : MonoBehaviour {
 	/// <summary>
 	/// You can override which connection settings GameSparks uses to connect to the backend with this member.
 	/// </summary>
     public GameSparksSettings settings;
 
-	void Start()
-	{
+	private void Start() {
 #if (UNITY_IOS || UNITY_TVOS) && !UNITY_EDITOR
 		this.gameObject.AddComponent<IOSPlatform>();
 #elif ((UNITY_PS4 || UNITY_XBOXONE) && !UNITY_EDITOR) || GS_FORCE_NATIVE_PLATFORM
@@ -30,27 +28,5 @@ public class GameSparksUnity : MonoBehaviour
 #else
 		this.gameObject.AddComponent<DefaultPlatform>();
 #endif
-	}
-
-	void OnGUI () {
-		if (GameSparksSettings.PreviewBuild == true) {
-			GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
-
-			GUILayout.BeginVertical ();
-
-			GUILayout.FlexibleSpace ();
-
-			GUILayout.BeginHorizontal ();
-
-			GUILayout.Space (10);
-
-			GUILayout.Label ("GameSparks Preview mode", GUILayout.Width (200), GUILayout.Height (25));
-
-			GUILayout.EndHorizontal ();
-
-			GUILayout.EndVertical ();
-
-			GUILayout.EndArea ();
-		}
 	}
 }
