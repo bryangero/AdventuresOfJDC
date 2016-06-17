@@ -27,11 +27,8 @@ namespace JuanDelaCruz {
 		public void EnableNeedHelpUI() {
 			holder.SetActive(true);
 			if (GameSparksManager.instance.isConnected) {
-				if (GameSparksManager.instance.isAvailable) {
-					LoadPlayers();
-				} else {
-					
-				}
+				GameSparksManager.instance.GsLogEventResponseEvt += AttemptLoadPlayers;
+				GameSparksManager.instance.LoadPlayers();
 			} else {
 				gameView.OnFinishNeedHelp();
 			}
@@ -43,11 +40,6 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickYes() {
-			helpers = new Player[3];
-			helpers[0] = new Player(3,WEAPON_TYPE.SHIELD);
-			helpers[1] = new Player(5,WEAPON_TYPE.NONE);
-			helpers[2] = new Player(4,WEAPON_TYPE.SWORD);
-			Debug.Log (helpers[0].level);
 			playerHelpers[0].Init(helpers[0].level);
 			playerHelpers[1].Init(helpers[1].level);
 			playerHelpers[2].Init(helpers[2].level);
@@ -61,31 +53,18 @@ namespace JuanDelaCruz {
 		public void OnChosenHelper(int id) {
 			gameView.OnFinishNeedHelp(helpers[id]);
 		}
-
-		public void AuthenticatePlayer() {
-			new GameSparks.Api.Requests.AuthenticationRequest().SetUserName("Juan").SetPassword("password").Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Player Authenticated...");
-				} else {
-					Debug.Log("Error Authenticating Player...");
+			
+		public void AttemptLoadPlayers(LogEventResponse response) {
+			if (!response.HasErrors) {
+				GSData[] data = response.ScriptData.GetGSDataList("playerData").ToArray();
+				helpers = new Player[3];
+				for (int i = 0; i < helpers.Length; i++) {
+					helpers [i] = new Player((int)data[i].GetInt("playerLevel"),(WEAPON_TYPE)data[i].GetInt("playerWeapon"));
 				}
-			});	
-		}
-
-
-
-		public void LoadPlayers() {
-			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("GET_PLAYERS").
-			SetEventAttribute("PLAYER_LEVEL", 1).
-			Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Received Player Data From GameSparks...");
-					GSData[] data = response.ScriptData.GetGSDataList("playerData").ToArray();
-					Debug.Log(data.Length);
-				} else {
-					Debug.Log("Error Loading Player Data...");
-				}
-			});
+				Debug.Log("Received Player Data From GameSparks...");
+			} else {
+				Debug.Log("Error Loading Player Data...");
+			}
 		}
 
 

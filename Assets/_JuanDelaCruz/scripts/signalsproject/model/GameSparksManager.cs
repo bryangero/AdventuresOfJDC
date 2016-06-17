@@ -108,14 +108,7 @@ namespace JuanDelaCruz {
 			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("GET_PLAYERS").
 																		SetEventAttribute("PLAYER_LEVEL", 1).
 																		Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Received Player Data From GameSparks...");
-					GSData[] data = response.ScriptData.GetGSDataList("playerData").ToArray();
-					Debug.Log(data.Length);
-
-				} else {
-					Debug.Log("Error Loading Player Data...");
-				}
+				GsLogEventResponseEvt(response);
 			});
 		}
 

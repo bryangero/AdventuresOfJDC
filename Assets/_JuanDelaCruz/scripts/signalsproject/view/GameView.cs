@@ -4,6 +4,11 @@ using UnityEngine;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.mediation.impl;
 using strange.extensions.signal.impl;
+using GameSparks.Api;
+using GameSparks.Api.Messages;
+using GameSparks.Api.Requests;
+using GameSparks.Api.Responses;
+using GameSparks.Core;
 
 namespace JuanDelaCruz {
 
@@ -23,6 +28,7 @@ namespace JuanDelaCruz {
 
 		public int round;
 		public bool isRoundEnd = false;
+		public bool isSaving = false;
 
 		public GameObject holder;
 		public GameUIView gameUIView;
@@ -45,6 +51,8 @@ namespace JuanDelaCruz {
 		}
 
 		public void RestartRound() {
+			helper = null;
+			helperGo.SetActive(false);
 			isRoundEnd = false;
 			gameUIView.init(stage.monsters[round]);
 		}
@@ -83,7 +91,10 @@ namespace JuanDelaCruz {
 				DisableGame();
 				if (player.stage == stage.level) {
 					player.stage++;
-					yield return StartCoroutine(SavePlayer());
+					SavePlayer();
+					while (isSaving == true) {
+						yield return null;
+					}
 				} else {
 					rewardUIView.DisableRewardUI();
 					shopUIView.DisableShopUI();
@@ -91,7 +102,10 @@ namespace JuanDelaCruz {
 				returnToMapSignal.Dispatch();
 			} else {
 				if (round <= 3) {
-					yield return StartCoroutine(SavePlayer());
+					SavePlayer();
+					while (isSaving == true) {
+						yield return null;
+					}
 					rewardUIView.DisableRewardUI();
 					isRoundEnd = false;
 					gameUIView.init(stage.monsters[round]);
@@ -109,7 +123,10 @@ namespace JuanDelaCruz {
 		}
 
 		private IEnumerator OnFinishShopInOrder() {
-			yield return StartCoroutine(SavePlayer());
+			SavePlayer();
+			while (isSaving == true) {
+				yield return null;
+			}
 			rewardUIView.DisableRewardUI();
 			shopUIView.DisableShopUI();
 			needHelpUIView.EnableNeedHelpUI();
@@ -130,36 +147,27 @@ namespace JuanDelaCruz {
 			EnableGame();
 		}
 
-
-		public IEnumerator SavePlayer() {
-			if (GameSparksManager.instance.isAvailable) {
-				bool isRunning = true;
+		public void SavePlayer() {
+			isSaving = true;
+			if (GameSparksManager.instance.isConnected) {
 				player.SavePlayer();
-				new GameSparks.Api.Requests.LogEventRequest().SetEventKey("SET_PLAYER").
-				SetEventAttribute("NAME", player.name).
-				SetEventAttribute("LEVEL", player.level).
-				SetEventAttribute("STAGE", player.stage).
-				SetEventAttribute("WEAPON_TYPE", (int)player.weapon).
-				SetEventAttribute("GOLD", player.gold).
-				SetEventAttribute("CURRENT_EXP", player.currentExperience).Send((response) => {
-					if (!response.HasErrors) {
-						isRunning = false;
-						Debug.Log("Player Saved To GameSparks...");
-					} else {
-						isRunning = false;
-						Debug.Log("Error Saving Player Data...");
-					}
-				});
-				while (isRunning == true) {
-					yield return null;
-				}
+				GameSparksManager.instance.GsLogEventResponseEvt += AttemptSavePlayer;
+				GameSparksManager.instance.SavePlayer(player);
 			} else {
 				player.SavePlayer();
+				isSaving = false;
 			}
-			yield return null;
 		}
 
-
+		public void AttemptSavePlayer(LogEventResponse response) {
+			GameSparksManager.instance.GsLogEventResponseEvt -= AttemptSavePlayer;
+			if (!response.HasErrors) {
+				isSaving = false;
+				Debug.Log("Player Saved To GameSparks...");
+			} else {
+				Debug.Log("Error Saving Player Data...");
+			}
+		}
 
 	}
 
