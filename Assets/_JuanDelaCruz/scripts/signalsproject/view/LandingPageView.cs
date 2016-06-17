@@ -28,15 +28,15 @@ namespace JuanDelaCruz {
 
 		public void OnClickInstructions() {
 			instructions.ShowInstruction();
-			Debug.Log("Clicked Instructions");
+//			Debug.Log("Clicked Instructions");
 		}
 
 		public void OnClickCredits() {
-			Debug.Log("Clicked Credits");
+//			Debug.Log("Clicked Credits");
 		}
 
 		public void OnClickAudio() {
-			Debug.Log("Clicked Audio");
+//			Debug.Log("Clicked Audio");
 		}
 
 	}

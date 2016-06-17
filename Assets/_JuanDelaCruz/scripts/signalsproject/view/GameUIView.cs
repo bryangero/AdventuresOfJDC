@@ -11,18 +11,15 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public IPlayer player { get; set; }
-
+		public Player helper;
 		public Monster monster;
-
 		[SerializeField] GameObject holder;
 		public GameView gameView;
 		public EnemyDisplay enemyDisplay;
 		public Signal<int> animateAttack = new Signal<int>();
-
 		public UIScrollBar scrollbar;
 		private bool isDirUp = true;
 		public bool isAttackReady = false;
-
 		public UISprite playerHp;
 		public int playerHpHolder;
 		public int playerDamageTaken;
@@ -32,7 +29,6 @@ namespace JuanDelaCruz {
 		public int enemyDamageTaken;
 		public float enemyConvertedHp;
 		public UILabel timerLabel;
-
 		public UILabel winLoseLbl;
 		public TweenScale winLoseTweenScale;
 		private bool isTimesUp = false;
@@ -45,11 +41,16 @@ namespace JuanDelaCruz {
 			holder.SetActive(false);
 		}
 
-		internal void init(Monster monster) {
+		internal void init(Monster monster, Player helper = null) {
 			holder.SetActive(true);
 			this.monster = monster;
 			enemyDisplay.ChangeEnemy(monster.monsterType);
-			playerHpHolder = player.hitPoints;
+			this.helper = helper;
+			if (helper != null) {
+				playerHpHolder = player.hitPoints + helper.hitPoints;
+			} else {
+				playerHpHolder = player.hitPoints;
+			}
 			playerHp.fillAmount = 1;
 			enemyHpHolder = monster.hitPoints;
 			enemyHp.fillAmount = 1;
@@ -119,7 +120,11 @@ namespace JuanDelaCruz {
 				float min = max;
 				max = rangeDifference * j;
 				if(test >= min && test <= max) {
-					enemyDamageTaken += damageArray[j];
+					if (helper == null) {
+						enemyDamageTaken += damageArray[j];
+					} else {
+						enemyDamageTaken += (damageArray[j] + helper.maxDamage);
+					}
 					UpdateEnemyHpBar();
 					return;
 				}

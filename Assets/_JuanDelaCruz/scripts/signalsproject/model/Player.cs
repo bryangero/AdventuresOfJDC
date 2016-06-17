@@ -25,6 +25,22 @@ namespace JuanDelaCruz {
 			ComputeHp();
 		}
 
+		public Player(int level) {
+			name = "Juan";
+			stage = 1;
+			this.level = level;
+			weapon = WEAPON_TYPE.NONE;
+			ComputeHp();
+		}
+
+		public Player(int level, WEAPON_TYPE weapon) {
+			name = "Juan";
+			stage = 1;
+			this.level = level;
+			this.weapon = weapon;
+			ComputeHp();
+		}
+
 		public void SavePlayer() {
 			string serializedPlayer = JsonFx.Json.JsonWriter.Serialize(this);
 			PlayerPrefs.SetString("PLAYER", serializedPlayer);

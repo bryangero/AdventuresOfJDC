@@ -17,8 +17,18 @@ namespace JuanDelaCruz {
 		public GameObject loading;
 		public GameSparksUnity gsu;
 
+		public delegate void GSAuthenticationResponse(AuthenticationResponse ar);
+		public event GSAuthenticationResponse GSAuthenticationResponseEvt;
+
+		public delegate void GSRegistrationResponse(RegistrationResponse rr);
+		public event GSRegistrationResponse GSRegistrationResponseEvt;
+
+		public delegate void GsLogEventResponse(LogEventResponse ler);
+		public event GsLogEventResponse GsLogEventResponseEvt;
+
 		/// <summary>The GameSparks Manager singleton</summary>
 		public static GameSparksManager instance = null;
+
 		private void Awake() {
 			if (isForcedOffline) {
 				gsu.enabled = false;
@@ -57,13 +67,6 @@ namespace JuanDelaCruz {
 		private void HandleGameSparksAvailable (bool isAvailable) {
 			if(isAvailable) {
 				Debug.Log("GAMESPARKS AVAILABLE...");
-//				new GameSparks.Api.Requests.DeviceAuthenticationRequest()
-//					.SetDurable (true)
-//					.Send ((response) => {
-//						if(!response.HasErrors) {
-//							Debug.Log("Device Authenticated with ID => "+response.UserId);
-//						}
-//					});
 				this.isAvailable = isAvailable;
 			} else {
 				Debug.Log("GAMESPARKS NOT AVAILABLE...");
@@ -71,48 +74,33 @@ namespace JuanDelaCruz {
 			loading.SetActive(false);
 		}
 
-		public void SavePlayer() {
+		public void RegisterPlayer() {
+			new GameSparks.Api.Requests.RegistrationRequest().SetDisplayName("Juan").SetPassword("password").SetUserName(GameSparksManager.instance.DEVICE_ID).Send((response) => {
+				GSRegistrationResponseEvt(response);
+			});
+		}
+			
+		public void SavePlayer(IPlayer player) {
 			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("SET_PLAYER").
-			SetEventAttribute("NAME", "Juan").
-			SetEventAttribute("LEVEL", 1).
-			SetEventAttribute("STAGE", 1).
-			SetEventAttribute("WEAPON_TYPE", 0).
-			SetEventAttribute("GOLD", 0).
-			SetEventAttribute("CURRENT_EXP", 0).Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Player Saved To GameSparks...");
-				} else {
-					Debug.Log("Error Saving Player Data...");
-				}
+			SetEventAttribute("NAME", player.name).
+			SetEventAttribute("LEVEL", player.level).
+			SetEventAttribute("STAGE", player.stage).
+			SetEventAttribute("WEAPON_TYPE", (int)player.weapon).
+			SetEventAttribute("GOLD", player.gold).
+			SetEventAttribute("CURRENT_EXP", player.currentExperience).Send((response) => {
+				GsLogEventResponseEvt(response);
 			});
 		}
 
 		public void AuthenticatePlayer() {
-			new GameSparks.Api.Requests.AuthenticationRequest().SetUserName("Bryan2").SetPassword("test_password_123456").Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Player Authenticated...");
-				} else {
-					Debug.Log("Error Authenticating Player...");
-				}
+			new GameSparks.Api.Requests.AuthenticationRequest().SetUserName(DEVICE_ID).SetPassword("password").Send((response) => {
+				GSAuthenticationResponseEvt(response);
 			});	
 		}
 
 		public void LoadPlayer() {
 			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("GET_PLAYER").Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Received Player Data From GameSparks...");
-					GSData data = response.ScriptData.GetGSData("player_Data");
-					print("Player ID: " + data.GetString("playerID"));
-					print("Player Name: " + data.GetString("playerName"));
-					print("Player Level: " + data.GetInt("playerLevel"));
-					print("Player Stage: " + data.GetInt("playerStage"));
-					print("Player Weapon: " + data.GetInt("playerWeapon"));
-					print("Player Gold: " + data.GetInt("playerGold"));
-					print("Player Current Experience: " + data.GetInt("playerCurrentExperiance"));
-
-				} else {
-					Debug.Log("Error Loading Player Data...");
-				}
+					GsLogEventResponseEvt(response);
 			});
 		}
 

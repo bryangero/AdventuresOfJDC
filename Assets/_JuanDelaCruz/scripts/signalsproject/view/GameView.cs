@@ -12,6 +12,9 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IPlayer player { get; set; }
 
+		public Player helper;
+		public GameObject helperGo;
+
 		[Inject]
 		public IStage stage { get; set; }
 
@@ -25,7 +28,7 @@ namespace JuanDelaCruz {
 		public GameUIView gameUIView;
 		public RewardUIView rewardUIView;
 		public ShopUIView shopUIView;
-		public GameObject getHelpUI;
+		public NeedHelpUIView needHelpUIView;
 
 		public SpriteRenderer currentStage;
 		public Sprite[] stageBGs;
@@ -35,6 +38,8 @@ namespace JuanDelaCruz {
 			isRoundEnd = false;
 			round = 0;
 			player.lives = 4;
+			helper = null;
+			helperGo.SetActive(false);
 			EnableGame();
 			gameUIView.init(stage.monsters[round]);
 		}
@@ -100,17 +105,31 @@ namespace JuanDelaCruz {
 
 
 		public void OnFinishShop() {
-			StartCoroutine (OnFinishShopInOrder());
+			StartCoroutine(OnFinishShopInOrder());
 		}
 
 		private IEnumerator OnFinishShopInOrder() {
 			yield return StartCoroutine(SavePlayer());
 			rewardUIView.DisableRewardUI();
 			shopUIView.DisableShopUI();
+			needHelpUIView.EnableNeedHelpUI();
+		}
+
+
+		public void OnFinishNeedHelp(Player player = null) {
+			rewardUIView.DisableRewardUI();
+			shopUIView.DisableShopUI();
+			needHelpUIView.DisableNeedHelpUI();
 			isRoundEnd = false;
-			gameUIView.init(stage.monsters[round]);
+			if (player == null) {
+				gameUIView.init(stage.monsters[round]);
+			} else {
+				helperGo.SetActive(true);
+				gameUIView.init(stage.monsters[round], player);
+			}
 			EnableGame();
 		}
+
 
 		public IEnumerator SavePlayer() {
 			if (GameSparksManager.instance.isAvailable) {

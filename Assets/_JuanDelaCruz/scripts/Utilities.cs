@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class Utilities : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-	
+		PlayerPrefs.DeleteAll();
+		Debug.Log ("PLAYER PREFS DELETED");
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

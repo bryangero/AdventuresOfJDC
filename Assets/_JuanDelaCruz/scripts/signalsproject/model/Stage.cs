@@ -47,7 +47,6 @@ namespace JuanDelaCruz {
 				monsters [3].goldReward = 60;
 				monsters [3].expReward = 90;
 				monsters [4] = new Tiyanak();
-				Debug.Log ("MONSTER CREATED");
 				break;
 			case 2:
 				monsters = new Monster[5];
@@ -81,7 +80,6 @@ namespace JuanDelaCruz {
 				monsters [4].maxDamage = 80;
 				monsters [4].goldReward = 100;
 				monsters [4].expReward = 200;
-				Debug.Log ("MONSTER CREATED");
 				break;
 			case 3:
 				monsters = new Monster[5];
@@ -115,7 +113,6 @@ namespace JuanDelaCruz {
 				monsters [4].maxDamage = 80;
 				monsters [4].goldReward = 100;
 				monsters [4].expReward = 200;
-				Debug.Log ("MONSTER CREATED");
 				break;
 			case 4:
 				monsters = new Monster[5];
@@ -149,7 +146,6 @@ namespace JuanDelaCruz {
 				monsters [4].maxDamage = 80;
 				monsters [4].goldReward = 100;
 				monsters [4].expReward = 200;
-				Debug.Log ("MONSTER CREATED");
 				break;
 			case 5:
 				monsters = new Monster[5];
@@ -183,7 +179,6 @@ namespace JuanDelaCruz {
 				monsters [4].maxDamage = 80;
 				monsters [4].goldReward = 100;
 				monsters [4].expReward = 200;
-				Debug.Log ("MONSTER CREATED");
 				break;
 			}
 

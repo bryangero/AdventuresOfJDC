@@ -24,6 +24,9 @@ namespace JuanDelaCruz {
 		public ShowWindowSignal showWindowSignal { get; set; }
 
 		[Inject]
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
+
+		[Inject]
 		public IRoutineRunner rr { get; set; }
 
 		public override void Execute() {
@@ -32,53 +35,66 @@ namespace JuanDelaCruz {
 
 		public IEnumerator ExecuteInOrder() {
 			yield return null;
-			if (GameSparksManager.instance.isAvailable) {
-				AuthenticatePlayer();
+			if(GameSparksManager.instance.isConnected) {
+				GameSparksManager.instance.GSAuthenticationResponseEvt += AttemptAuthentication;
+				GameSparksManager.instance.AuthenticatePlayer();
 			} else {
-				player.LoadPlayer();
-				yield return null;
-				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
-			}
-
-		}
-
-		public void AuthenticatePlayer() {
-			new GameSparks.Api.Requests.AuthenticationRequest().SetUserName(GameSparksManager.instance.DEVICE_ID).SetPassword("password").Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Player Authenticated...");
-					LoadPlayer();
-				} else {
-					Debug.Log("Error Authenticating Player...");
-				}
-			});	
-		}
-
-		public void LoadPlayer() {
-			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("GET_PLAYER").Send((response) => {
-				if (!response.HasErrors) {
-					Debug.Log("Received Player Data From GameSparks...");
-					GSData data = response.ScriptData.GetGSData("player_Data");
-					Debug.Log("Player ID: " + data.GetString("playerID").ToString());
-					Debug.Log("Player Name: " + data.GetString("playerName").ToString());
-					Debug.Log("Player Level: " + data.GetInt("playerLevel").ToString());
-					Debug.Log("Player Stage: " + data.GetInt("playerStage").ToString());
-					Debug.Log("Player Weapon: " + data.GetInt("playerWeapon").ToString());
-					Debug.Log("Player Gold: " + data.GetInt("playerGold").ToString());
-					Debug.Log("Player Current Experience: " + data.GetInt("playerCurrentExperiance").ToString());
-					player.name = data.GetString("playerName").ToString();
-					player.level = (int)data.GetInt("playerLevel");
-					player.stage = (int)data.GetInt("playerStage");
-					player.weapon =  (WEAPON_TYPE)data.GetInt("playerWeapon");
-					player.gold = (int)data.GetInt("playerGold");
-					player.currentExperience = (int)data.GetInt("playerCurrentExperiance");
+				if(PlayerPrefs.HasKey("PLAYER")) {
+					player.LoadPlayer();
+					yield return null;
 					showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 				} else {
-					Debug.Log("Error Loading Player Data...");
+					DialogueBoxView.OnClickOKEvent += OnClickOK;
+					loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.OK, "There is no saved game. Please select New Game.");
 				}
-			});
+			}
 		}
 
+		private void OnClickOK() {
+			DialogueBoxView.OnClickYesEvent -= OnClickOK;
+		}
+			
+		public void AttemptAuthentication(AuthenticationResponse response) {
+			GameSparksManager.instance.GSAuthenticationResponseEvt -= AttemptAuthentication;
+			if (!response.HasErrors) {
+				if (PlayerPrefs.HasKey("PLAYER")) {
+					player.LoadPlayer();
+					showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+				} else {
+					GameSparksManager.instance.GsLogEventResponseEvt += AttemptLoadPlayer;
+					GameSparksManager.instance.LoadPlayer();
+				}
+				Debug.Log("Player Authenticated...");
+			} else {
+				DialogueBoxView.OnClickOKEvent += OnClickOK;
+				loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.OK, "There is no saved game. Please select New Game.");
+				Debug.Log("Error Authenticating Player...");
+			}
+		}
 
+		public void AttemptLoadPlayer(LogEventResponse response) {
+			GameSparksManager.instance.GsLogEventResponseEvt -= AttemptLoadPlayer;
+			if (!response.HasErrors) {
+				GSData data = response.ScriptData.GetGSData("player_Data");
+				player.name = data.GetString("playerName").ToString();
+				player.level = (int)data.GetInt("playerLevel");
+				player.stage = (int)data.GetInt("playerStage");
+				player.weapon =  (WEAPON_TYPE)data.GetInt("playerWeapon");
+				player.gold = (int)data.GetInt("playerGold");
+				player.currentExperience = (int)data.GetInt("playerCurrentExperiance");
+				Debug.Log("Player Name: " + player.name);
+				Debug.Log("Player Level: " + player.level);
+				Debug.Log("Player Stage: " + player.stage);
+				Debug.Log("Player Weapon: " + player.weapon);
+				Debug.Log("Player Gold: " + player.gold);
+				Debug.Log("Player Current Experience: " + player.currentExperience);
+				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+				Debug.Log("Received Player Data From GameSparks...");
+			} else {
+				Debug.Log("Error Loading Player Data...");
+			}
+		}
+			
 	}
 
 }

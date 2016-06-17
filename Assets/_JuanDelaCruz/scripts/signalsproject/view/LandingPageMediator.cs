@@ -38,13 +38,7 @@ namespace JuanDelaCruz {
 		}
 
 		private void ClickNewGame() {
-			if (PlayerPrefs.HasKey ("PLAYER")) {
-				DialogueBoxView.OnClickYesEvent += OnClickYes;
-				DialogueBoxView.OnClickNoEvent += OnClickNo;
-				loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.YES_NO, "There is currently a saved game. Continuing will erase all saved data. Proceed?");
-			} else {
-				createNewGameSignal.Dispatch();
-			}
+			createNewGameSignal.Dispatch();
 		}
 
 		private void ClickLoadGame() {
@@ -53,16 +47,6 @@ namespace JuanDelaCruz {
 
 		private void OnShowWindow(GAME_WINDOWS gameWindow) {
 //			Debug.Log(name + " " + gameWindow);
-		}
-
-		private void OnClickYes() {
-			DialogueBoxView.OnClickYesEvent -= OnClickYes;
-			createNewGameSignal.Dispatch();
-		}
-
-		private void OnClickNo() {
-			DialogueBoxView.OnClickYesEvent -= OnClickNo;
-
 		}
 	}
 }
