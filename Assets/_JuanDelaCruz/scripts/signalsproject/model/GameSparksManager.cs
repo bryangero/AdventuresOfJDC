@@ -16,6 +16,7 @@ namespace JuanDelaCruz {
 		public bool isForcedOffline;
 		public GameObject loading;
 		public GameSparksUnity gsu;
+		public string USER_ID;
 
 		public delegate void GSAuthenticationResponse(AuthenticationResponse ar);
 		public event GSAuthenticationResponse GSAuthenticationResponseEvt;
@@ -81,7 +82,6 @@ namespace JuanDelaCruz {
 		}
 			
 		public void SavePlayer(IPlayer player) {
-			
 			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("SET_PLAYER").
 			SetEventAttribute("NAME", player.name).
 			SetEventAttribute("LEVEL", player.level).
