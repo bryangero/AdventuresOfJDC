@@ -40,6 +40,9 @@ namespace JuanDelaCruz {
 		public Sprite[] stageBGs;
 
 		internal void init() {
+			rewardUIView.DisableRewardUI ();
+			shopUIView.DisableShopUI ();
+			needHelpUIView.DisableNeedHelpUI ();
 			currentStage.sprite = stageBGs[stage.level - 1];
 			isRoundEnd = false;
 			round = 0;
@@ -95,6 +98,7 @@ namespace JuanDelaCruz {
 					while (isSaving == true) {
 						yield return null;
 					}
+					rewardUIView.DisableRewardUI();
 				} else {
 					rewardUIView.DisableRewardUI();
 					shopUIView.DisableShopUI();
@@ -112,6 +116,7 @@ namespace JuanDelaCruz {
 					EnableGame();
 				} else {
 					DisableGame();
+					rewardUIView.DisableRewardUI();
 					shopUIView.init();
 				}
 			}
