@@ -57,6 +57,7 @@ namespace JuanDelaCruz {
 
 		public void AttackAnim() {
 			enemyAnimator.SetTrigger("attack");
+//			enemy.transform.localPosition = enemyAnimator.targetPosition;
 		}
 
 		public void OnFinishAttack() {
