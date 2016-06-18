@@ -29,7 +29,7 @@ namespace JuanDelaCruz {
 		}
 
 		public IEnumerator ExecuteInOrder() {
-			stage.LoadStage (stageId);
+			stage.LoadStage(stageId, player.level);
 			yield return null;
 			GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 			GameObject.FindObjectOfType<MapView>().DisableMap();

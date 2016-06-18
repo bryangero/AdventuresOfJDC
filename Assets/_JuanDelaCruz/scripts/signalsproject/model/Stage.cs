@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 namespace JuanDelaCruz {
 	
 	public class Stage : IStage {
@@ -15,130 +16,58 @@ namespace JuanDelaCruz {
 
 		public Stage(int level) {
 			this.level = level;
-			CreateLevel();
+			CreateLevel(1);
 		}
 
-		public void LoadStage(int level) {
+		public void LoadStage(int level, int playerLevel) {
 			this.level = level;
-			CreateLevel();
+			CreateLevel(playerLevel);
 		}
 
-		private void CreateLevel() {
+		private void CreateLevel(int playerLevel) {
+			int minionLevelMaxRange =  playerLevel + 2;
+			int bossLevelMaxRange =  playerLevel + 3;
 			switch (level) {
 			case 1:
+				
 				monsters = new Monster[5];
-				monsters [0] = new Dwende();
-				monsters [1] = new Dwende();
-				monsters [2] = new Dwende();
-				monsters [3] = new WhiteLady();
-				monsters [4] = new Tiyanak();
+				monsters [0] = new Dwende(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [1] = new Dwende(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [2] = new Dwende(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [3] = new WhiteLady(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [4] = new Tiyanak(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
 				break;
 			case 2:
 				monsters = new Monster[5];
-				monsters [0] = new Dwende();
-				monsters [1] = new Dwende();
-				monsters [3] = new WhiteLady();
-				monsters [2] = new WhiteLady();
-				monsters [4] = new Tikbalang();
+				monsters [0] = new Dwende(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [1] = new Dwende(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [3] = new WhiteLady(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [2] = new WhiteLady(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [4] = new Tikbalang(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
 				break;
 			case 3:
 				monsters = new Monster[5];
-				monsters [0] = new Monster ();
-				monsters [0].hitPoints = 1;
-				monsters [0].minDamage = 1;
-				monsters [0].maxDamage = 5;
-				monsters [0].goldReward = 30;
-				monsters [0].expReward = 30;
-				monsters [1] = new Monster ();
-				monsters [1].hitPoints = 1;
-				monsters [1].minDamage = 5;
-				monsters [1].maxDamage = 20;
-				monsters [1].goldReward = 35;
-				monsters [1].expReward = 40;
-				monsters [2] = new Monster ();
-				monsters [2].hitPoints = 1;
-				monsters [2].minDamage = 10;
-				monsters [2].maxDamage = 30;
-				monsters [2].goldReward = 45;
-				monsters [2].expReward = 60;
-				monsters [3] = new Monster ();
-				monsters [3].hitPoints = 1;
-				monsters [3].minDamage = 15;
-				monsters [3].maxDamage = 40;
-				monsters [3].goldReward = 60;
-				monsters [3].expReward = 90;
-				monsters [4] = new Monster ();
-				monsters [4].hitPoints = 1;
-				monsters [4].minDamage = 30;
-				monsters [4].maxDamage = 80;
-				monsters [4].goldReward = 100;
-				monsters [4].expReward = 200;
+				monsters [0] = new Uwak(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [1] = new Uwak(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [2] = new Uwak(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [3] = new Paniki(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [4] = new Kapre(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
 				break;
 			case 4:
 				monsters = new Monster[5];
-				monsters [0] = new Monster ();
-				monsters [0].hitPoints = 1;
-				monsters [0].minDamage = 1;
-				monsters [0].maxDamage = 5;
-				monsters [0].goldReward = 30;
-				monsters [0].expReward = 30;
-				monsters [1] = new Monster ();
-				monsters [1].hitPoints = 1;
-				monsters [1].minDamage = 5;
-				monsters [1].maxDamage = 20;
-				monsters [1].goldReward = 35;
-				monsters [1].expReward = 40;
-				monsters [2] = new Monster ();
-				monsters [2].hitPoints = 1;
-				monsters [2].minDamage = 10;
-				monsters [2].maxDamage = 30;
-				monsters [2].goldReward = 45;
-				monsters [2].expReward = 60;
-				monsters [3] = new Monster ();
-				monsters [3].hitPoints = 1;
-				monsters [3].minDamage = 15;
-				monsters [3].maxDamage = 40;
-				monsters [3].goldReward = 60;
-				monsters [3].expReward = 90;
-				monsters [4] = new Monster ();
-				monsters [4].hitPoints = 1;
-				monsters [4].minDamage = 30;
-				monsters [4].maxDamage = 80;
-				monsters [4].goldReward = 100;
-				monsters [4].expReward = 200;
+				monsters [0] = new Uwak(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [1] = new Uwak(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [2] = new Paniki(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [3] = new Paniki(UnityEngine.Random.Range(playerLevel, minionLevelMaxRange));
+				monsters [4] = new Dracula(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
 				break;
 			case 5:
 				monsters = new Monster[5];
-				monsters [0] = new Monster ();
-				monsters [0].hitPoints = 1;
-				monsters [0].minDamage = 1;
-				monsters [0].maxDamage = 5;
-				monsters [0].goldReward = 30;
-				monsters [0].expReward = 30;
-				monsters [1] = new Monster ();
-				monsters [1].hitPoints = 1;
-				monsters [1].minDamage = 5;
-				monsters [1].maxDamage = 20;
-				monsters [1].goldReward = 35;
-				monsters [1].expReward = 40;
-				monsters [2] = new Monster ();
-				monsters [2].hitPoints = 1;
-				monsters [2].minDamage = 10;
-				monsters [2].maxDamage = 30;
-				monsters [2].goldReward = 45;
-				monsters [2].expReward = 60;
-				monsters [3] = new Monster ();
-				monsters [3].hitPoints = 1;
-				monsters [3].minDamage = 15;
-				monsters [3].maxDamage = 40;
-				monsters [3].goldReward = 60;
-				monsters [3].expReward = 90;
-				monsters [4] = new Monster ();
-				monsters [4].hitPoints = 1;
-				monsters [4].minDamage = 30;
-				monsters [4].maxDamage = 80;
-				monsters [4].goldReward = 100;
-				monsters [4].expReward = 200;
+				monsters [0] = new Tiyanak(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
+				monsters [1] = new Tikbalang(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
+				monsters [2] = new Kapre(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
+				monsters [3] = new Dracula(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
+				monsters [4] = new Aswang(UnityEngine.Random.Range(playerLevel + 1, bossLevelMaxRange));
 				break;
 			}
 

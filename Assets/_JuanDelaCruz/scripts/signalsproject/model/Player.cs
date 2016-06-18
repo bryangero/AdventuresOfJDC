@@ -132,93 +132,93 @@ namespace JuanDelaCruz {
 			switch(level) {
 			case 1:
 				hitPoints = 10;
-				experienceNeeded = 15;
-				minDamage = 1;
+				experienceNeeded = 10;
+				minDamage = 3;
 				maxDamage = 5;
 				break;
 			case 2:
-				hitPoints = 20;
+				hitPoints = 15;
 				experienceNeeded = 25;
-				minDamage = 2;
-				maxDamage = 10;
+				minDamage = 4;
+				maxDamage = 7;
 				break;
 			case 3:
-				hitPoints = 30;
+				hitPoints = 20;
 				experienceNeeded = 35;
-				minDamage = 3;
-				maxDamage = 15;
+				minDamage = 5;
+				maxDamage = 10;
 				break;
 			case 4:
-				hitPoints = 40;
+				hitPoints = 25;
 				experienceNeeded = 45;
-				minDamage = 4;
-				maxDamage = 20;
+				minDamage = 7;
+				maxDamage = 13;
 				break;
 			case 5:
-				hitPoints = 50;
+				hitPoints = 30;
 				experienceNeeded = 55;
-				minDamage = 5;
-				maxDamage = 25;
+				minDamage = 8;
+				maxDamage = 15;
 				break;
 			case 6:
-				hitPoints = 60;
+				hitPoints = 35;
 				experienceNeeded = 65;
-				minDamage = 6;
-				maxDamage = 30;
+				minDamage = 9;
+				maxDamage = 18;
 				break;
 			case 7:
-				hitPoints = 70;
+				hitPoints = 40;
 				experienceNeeded = 75;
-				minDamage = 7;
-				maxDamage = 35;
+				minDamage = 10;
+				maxDamage = 20;
 				break;
 			case 8:
-				hitPoints = 80;
+				hitPoints = 45;
 				experienceNeeded = 85;
-				minDamage = 8;
-				maxDamage = 40;
+				minDamage = 19;
+				maxDamage = 23;
 				break;
 			case 9:
-				hitPoints = 90;
+				hitPoints = 50;
 				experienceNeeded = 95;
-				minDamage = 9;
-				maxDamage = 45;
+				minDamage = 18;
+				maxDamage = 25;
 				break;
 			case 10:
-				hitPoints = 100;
+				hitPoints = 55;
 				experienceNeeded = 105;
-				minDamage = 10;
-				maxDamage = 50;
+				minDamage = 14;
+				maxDamage = 28;
 				break;
 			case 11:
-				hitPoints = 110;
+				hitPoints = 60;
 				experienceNeeded = 115;
-				minDamage = 11;
-				maxDamage = 55;
+				minDamage = 15;
+				maxDamage = 30;
 				break;
 			case 12:
-				hitPoints = 120;
+				hitPoints = 65;
 				experienceNeeded = 125;
-				minDamage = 12;
-				maxDamage = 60;
+				minDamage = 19;
+				maxDamage = 33;
 				break;
 			case 13:
-				hitPoints = 130;
+				hitPoints = 70;
 				experienceNeeded = 135;
-				minDamage = 13;
-				maxDamage = 65;
+				minDamage = 18;
+				maxDamage = 35;
 				break;
 			case 14:
-				hitPoints = 140;
+				hitPoints = 75;
 				experienceNeeded = 145;
-				minDamage = 14;
-				maxDamage = 70;
+				minDamage = 19;
+				maxDamage = 38;
 				break;
 			case 15:
-				hitPoints = 150;
+				hitPoints = 80;
 				experienceNeeded = -1;
-				minDamage = 15;
-				maxDamage = 75;
+				minDamage = 20;
+				maxDamage = 40;
 				break;
 			}
 		}

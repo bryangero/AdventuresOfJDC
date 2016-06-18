@@ -32,6 +32,7 @@ namespace JuanDelaCruz {
 		public UILabel winLoseLbl;
 		public TweenScale winLoseTweenScale;
 		public UILabel playerLevelLbl;
+		public UILabel enemyLevelLbl;
 		private bool isTimesUp = false;
 
 		public void EnableGameUI() {
@@ -53,6 +54,7 @@ namespace JuanDelaCruz {
 				playerHpHolder = player.hitPoints;
 			}
 			playerLevelLbl.text = "lvl " + player.level.ToString();
+			enemyLevelLbl.text = "lvl " + monster.level.ToString();
 			playerHp.fillAmount = 1;
 			enemyHpHolder = monster.hitPoints;
 			enemyHp.fillAmount = 1;
@@ -261,9 +263,9 @@ namespace JuanDelaCruz {
 			case WEAPON_TYPE.WHIP:
 				return 10;
 			case WEAPON_TYPE.SPEAR:
-				return 15;
-			case WEAPON_TYPE.SHIELD:
 				return 20;
+			case WEAPON_TYPE.SHIELD:
+				return 50;
 			default:
 				return 0;
 			}

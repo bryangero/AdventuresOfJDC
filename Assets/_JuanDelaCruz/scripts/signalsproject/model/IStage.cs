@@ -7,7 +7,7 @@ namespace JuanDelaCruz {
 		int level { get; set; }
 		Monster[] monsters { get; set; }
 
-		void LoadStage(int level);
+		void LoadStage(int level, int playerLevel);
 	}
 
 }
