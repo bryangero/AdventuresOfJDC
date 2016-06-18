@@ -4,6 +4,7 @@ namespace JuanDelaCruz {
 	
 	public interface IMonster {
 
+		int level {get;set;}
 		int hitPoints { get; set; }
 		MONSTER_TYPE monsterType { get; set; }
 		int minDamage { get; set; }

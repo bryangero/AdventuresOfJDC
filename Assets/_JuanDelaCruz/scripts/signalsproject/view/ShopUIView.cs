@@ -72,7 +72,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SWORD;
 				Close();
 			} else {
-				if (player.DecreaseGold (200) == true) {
+				if (player.DecreaseGold (100) == true) {
 					player.weapon = WEAPON_TYPE.SWORD;
 					player.weaponsBought [(int)WEAPON_TYPE.SWORD] = true;
 					Close();
@@ -87,7 +87,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.BOW;
 				Close();
 			} else {
-				if (player.DecreaseGold (400) == true) {
+				if (player.DecreaseGold (150) == true) {
 					player.weapon = WEAPON_TYPE.BOW;
 					player.weaponsBought [(int)WEAPON_TYPE.BOW] = true;
 					Close();
@@ -102,7 +102,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.WHIP;
 				Close();
 			} else {
-				if (player.DecreaseGold (800) == true) {
+				if (player.DecreaseGold (300) == true) {
 					player.weapon = WEAPON_TYPE.WHIP;
 					player.weaponsBought [(int)WEAPON_TYPE.WHIP] = true;
 					Close();
@@ -117,7 +117,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SPEAR;
 				Close();
 			} else {
-				if (player.DecreaseGold (1600) == true) {
+				if (player.DecreaseGold (350) == true) {
 					player.weapon = WEAPON_TYPE.SPEAR;
 					player.weaponsBought [(int)WEAPON_TYPE.SPEAR] = true;
 					Close();
@@ -132,7 +132,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SHIELD;
 				Close();
 			} else {
-				if (player.DecreaseGold (3000) == true) {
+				if (player.DecreaseGold (600) == true) {
 					player.weapon = WEAPON_TYPE.SHIELD;
 					player.weaponsBought [(int)WEAPON_TYPE.SHIELD] = true;
 					Close();

@@ -56,6 +56,8 @@ namespace JuanDelaCruz {
 			playerHp.fillAmount = 1;
 			enemyHpHolder = monster.hitPoints;
 			enemyHp.fillAmount = 1;
+			enemyDamageTaken = 0;
+			playerDamageTaken = 0;
 			StartCoroutine("UpdateTimer");
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
 			winLoseTweenScale.ResetToBeginning ();
@@ -124,6 +126,7 @@ namespace JuanDelaCruz {
 				if(test >= min && test <= max) {
 					if (helper == null) {
 						enemyDamageTaken += damageArray[j];
+						Debug.Log ("damageArray " + damageArray[j]);
 					} else {
 						enemyDamageTaken += (damageArray[j] + helper.maxDamage);
 						Debug.Log ("helper.maxDamage " + helper.maxDamage);
@@ -224,6 +227,7 @@ namespace JuanDelaCruz {
 		public void EnemyAttack() {
 			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
 			playerDamageTaken += enemyDamage;
+			Debug.Log ("ENEMY DAMAGE " + enemyDamage);
 			UpdatePlayerHpBar();
 		}
 
@@ -251,15 +255,15 @@ namespace JuanDelaCruz {
 		public int ApplyWeaponBonus() {
 			switch (player.weapon) {
 			case WEAPON_TYPE.SWORD:
-				return 25;
+				return 5;
 			case WEAPON_TYPE.BOW:
-				return 30;
+				return 7;
 			case WEAPON_TYPE.WHIP:
-				return 40;
+				return 10;
 			case WEAPON_TYPE.SPEAR:
-				return 45;
+				return 15;
 			case WEAPON_TYPE.SHIELD:
-				return 60;
+				return 20;
 			default:
 				return 0;
 			}

@@ -4,6 +4,7 @@ namespace JuanDelaCruz {
 	
 	public class Monster : IMonster {
 		
+		public int level {get;set;}
 		public int hitPoints { get; set; }
 		public MONSTER_TYPE monsterType { get; set; }
 		public int minDamage { get; set; }
@@ -14,6 +15,7 @@ namespace JuanDelaCruz {
 
 
 		public void ComputeLevel(int level) {
+			this.level = level;
 			hitPoints += level;
 			minDamage += level;
 		}
@@ -45,23 +47,24 @@ namespace JuanDelaCruz {
 
 	public class Dwende : Monster {
 		public Dwende() {
-			hitPoints = 20;
+			hitPoints = 5;
 			minDamage = 1;
-			maxDamage = 5;
-			goldReward = 30;
-			expReward = 30;
+			maxDamage = 3;
+			goldReward = 5;
+			expReward = 3;
 			monsterImg = "dwende";
 			monsterType = MONSTER_TYPE.DWENDE;
 		}
 
 		public Dwende(int level) {
-			hitPoints = 20;
+			hitPoints = 5;
 			minDamage = 1;
-			maxDamage = 5;
-			goldReward = 30;
-			expReward = 30;
+			maxDamage = 3;
+			goldReward = 5;
+			expReward = 2;
 			monsterImg = "dwende";
 			monsterType = MONSTER_TYPE.DWENDE;
+			ComputeLevel(level);
 		}
 	}
 
@@ -96,20 +99,40 @@ namespace JuanDelaCruz {
 			maxDamage = 5;
 			goldReward = 30;
 			expReward = 30;
-			monsterImg = "dwende";
+			monsterImg = "tikbalang";
 			monsterType = MONSTER_TYPE.TIKBALANG;
+		}
+		public Tikbalang(int level) {
+			hitPoints = 45;
+			minDamage = 7;
+			maxDamage = 14;
+			goldReward = 50;
+			expReward = 30;
+			monsterImg = "tikbalang";
+			monsterType = MONSTER_TYPE.TIKBALANG;
+			ComputeLevel(level);
 		}
 	}
 
 	public class Tiyanak : Monster {
 		public Tiyanak() {
-			hitPoints = 250;
-			minDamage = 30;
-			maxDamage = 80;
-			goldReward = 100;
-			expReward = 200;
+			hitPoints = 30;
+			minDamage = 4;
+			maxDamage = 9;
+			goldReward = 50;
+			expReward = 30;
 			monsterImg = "tiyanak";
 			monsterType = MONSTER_TYPE.TIYANAK;
+		}
+		public Tiyanak(int level) {
+			hitPoints = 30;
+			minDamage = 4;
+			maxDamage = 9;
+			goldReward = 50;
+			expReward = 30;
+			monsterImg = "tiyanak";
+			monsterType = MONSTER_TYPE.TIYANAK;
+			ComputeLevel(level);
 		}
 	}
 
@@ -127,13 +150,23 @@ namespace JuanDelaCruz {
 
 	public class WhiteLady : Monster {
 		public WhiteLady() {
-			hitPoints = 20;
-			minDamage = 1;
-			maxDamage = 5;
-			goldReward = 30;
-			expReward = 30;
-			monsterImg = "dwende";
+			hitPoints = 15;
+			minDamage = 2;
+			maxDamage = 4;
+			goldReward = 15;
+			expReward = 7;
+			monsterImg = "whitelady";
 			monsterType = MONSTER_TYPE.WHITE_LADY;
+		}
+		public WhiteLady(int level) {
+			hitPoints = 15;
+			minDamage = 2;
+			maxDamage = 4;
+			goldReward = 15;
+			expReward = 7;
+			monsterImg = "whitelady";
+			monsterType = MONSTER_TYPE.WHITE_LADY;
+			ComputeLevel(level);
 		}
 	}
 }
