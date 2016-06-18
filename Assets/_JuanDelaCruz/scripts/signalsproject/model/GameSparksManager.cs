@@ -81,13 +81,15 @@ namespace JuanDelaCruz {
 		}
 			
 		public void SavePlayer(IPlayer player) {
+			
 			new GameSparks.Api.Requests.LogEventRequest().SetEventKey("SET_PLAYER").
 			SetEventAttribute("NAME", player.name).
 			SetEventAttribute("LEVEL", player.level).
 			SetEventAttribute("STAGE", player.stage).
 			SetEventAttribute("WEAPON_TYPE", (int)player.weapon).
 			SetEventAttribute("GOLD", player.gold).
-			SetEventAttribute("CURRENT_EXP", player.currentExperience).Send((response) => {
+			SetEventAttribute("CURRENT_EXP", player.currentExperience).
+			SetEventAttribute("WEAPONS_BOUGHT", JsonFx.Json.JsonWriter.Serialize(player.weaponsBought)).Send((response) => {
 				GsLogEventResponseEvt(response);
 			});
 		}

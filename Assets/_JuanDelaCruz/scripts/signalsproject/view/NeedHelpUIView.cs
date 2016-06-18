@@ -55,6 +55,7 @@ namespace JuanDelaCruz {
 		}
 			
 		public void AttemptLoadPlayers(LogEventResponse response) {
+			GameSparksManager.instance.GsLogEventResponseEvt -= AttemptLoadPlayers;
 			if (!response.HasErrors) {
 				GSData[] data = response.ScriptData.GetGSDataList("playerData").ToArray();
 				helpers = new Player[3];

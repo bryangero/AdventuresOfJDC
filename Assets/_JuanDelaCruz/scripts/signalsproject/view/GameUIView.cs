@@ -31,6 +31,7 @@ namespace JuanDelaCruz {
 		public UILabel timerLabel;
 		public UILabel winLoseLbl;
 		public TweenScale winLoseTweenScale;
+		public UILabel playerLevelLbl;
 		private bool isTimesUp = false;
 
 		public void EnableGameUI() {
@@ -51,6 +52,7 @@ namespace JuanDelaCruz {
 			} else {
 				playerHpHolder = player.hitPoints;
 			}
+			playerLevelLbl.text = "lvl " + player.level.ToString();
 			playerHp.fillAmount = 1;
 			enemyHpHolder = monster.hitPoints;
 			enemyHp.fillAmount = 1;
@@ -124,6 +126,7 @@ namespace JuanDelaCruz {
 						enemyDamageTaken += damageArray[j];
 					} else {
 						enemyDamageTaken += (damageArray[j] + helper.maxDamage);
+						Debug.Log ("helper.maxDamage " + helper.maxDamage);
 					}
 					UpdateEnemyHpBar();
 					return;

@@ -82,12 +82,16 @@ namespace JuanDelaCruz {
 				player.weapon =  (WEAPON_TYPE)data.GetInt("playerWeapon");
 				player.gold = (int)data.GetInt("playerGold");
 				player.currentExperience = (int)data.GetInt("playerCurrentExperiance");
+				player.weaponsBought =  JsonFx.Json.JsonReader.Deserialize<bool[]>(data.GetString("playerWeaponsBought"));
 				Debug.Log("Player Name: " + player.name);
 				Debug.Log("Player Level: " + player.level);
 				Debug.Log("Player Stage: " + player.stage);
 				Debug.Log("Player Weapon: " + player.weapon);
 				Debug.Log("Player Gold: " + player.gold);
 				Debug.Log("Player Current Experience: " + player.currentExperience);
+				for (int i = 0; i < player.weaponsBought.Length; i++) {
+					Debug.Log("player.weaponsBought: " + player.weaponsBought[i]);
+				}
 				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 				Debug.Log("Received Player Data From GameSparks...");
 			} else {
