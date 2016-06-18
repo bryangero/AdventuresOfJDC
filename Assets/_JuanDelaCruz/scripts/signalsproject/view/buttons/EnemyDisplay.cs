@@ -5,7 +5,10 @@ using System.Collections;
 namespace JuanDelaCruz {
 	
 	public class EnemyDisplay : MonoBehaviour {
+		public GameUIView gameUIView;
+
 		public GameObject enemy;
+		public Animator enemyAnimator;
 		public GameObject[] EnemyGo;
 		public SpriteRenderer enemyDisplay;
 		public Sprite EnemySpt;
@@ -46,8 +49,28 @@ namespace JuanDelaCruz {
 			}
 			enemy = Instantiate (EnemyGo [enemyIndex], Vector3.zero, Quaternion.identity) as GameObject;
 			enemy.transform.parent = transform;
-			enemy.transform.localPosition = Vector3.zero;
+			enemy.transform.localPosition = EnemyGo [enemyIndex].transform.localPosition;
+			enemyAnimator = enemy.GetComponent<Animator> () as Animator;
+			enemy.GetComponent<EnemyAnim> ().enemyDisplay = this;	
 		}
+
+
+		public void AttackAnim() {
+			enemyAnimator.SetTrigger("attack");
+		}
+
+		public void OnFinishAttack() {
+			gameUIView.DealDamage();
+		}
+
+		public void DeathAnim() {
+			enemyAnimator.SetTrigger("death");
+		}
+
+		public void OnFinishDeath() {
+			
+		}
+
 
 	}
 }

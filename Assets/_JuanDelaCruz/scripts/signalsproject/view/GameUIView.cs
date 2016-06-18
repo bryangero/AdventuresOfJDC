@@ -35,6 +35,9 @@ namespace JuanDelaCruz {
 		public UILabel enemyLevelLbl;
 		private bool isTimesUp = false;
 
+
+
+
 		public void EnableGameUI() {
 			holder.SetActive(true);
 		}
@@ -199,8 +202,9 @@ namespace JuanDelaCruz {
 
 		private void UpdateEnemyHpBar() {
 			enemyDamageTaken += ApplyWeaponBonus();
-			if(enemyDamageTaken > enemyHpHolder) {
+			if(enemyDamageTaken >= enemyHpHolder) {
 				enemyDamageTaken = enemyHpHolder;
+				enemyDisplay.DeathAnim ();
 			}
 			enemyConvertedHp =((float)enemyHpHolder -(float)enemyDamageTaken)/(float)enemyHpHolder;
 			iTween.ValueTo(gameObject, iTween.Hash(
@@ -224,12 +228,17 @@ namespace JuanDelaCruz {
 				winLoseLbl.text = "You Win!";
 				winLoseTweenScale.PlayForward();
 				gameView.isRoundEnd = true;
+
 			} else {
 				EnemyAttack();
 			}
 		}
 
 		public void EnemyAttack() {
+			enemyDisplay.AttackAnim();
+		}
+
+		public void DealDamage() {
 			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
 			playerDamageTaken += enemyDamage;
 			Debug.Log ("ENEMY DAMAGE " + enemyDamage);
