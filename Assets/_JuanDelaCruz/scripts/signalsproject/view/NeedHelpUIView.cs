@@ -47,6 +47,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickYes() {
+			AudioManager.instance.PlayButton ();
 			int nullHelperCtr = 0;
 			for (int i = 0; i < helpers.Length; i++) {
 				if (helpers [i] == null) {
@@ -78,10 +79,12 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickNo() {
+			AudioManager.instance.PlayButton ();
 			gameView.OnFinishNeedHelp();
 		}
 
 		public void OnChosenHelper(int id) {
+			AudioManager.instance.PlayButton ();
 			gameView.OnFinishNeedHelp(helpers[id]);
 		}
 			

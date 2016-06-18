@@ -18,6 +18,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickStageButton() {
+			AudioManager.instance.PlayButton ();
 			onClickStage(stageId);
 		}
 

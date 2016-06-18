@@ -68,6 +68,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuySword() {
+			AudioManager.instance.PlayButton ();
 			if (player.weaponsBought [(int)WEAPON_TYPE.SWORD] == true) {
 				player.weapon = WEAPON_TYPE.SWORD;
 				Close();
@@ -83,6 +84,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuyBow() {
+			AudioManager.instance.PlayButton ();
 			if (player.weaponsBought [(int)WEAPON_TYPE.BOW] == true) {
 				player.weapon = WEAPON_TYPE.BOW;
 				Close();
@@ -98,6 +100,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuyWhip() {
+			AudioManager.instance.PlayButton ();
 			if (player.weaponsBought [(int)WEAPON_TYPE.WHIP] == true) {
 				player.weapon = WEAPON_TYPE.WHIP;
 				Close();
@@ -113,6 +116,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuySpear() {
+			AudioManager.instance.PlayButton ();
 			if (player.weaponsBought [(int)WEAPON_TYPE.SPEAR] == true) {
 				player.weapon = WEAPON_TYPE.SPEAR;
 				Close();
@@ -128,6 +132,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void BuyShield() {
+			AudioManager.instance.PlayButton ();
 			if (player.weaponsBought [(int)WEAPON_TYPE.SHIELD] == true) {
 				player.weapon = WEAPON_TYPE.SHIELD;
 				Close();
@@ -143,6 +148,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void Close() {
+			AudioManager.instance.PlayButton ();
 			gameView.OnFinishShop();
 		}
 

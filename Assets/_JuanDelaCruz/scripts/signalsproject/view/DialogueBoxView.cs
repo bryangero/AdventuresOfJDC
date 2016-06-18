@@ -68,6 +68,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void ClickYes() {
+			AudioManager.instance.PlayButton ();
 			if(OnClickYesEvent != null) {
 				StopCoroutine("Continue");
 				OnClickYesEvent();
@@ -76,6 +77,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void ClickNo() {
+			AudioManager.instance.PlayButton ();
 			if(OnClickNoEvent != null) {
 				StopCoroutine("Continue");
 				OnClickNoEvent();
@@ -84,6 +86,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void ClickOK() {
+			AudioManager.instance.PlayButton ();
 			if(OnClickOKEvent != null) {
 				OnClickOKEvent();
 			}

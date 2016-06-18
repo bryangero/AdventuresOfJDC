@@ -109,6 +109,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void ClickAttack() {
+			AudioManager.instance.PlayAttackButton ();
 			if(gameView.isRoundEnd == true) {
 				return;
 			}
@@ -179,6 +180,7 @@ namespace JuanDelaCruz {
 				"oncompletetarget", gameObject, 
 				"oncomplete", "FinishedUpdatePlayerHpBarFillAmount",
 				"time", 0.5f));
+			AudioManager.instance.PlayHitPlayer ();
 		}
 
 		public void UpdatePlayerHpBarFillAmount(float val) {
@@ -210,6 +212,7 @@ namespace JuanDelaCruz {
 				"oncompletetarget", gameObject, 
 				"oncomplete", "FinishedUpdateEnemyHpBarFillAmount",
 				"time", 0.5f));
+			AudioManager.instance.PlayHitEnemy ();
 		}
 
 		public void UpdateEnemyHpBarFillAmount(float val) {

@@ -19,23 +19,28 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnClickNewGame() {
+			AudioManager.instance.PlayButton ();
 			clickNewGameSignal.Dispatch();
 		}
 
 		public void OnClickLoadGame() {
+			AudioManager.instance.PlayButton ();
 			clickLoadGameSignal.Dispatch();
 		}
 
 		public void OnClickInstructions() {
+			AudioManager.instance.PlayButton ();
 			instructions.ShowInstruction();
 //			Debug.Log("Clicked Instructions");
 		}
 
 		public void OnClickCredits() {
+			AudioManager.instance.PlayButton ();
 //			Debug.Log("Clicked Credits");
 		}
 
 		public void OnClickAudio() {
+			AudioManager.instance.PlayButton ();
 //			Debug.Log("Clicked Audio");
 		}
 

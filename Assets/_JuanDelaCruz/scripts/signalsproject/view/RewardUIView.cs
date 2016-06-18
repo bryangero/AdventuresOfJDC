@@ -59,6 +59,7 @@ namespace JuanDelaCruz {
 		} 
 
 		public void OnClickClaim() {
+			AudioManager.instance.PlayButton ();
 			gameView.OnFinishReward();
 		}
 
