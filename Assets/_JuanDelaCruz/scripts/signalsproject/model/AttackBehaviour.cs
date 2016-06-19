@@ -16,7 +16,7 @@ namespace JuanDelaCruz {
 		}
 		override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack Update ");
+			Debug.Log("On Attack Update " + stateInfo.normalizedTime);
 		}
 		override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
@@ -24,7 +24,7 @@ namespace JuanDelaCruz {
 		}
 		override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack IK ");
+			Debug.Log("On Attack IK " + stateInfo);
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace JuanDelaCruz {
 		public UILabel enemyLevelLbl;
 		private bool isTimesUp = false;
 		public HeroAnim heroAnim;
-
+		public bool isAttacking = false;
 
 
 		public void EnableGameUI() {
@@ -63,6 +63,7 @@ namespace JuanDelaCruz {
 			enemyHp.fillAmount = 1;
 			enemyDamageTaken = 0;
 			playerDamageTaken = 0;
+			isAttacking = false;
 			StartCoroutine("UpdateTimer");
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
 			winLoseTweenScale.ResetToBeginning ();
@@ -116,9 +117,13 @@ namespace JuanDelaCruz {
 			if(gameView.isRoundEnd == true) {
 				return;
 			}
+			if (isAttacking == true) {
+				return;
+			}
 			iTween.StopByName("MoveAttackBarUp");
 			iTween.StopByName("MoveAttackBarDown");
 			heroAnim.PlayAttack(player.weapon);
+			isAttacking = true;
 		}
 
 		public void OnHeroFinishAttack() {
@@ -141,18 +146,17 @@ namespace JuanDelaCruz {
 						enemyDamageTaken += (damageArray [j] + helper.maxDamage);
 						Debug.Log ("helper.maxDamage " + helper.maxDamage);
 					}
-					UpdateEnemyHpBar ();
+					UpdateEnemyHpBar();
 					return;
-				} else {
-					enemyDamageTaken += player.minDamage;
-					Debug.Log ("NO DAMAGE");
 				}
 			}
+			Debug.Log ("NO DAMAGE");
 			UpdateEnemyHpBar();
 		}
 
 
 		public void FinishedAnimation() {
+			isAttacking = false;
 			if(isDirUp) {
 				MoveAttackBarUp();
 			} else {
