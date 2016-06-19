@@ -51,7 +51,7 @@ namespace JuanDelaCruz {
 			enemy.transform.parent = transform;
 			enemy.transform.localPosition = EnemyGo [enemyIndex].transform.localPosition;
 			enemyAnimator = enemy.GetComponent<Animator> () as Animator;
-			enemy.GetComponent<EnemyAnim> ().enemyDisplay = this;	
+			enemy.GetComponent<EnemyAnim>().enemyDisplay = this;
 		}
 
 
