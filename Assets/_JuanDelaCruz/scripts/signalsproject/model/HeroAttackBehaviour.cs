@@ -36,15 +36,15 @@ namespace JuanDelaCruz {
 		}
 		override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack Update ");
+//			Debug.Log("On Attack Update ");
 		}
 		override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack Move " + stateInfo);
+//			Debug.Log("On Attack Move " + stateInfo);
 		}
 		override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack IK ");
+//			Debug.Log("On Attack IK ");
 		}
 	}
 }

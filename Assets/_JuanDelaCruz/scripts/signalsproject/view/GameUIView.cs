@@ -133,16 +133,19 @@ namespace JuanDelaCruz {
 			for(int j = 0; j < damageArray.Length; j++) {
 				float min = max;
 				max = rangeDifference * j;
-				if(test >= min && test <= max) {
+				if (test >= min && test <= max) {
 					if (helper == null) {
-						enemyDamageTaken += damageArray[j];
-						Debug.Log ("damageArray " + damageArray[j]);
+						enemyDamageTaken += damageArray [j];
+						Debug.Log ("damageArray " + damageArray [j]);
 					} else {
-						enemyDamageTaken += (damageArray[j] + helper.maxDamage);
+						enemyDamageTaken += (damageArray [j] + helper.maxDamage);
 						Debug.Log ("helper.maxDamage " + helper.maxDamage);
 					}
-					UpdateEnemyHpBar();
+					UpdateEnemyHpBar ();
 					return;
+				} else {
+					enemyDamageTaken += player.minDamage;
+					Debug.Log ("NO DAMAGE");
 				}
 			}
 			UpdateEnemyHpBar();
