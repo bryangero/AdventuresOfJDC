@@ -36,7 +36,7 @@ namespace JuanDelaCruz {
 				heroAnimator.SetTrigger ("whip");
 				break;
 			default:
-				heroAnimator.SetTrigger ("spear");
+				heroAnimator.SetTrigger ("shield");
 				break;
 			}
 

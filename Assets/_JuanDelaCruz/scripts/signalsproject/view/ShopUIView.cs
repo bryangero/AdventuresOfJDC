@@ -29,16 +29,16 @@ namespace JuanDelaCruz {
 				isEquippedSprite.SetActive(true);
 				switch (player.weapon) {
 				case WEAPON_TYPE.SWORD:
-					isEquippedSprite.transform.localPosition = new Vector3 (-500,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (-287,-200,0);
 					break;
 				case WEAPON_TYPE.BOW:
 					isEquippedSprite.transform.localPosition = new Vector3 (-250,-200,0);
 					break;
 				case WEAPON_TYPE.WHIP:
-					isEquippedSprite.transform.localPosition = new Vector3 (0,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (261,-200,0);
 					break;
 				case WEAPON_TYPE.SPEAR:
-					isEquippedSprite.transform.localPosition = new Vector3 (250,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (-8.8f,-200,0);
 					break;
 				case WEAPON_TYPE.SHIELD:
 					isEquippedSprite.transform.localPosition = new Vector3 (500,-200,0);
@@ -73,7 +73,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.SWORD;
 				Close();
 			} else {
-				if (player.DecreaseGold (100) == true) {
+				if (player.DecreaseGold (200) == true) {
 					player.weapon = WEAPON_TYPE.SWORD;
 					player.weaponsBought [(int)WEAPON_TYPE.SWORD] = true;
 					Close();
@@ -105,7 +105,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.WHIP;
 				Close();
 			} else {
-				if (player.DecreaseGold (300) == true) {
+				if (player.DecreaseGold (500) == true) {
 					player.weapon = WEAPON_TYPE.WHIP;
 					player.weaponsBought [(int)WEAPON_TYPE.WHIP] = true;
 					Close();

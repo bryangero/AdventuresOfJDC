@@ -22,7 +22,7 @@ namespace JuanDelaCruz {
 				animator.transform.localPosition = heroAnim.targetPosWhip;
 				break;
 			default:
-				animator.transform.localPosition = heroAnim.targetPosSpear;
+				animator.transform.localPosition = heroAnim.targetPosShield;
 				break;
 			}
 

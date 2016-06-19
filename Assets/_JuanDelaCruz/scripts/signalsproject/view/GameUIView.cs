@@ -274,15 +274,11 @@ namespace JuanDelaCruz {
 		public int ApplyWeaponBonus() {
 			switch (player.weapon) {
 			case WEAPON_TYPE.SWORD:
-				return 5;
-			case WEAPON_TYPE.BOW:
-				return 7;
-			case WEAPON_TYPE.WHIP:
 				return 10;
+			case WEAPON_TYPE.WHIP:
+				return 40;
 			case WEAPON_TYPE.SPEAR:
 				return 20;
-			case WEAPON_TYPE.SHIELD:
-				return 50;
 			default:
 				return 0;
 			}

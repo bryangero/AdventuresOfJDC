@@ -31,6 +31,9 @@ namespace JuanDelaCruz {
 		public Vector3 grid2Pos;
 		public Vector3 grid1Pos;
 
+		public GameObject cover;
+		public UILabel coverLbl;
+
 		public void EnableNeedHelpUI() {
 			holder.SetActive(true);
 			if (GameSparksManager.instance.isConnected) {
@@ -117,6 +120,8 @@ namespace JuanDelaCruz {
 					}
 				}
 				Debug.Log("Received Player Data From GameSparks...");
+				cover.SetActive (false);
+				coverLbl.gameObject.SetActive (false);
 			} else {
 				Debug.Log("Error Loading Player Data...");
 			}
