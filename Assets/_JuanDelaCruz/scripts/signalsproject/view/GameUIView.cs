@@ -34,7 +34,7 @@ namespace JuanDelaCruz {
 		public UILabel playerLevelLbl;
 		public UILabel enemyLevelLbl;
 		private bool isTimesUp = false;
-
+		public HeroAnim heroAnim;
 
 
 
@@ -118,6 +118,10 @@ namespace JuanDelaCruz {
 			}
 			iTween.StopByName("MoveAttackBarUp");
 			iTween.StopByName("MoveAttackBarDown");
+			heroAnim.PlayAttack(player.weapon);
+		}
+
+		public void OnHeroFinishAttack() {
 			float test = Math.Abs(0.5f - scrollbar.value);
 			int range = player.maxDamage - player.minDamage;
 			float rangeDifference = 0.5f /(float)range;
@@ -143,6 +147,7 @@ namespace JuanDelaCruz {
 			}
 			UpdateEnemyHpBar();
 		}
+
 
 		public void FinishedAnimation() {
 			if(isDirUp) {

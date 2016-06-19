@@ -60,18 +60,18 @@ namespace JuanDelaCruz {
 				Debug.Log ("no help");
 			} else if (nullHelperCtr == 2) {
 				grid.transform.localPosition = grid1Pos;
-				playerHelpers[0].Init(helpers[0].level);
+				playerHelpers[0].Init(helpers[0].level, helpers[0].weapon);
 				Debug.Log ("1 help");
 			} else if (nullHelperCtr == 1) {
 				grid.transform.localPosition = grid2Pos;
-				playerHelpers[0].Init(helpers[0].level);
-				playerHelpers[1].Init(helpers[1].level);
+				playerHelpers[0].Init(helpers[0].level, helpers[0].weapon);
+				playerHelpers[1].Init(helpers[1].level, helpers[0].weapon);
 				Debug.Log ("2 help");
 			} else {
 				grid.transform.localPosition = grid3Pos;
-				playerHelpers[0].Init(helpers[0].level);
-				playerHelpers[1].Init(helpers[1].level);
-				playerHelpers[2].Init(helpers[2].level);
+				playerHelpers[0].Init(helpers[0].level, helpers[0].weapon);
+				playerHelpers[1].Init(helpers[1].level, helpers[0].weapon);
+				playerHelpers[2].Init(helpers[2].level, helpers[0].weapon);
 				Debug.Log ("3 help");
 			}
 

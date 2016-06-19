@@ -12,14 +12,29 @@ namespace JuanDelaCruz {
 
 		public int id;
 		public UILabel levelLbl;
+		public UILabel weaponLbl;
 		public GameObject character;
 
 		public void Awake() {
 			onClickHelper += needHelpUIView.OnChosenHelper;
 		}
 
-		public void Init(int level) {
+		public void Init(int level, WEAPON_TYPE weapon) {
 			levelLbl.text = "Level: " + level;
+			switch (weapon) {
+			case WEAPON_TYPE.SWORD:
+				weaponLbl.text = "sword";
+				break;
+			case WEAPON_TYPE.SPEAR:
+				weaponLbl.text = "spear";
+				break;
+			case WEAPON_TYPE.WHIP:
+				weaponLbl.text = "whip";
+				break;
+			default:
+				weaponLbl.text = "shield";
+				break;
+			}
 		}
 
 		public void OnClickHelperButton() {
