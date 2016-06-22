@@ -4,6 +4,7 @@ namespace JuanDelaCruz {
 	
 	public class Monster : IMonster {
 		
+		public string name {get;set;}
 		public int level {get;set;}
 		public int hitPoints { get; set; }
 		public MONSTER_TYPE monsterType { get; set; }

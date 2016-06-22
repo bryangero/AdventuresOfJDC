@@ -46,8 +46,8 @@ namespace JuanDelaCruz {
 
 			player.IncreaseExperience(expReward);
 			player.IncreaseGold(goldReward);
-			playerLevelLabel.text = "Player Level: " + player.level + "\nPlayer Current Exp: " + player.currentExperience;
-			playerGoldLabel.text = "Player Gold: " + player.gold;
+			playerLevelLabel.text = "Player Level: " + player.level + "\nPlayer Current Exp: " + player.currentExperience + "\nPlayer Gold: " + player.gold;
+//			playerGoldLabel.text = ";
 		}
 
 		public void UpdateGoldLabelValue(int val) {

@@ -46,7 +46,7 @@ namespace JuanDelaCruz {
 			currentStage.sprite = stageBGs[stage.level - 1];
 			isRoundEnd = false;
 			round = 0;
-			player.lives = 4;
+			player.lives = 3;
 			helper = null;
 			helperGo.SetActive(false);
 			EnableGame();

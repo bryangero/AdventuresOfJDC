@@ -17,6 +17,7 @@ namespace JuanDelaCruz {
 		int maxDamage { get; set; }
 		int lives { get; set; }
 
+		void CreateNewPlayer(string newName);
 		void SavePlayer();
 		void LoadPlayer();
 		void IncreaseExperience(int exp);

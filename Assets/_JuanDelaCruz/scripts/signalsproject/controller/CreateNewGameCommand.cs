@@ -25,6 +25,9 @@ namespace JuanDelaCruz {
 		[Inject]
 		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
 
+		[Inject]
+		public LoadEnterNameSignal loadEnterNameSignal { get; set; }
+
 		public override void Execute() {
 			if(GameSparksManager.instance.isConnected) {
 				if(PlayerPrefs.HasKey("PLAYER")) {
@@ -43,7 +46,7 @@ namespace JuanDelaCruz {
 				} else {
 					player = new Player();
 					player.SavePlayer();
-					showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+//					showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 				}
 			}
 		}
@@ -52,7 +55,8 @@ namespace JuanDelaCruz {
 			DialogueBoxView.OnClickYesEvent -= OnClickYes;
 			player = new Player();
 			player.SavePlayer();
-			showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+//			showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+//			loadEnterNameSignal.Dispatch ();
 		}
 
 		private void OnClickNo() {

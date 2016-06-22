@@ -11,6 +11,7 @@ namespace JuanDelaCruz {
 	public class LoadGameSignal : Signal {}
 	public class LoadStageSignal : Signal<int> {}
 	public class LoadDialogueBoxSignal : Signal<DIALOGUE_TYPE, string> {}
+	public class LoadEnterNameSignal : Signal {}
 
 }
 

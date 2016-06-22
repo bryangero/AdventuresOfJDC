@@ -58,6 +58,7 @@ namespace JuanDelaCruz {
 			commandBinder.Bind<LoadStageSignal> ().To<LoadStageCommand> ();
 
 			injectionBinder.Bind<LoadDialogueBoxSignal> ().ToSingleton ();
+			injectionBinder.Bind<LoadEnterNameSignal> ().ToSingleton ();
 
 			mediationBinder.Bind<LandingPageView>().To<LandingPageMediator>();
 			mediationBinder.Bind<CharacterSelectView>().To<CharacterSelectMediator>();

@@ -24,30 +24,44 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
+
+		[Inject]
+		public LoadEnterNameSignal loadEnterNameSignal { get; set; }
 		
 		public override void OnRegister() {
-			showWindowSignal.AddListener(OnShowWindow);
+//			showWindowSignal.AddListener(OnShowWindow);
+//			loadEnterNameSignal.AddListener (OnLoadEnterNameSignal);
 			view.clickNewGameSignal.AddListener(ClickNewGame);
 			view.clickLoadGameSignal.AddListener(ClickLoadGame);
+			view.showWindowSignal.AddListener (OnViewShowWindow);
+			view.loadDialogueBoxSignal.AddListener (OnViewLoadDialogueBox);
 		}
 		
 		public override void OnRemove() {
-			showWindowSignal.RemoveListener(OnShowWindow);
+//			showWindowSignal.RemoveListener(OnShowWindow);
+//			loadEnterNameSignal.RemoveListener (OnLoadEnterNameSignal);
 			view.clickNewGameSignal.RemoveListener(ClickNewGame);
 			view.clickLoadGameSignal.RemoveListener(ClickLoadGame);
+			view.showWindowSignal.RemoveListener (OnViewShowWindow);
+			view.loadDialogueBoxSignal.RemoveListener (OnViewLoadDialogueBox);
 		}
 
 		private void ClickNewGame() {
-			createNewGameSignal.Dispatch();
+//			createNewGameSignal.Dispatch();
 		}
 
 		private void ClickLoadGame() {
 			loadGameSignal.Dispatch();
 		}
 
-		private void OnShowWindow(GAME_WINDOWS gameWindow) {
-//			Debug.Log(name + " " + gameWindow);
+		private void OnViewShowWindow(GAME_WINDOWS gameWindow) {
+			showWindowSignal.Dispatch (gameWindow);
 		}
+
+		private void OnViewLoadDialogueBox(DIALOGUE_TYPE dialogueType, string dialogue) {
+			loadDialogueBoxSignal.Dispatch (dialogueType, dialogue);
+		}
+
 	}
 }
 

@@ -42,6 +42,16 @@ namespace JuanDelaCruz {
 
 		}
 
+		public void PlayDeath() {
+			heroAnimator.SetTrigger ("death");
+
+		}
+
+		public void PlayIdle() {
+			heroAnimator.SetTrigger ("idle");
+
+		}
+
 		public void OnFinishAttack() {
 			gameUIView.OnHeroFinishAttack();
 		}

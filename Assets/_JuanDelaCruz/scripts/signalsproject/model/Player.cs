@@ -63,10 +63,26 @@ namespace JuanDelaCruz {
 			ComputeHp();
 		}
 
+		public void CreateNewPlayer(string newName) {
+			name = newName;
+			Debug.Log (name);
+			stage = 1;
+			level = 1;
+			weapon = WEAPON_TYPE.NONE;
+			weaponsBought =  new bool[6];
+			for (int i = 0; i < weaponsBought.Length; i++) {
+				weaponsBought[i] = false;
+				if (i == (int)weapon) {
+					weaponsBought[i] = true;
+				}
+			}
+			ComputeHp();
+		}
+
 		public void SavePlayer() {
 			string serializedPlayer = JsonFx.Json.JsonWriter.Serialize(this);
 			PlayerPrefs.SetString("PLAYER", serializedPlayer);
-			Debug.Log("SAVED Player");
+			Debug.Log("SAVED Player " + serializedPlayer);
 		}
 
 		public void LoadPlayer() {
@@ -102,7 +118,7 @@ namespace JuanDelaCruz {
 
 		public void IncreaseExperience(int exp) {
 			currentExperience += exp;
-			if (currentExperience >= experienceNeeded) {
+			if (currentExperience >= experienceNeeded && experienceNeeded != -1) {
 				int extraExp = currentExperience - experienceNeeded;
 				currentExperience = 0;
 				level++;

@@ -12,19 +12,19 @@ namespace JuanDelaCruz {
 		{
 			animator.GetComponent<EnemyAnim>().OnFinishAttack();
 			animator.transform.localPosition = animator.GetComponent<EnemyAnim> ().currPosition;
-			Debug.Log("On Attack Done ");
+//			Debug.Log("On Attack Done ");
 		}
 		override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack Update " + stateInfo.normalizedTime);
+//			Debug.Log("On Attack Update " + stateInfo.normalizedTime);
 		}
 		override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack Move " + stateInfo);
+//			Debug.Log("On Attack Move " + stateInfo);
 		}
 		override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
-			Debug.Log("On Attack IK " + stateInfo);
+//			Debug.Log("On Attack IK " + stateInfo);
 		}
 	}
 }

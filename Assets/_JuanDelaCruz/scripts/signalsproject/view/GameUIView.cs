@@ -31,22 +31,33 @@ namespace JuanDelaCruz {
 		public UILabel timerLabel;
 		public UILabel winLoseLbl;
 		public TweenScale winLoseTweenScale;
+		public UILabel playerNameLbl;
 		public UILabel playerLevelLbl;
 		public UILabel enemyLevelLbl;
+		public UILabel enemyNameLbl;
 		private bool isTimesUp = false;
 		public HeroAnim heroAnim;
 		public bool isAttacking = false;
+		public bool isGameActive = false;
 
+		public UILabel pauseLbl;
+		public GameObject pauseCover;
 
 		public void EnableGameUI() {
 			holder.SetActive(true);
 		}
 
 		public void DisableGameUI() {
+			isGameActive = false;
 			holder.SetActive(false);
 		}
 
 		internal void init(Monster monster, Player helper = null) {
+			isGameActive = true;
+			playerNameLbl.text = player.name;
+			Debug.Log (player.name);
+			enemyNameLbl.text = monster.name;
+			heroAnim.PlayIdle ();
 			holder.SetActive(true);
 			this.monster = monster;
 			enemyDisplay.ChangeEnemy(monster.monsterType);
@@ -182,8 +193,9 @@ namespace JuanDelaCruz {
 		}
 
 		private void UpdatePlayerHpBar() {
-			if(playerDamageTaken > playerHpHolder) {
+			if(playerDamageTaken >= playerHpHolder) {
 				playerDamageTaken = playerHpHolder;
+				heroAnim.PlayDeath ();
 			}
 			playerConvertedHp =((float)playerHpHolder -(float)playerDamageTaken) /(float)playerHpHolder;
 			iTween.ValueTo(gameObject, iTween.Hash(
@@ -288,6 +300,26 @@ namespace JuanDelaCruz {
 				return 20;
 			default:
 				return 0;
+			}
+		}
+
+		public void PauseGame() {
+			if (Time.timeScale == 0) {
+				Time.timeScale = 1;
+				pauseLbl.gameObject.SetActive(false);
+				pauseCover.gameObject.SetActive(false);
+			} else {
+				Time.timeScale = 0;
+				pauseLbl.gameObject.SetActive(true);
+				pauseCover.gameObject.SetActive(true);
+			}
+		}
+
+		public void OnApplicationPause() {
+			if (isGameActive == true && Time.timeScale == 1) {
+				Time.timeScale = 0;
+				pauseLbl.gameObject.SetActive(true);
+				pauseCover.gameObject.SetActive(true);
 			}
 		}
 	}
