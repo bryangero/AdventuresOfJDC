@@ -16,12 +16,20 @@ namespace JuanDelaCruz {
 		[Inject]
 		public ShowWindowSignal showWindowSignal { get; set; }
 
+		[Inject]
+		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
+
 		public override void OnRegister() {
+			view.loadDialogueBoxSignal.AddListener (OnViewLoadDialogueBox);
 		}
 		
 		public override void OnRemove() {
+			view.loadDialogueBoxSignal.RemoveListener (OnViewLoadDialogueBox);
 		}
 
+		private void OnViewLoadDialogueBox(DIALOGUE_TYPE dialogueType, string dialogue) {
+			loadDialogueBoxSignal.Dispatch (dialogueType, dialogue);
+		}
 	}
 }
 

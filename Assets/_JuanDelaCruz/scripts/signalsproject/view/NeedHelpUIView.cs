@@ -18,6 +18,7 @@ namespace JuanDelaCruz {
 		public IPlayer player {get;set;}
 
 		public Signal noHelperSignal = new Signal();
+		public Signal<DIALOGUE_TYPE, string> loadDialogueBoxSignal = new Signal<DIALOGUE_TYPE, string>();
 
 		public Player[] helpers;
 		public PlayerHelper[] playerHelpers;
@@ -40,8 +41,14 @@ namespace JuanDelaCruz {
 				GameSparksManager.instance.GsLogEventResponseEvt += AttemptLoadPlayers;
 				GameSparksManager.instance.LoadPlayers();
 			} else {
-				gameView.OnFinishNeedHelp();
+				DialogueBoxView.OnClickOKEvent += OnClickOK;
+				loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.OK, "Need Internet Connection to use this Feature.");
 			}
+		}
+
+		private void OnClickOK() {
+			DialogueBoxView.OnClickOKEvent -= OnClickOK;
+			gameView.OnFinishNeedHelp();
 		}
 
 		public void DisableNeedHelpUI() {
