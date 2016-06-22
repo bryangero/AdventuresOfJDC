@@ -17,6 +17,7 @@ namespace JuanDelaCruz {
 		public GameView gameView;
 		public EnemyDisplay enemyDisplay;
 		public Signal<int> animateAttack = new Signal<int>();
+		public Signal<GAME_WINDOWS> showWindowSignal = new Signal<GAME_WINDOWS> ();
 		public UIScrollBar scrollbar;
 		private bool isDirUp = true;
 		public bool isAttackReady = false;
@@ -38,7 +39,7 @@ namespace JuanDelaCruz {
 		private bool isTimesUp = false;
 		public HeroAnim heroAnim;
 		public bool isAttacking = false;
-		public bool isGameActive = false;
+		public bool isActive = false;
 
 		public UILabel pauseLbl;
 		public GameObject pauseCover;
@@ -48,14 +49,13 @@ namespace JuanDelaCruz {
 		}
 
 		public void DisableGameUI() {
-			isGameActive = false;
+			isActive = false;
 			holder.SetActive(false);
 		}
 
 		internal void init(Monster monster, Player helper = null) {
-			isGameActive = true;
+			StartCoroutine (WaitFrameEnd ());
 			playerNameLbl.text = player.name;
-			Debug.Log (player.name);
 			enemyNameLbl.text = monster.name;
 			heroAnim.PlayIdle ();
 			holder.SetActive(true);
@@ -79,6 +79,11 @@ namespace JuanDelaCruz {
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
 			winLoseTweenScale.ResetToBeginning ();
 			MoveAttackBarUp();
+		}
+
+		public IEnumerator WaitFrameEnd() {
+			yield return null;
+			isActive = true;
 		}
 
 		public void MoveAttackBarUp() {
@@ -265,7 +270,7 @@ namespace JuanDelaCruz {
 		public void DealDamage() {
 			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
 			playerDamageTaken += enemyDamage;
-			Debug.Log ("ENEMY DAMAGE " + enemyDamage);
+//			Debug.Log ("ENEMY DAMAGE " + enemyDamage);
 			UpdatePlayerHpBar();
 		}
 
@@ -316,12 +321,20 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnApplicationPause() {
-			if (isGameActive == true && Time.timeScale == 1) {
+			if (isActive == true && Time.timeScale == 1) {
 				Time.timeScale = 0;
 				pauseLbl.gameObject.SetActive(true);
 				pauseCover.gameObject.SetActive(true);
 			}
 		}
+
+		public void FixedUpdate() {
+			if(Input.GetKeyUp(KeyCode.Escape) && isActive) {
+				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+			}
+		}
+
+
 	}
 
 }

@@ -28,10 +28,16 @@ namespace JuanDelaCruz {
 
 		public override void OnRegister() {
 			view.loadStage.AddListener(OnLoadStage);
+			view.showWindowSignal.AddListener (OnViewShowWindow);
 		}
 		
 		public override void OnRemove() {
 			view.loadStage.RemoveListener(OnLoadStage);
+			view.showWindowSignal.RemoveListener (OnViewShowWindow);
+		}
+
+		private void OnViewShowWindow(GAME_WINDOWS gameWindow) {
+			showWindowSignal.Dispatch (gameWindow);
 		}
 
 		public void OnLoadStage(int stageId) {

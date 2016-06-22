@@ -11,16 +11,15 @@ namespace JuanDelaCruz {
 
 		[Inject]
 		public IPlayer player { get; set; }
-
 		public Signal<int> loadStage = new Signal<int>();
-
+		public Signal<GAME_WINDOWS> showWindowSignal = new Signal<GAME_WINDOWS> ();
 		[SerializeField] GameObject holder;
-
 		public UISprite[] stageSprites;
+		public bool isActive;
 
 		public void EnableMap() {
+			StartCoroutine (WaitFrameEnd());
 			holder.SetActive(true);
-			Debug.Log (player.stage);
 			for(int i = 0; i < stageSprites.Length; i++) {
 				if (Int32.Parse (stageSprites [i].name) > player.stage) {
 					stageSprites [i].color = Color.gray;
@@ -30,7 +29,19 @@ namespace JuanDelaCruz {
 			}
 		}
 
+		public IEnumerator WaitFrameEnd() {
+			yield return null;
+			isActive = true;
+		}
+
+		public void FixedUpdate() {
+			if(Input.GetKeyUp(KeyCode.Escape) && isActive) {
+				showWindowSignal.Dispatch(GAME_WINDOWS.LANDING_PAGE);
+			}
+		}
+
 		public void DisableMap() {
+			isActive = false;
 			holder.SetActive(false);
 		}
 

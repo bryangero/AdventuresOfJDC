@@ -32,7 +32,7 @@ namespace JuanDelaCruz {
 		{
 			animator.GetComponent<HeroAnim>().OnFinishAttack();
 			animator.transform.localPosition = animator.GetComponent<HeroAnim> ().currPosition;
-			Debug.Log("On Attack Done ");
+//			Debug.Log("On Attack Done ");
 		}
 		override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{
