@@ -26,6 +26,9 @@ namespace JuanDelaCruz {
 			case WEAPON_TYPE.SWORD:
 				heroAnimator.SetTrigger ("sword");
 				break;
+			case WEAPON_TYPE.BOW:
+				heroAnimator.SetTrigger ("whip");
+				break;
 			case WEAPON_TYPE.SPEAR:
 				heroAnimator.SetTrigger ("spear");
 				break;

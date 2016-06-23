@@ -12,6 +12,9 @@ namespace JuanDelaCruz {
 			case WEAPON_TYPE.SWORD:
 				animator.transform.localPosition = heroAnim.targetPosSword;
 				break;
+			case WEAPON_TYPE.BOW:
+				animator.transform.localPosition = heroAnim.targetPosWhip;
+				break;
 			case WEAPON_TYPE.SPEAR:
 				animator.transform.localPosition = heroAnim.targetPosSpear;
 				break;

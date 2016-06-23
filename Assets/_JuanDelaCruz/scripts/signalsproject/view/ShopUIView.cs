@@ -25,23 +25,24 @@ namespace JuanDelaCruz {
 
 		internal void init() {
 			EnableShopUI();
+			Debug.Log (player.weapon);
 			if (player.weapon != WEAPON_TYPE.NONE) {
 				isEquippedSprite.SetActive(true);
 				switch (player.weapon) {
 				case WEAPON_TYPE.SWORD:
-					isEquippedSprite.transform.localPosition = new Vector3 (-287,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (-391,-200,0);
 					break;
 				case WEAPON_TYPE.BOW:
-					isEquippedSprite.transform.localPosition = new Vector3 (-250,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (-130,-200,0);
 					break;
 				case WEAPON_TYPE.WHIP:
 					isEquippedSprite.transform.localPosition = new Vector3 (261,-200,0);
 					break;
 				case WEAPON_TYPE.SPEAR:
-					isEquippedSprite.transform.localPosition = new Vector3 (-8.8f,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (126,-200,0);
 					break;
 				case WEAPON_TYPE.SHIELD:
-					isEquippedSprite.transform.localPosition = new Vector3 (500,-200,0);
+					isEquippedSprite.transform.localPosition = new Vector3 (391,-200,0);
 					break;
 				default:
 					isEquippedSprite.SetActive (false);
@@ -89,7 +90,7 @@ namespace JuanDelaCruz {
 				player.weapon = WEAPON_TYPE.BOW;
 				Close();
 			} else {
-				if (player.DecreaseGold (150) == true) {
+				if (player.DecreaseGold (275) == true) {
 					player.weapon = WEAPON_TYPE.BOW;
 					player.weaponsBought [(int)WEAPON_TYPE.BOW] = true;
 					Close();

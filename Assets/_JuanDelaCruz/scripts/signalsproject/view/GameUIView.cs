@@ -179,16 +179,16 @@ namespace JuanDelaCruz {
 				if (test >= min && test <= max) {
 					if (helper == null) {
 						enemyDamageTaken += damageArray [j];
-						Debug.Log ("damageArray " + damageArray [j]);
+//						Debug.Log ("damageArray " + damageArray [j]);
 					} else {
 						enemyDamageTaken += (damageArray [j] + helper.maxDamage);
-						Debug.Log ("helper.maxDamage " + helper.maxDamage);
+//						Debug.Log ("helper.maxDamage " + helper.maxDamage);
 					}
 					UpdateEnemyHpBar();
 					return;
 				}
 			}
-			Debug.Log ("NO DAMAGE");
+//			Debug.Log ("NO DAMAGE");
 			UpdateEnemyHpBar();
 		}
 
@@ -321,10 +321,12 @@ namespace JuanDelaCruz {
 			switch (player.weapon) {
 			case WEAPON_TYPE.SWORD:
 				return 10;
-			case WEAPON_TYPE.WHIP:
-				return 40;
+			case WEAPON_TYPE.BOW:
+				return 15;
 			case WEAPON_TYPE.SPEAR:
 				return 20;
+			case WEAPON_TYPE.WHIP:
+				return 30;
 			default:
 				return 0;
 			}
