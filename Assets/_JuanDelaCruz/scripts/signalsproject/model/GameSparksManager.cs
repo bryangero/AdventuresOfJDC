@@ -63,8 +63,8 @@ namespace JuanDelaCruz {
 			} else {
 				action (true);
 			}
-		} 
-
+		}
+			
 		private void HandleGameSparksAvailable (bool isAvailable) {
 			if(isAvailable) {
 				Debug.Log("GAMESPARKS AVAILABLE...");
