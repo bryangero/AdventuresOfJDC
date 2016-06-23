@@ -40,7 +40,7 @@ namespace JuanDelaCruz {
 		public HeroAnim heroAnim;
 		public bool isAttacking = false;
 		public bool isActive = false;
-
+		public UISprite weaponSpt;
 		public UILabel pauseLbl;
 		public GameObject pauseCover;
 
@@ -54,6 +54,28 @@ namespace JuanDelaCruz {
 		}
 
 		internal void init(Monster monster, Player helper = null) {
+			switch (player.weapon) {
+			case WEAPON_TYPE.SHIELD:
+				weaponSpt.spriteName = "shield";
+				break;
+			case WEAPON_TYPE.SWORD:
+				weaponSpt.spriteName = "sword";
+				break;
+			case WEAPON_TYPE.BOW:
+				weaponSpt.spriteName = "bow";
+				break;
+			case WEAPON_TYPE.SPEAR:
+				weaponSpt.spriteName = "spear";
+				break;
+			case WEAPON_TYPE.WHIP:
+				weaponSpt.spriteName = "whip";
+				break;
+			default:
+				weaponSpt.spriteName = "shield";
+				break;
+
+			}
+
 			StartCoroutine (WaitFrameEnd ());
 			playerNameLbl.text = player.name;
 			enemyNameLbl.text = monster.name;

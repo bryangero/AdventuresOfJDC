@@ -71,7 +71,7 @@ namespace JuanDelaCruz {
 		public void OnFinishedRound(bool isWin) {
 			if (isWin == true) {
 				DisableGame();
-				rewardUIView.init(stage.monsters[round].goldReward, stage.monsters[round].expReward);
+				rewardUIView.init(stage.monsters[round].goldReward, stage.monsters[round].expReward, stage.level, round + 1);
 			} else {
 				player.lives--;
 				if (player.lives <= 0) {

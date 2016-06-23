@@ -20,6 +20,8 @@ namespace JuanDelaCruz {
 		public UILabel playerLevelLabel;
 		public UILabel playerGoldLabel;
 
+		public UILabel currentStageMinion;
+
 		public void EnableRewardUI() {
 			holder.SetActive(true);
 		}
@@ -28,8 +30,9 @@ namespace JuanDelaCruz {
 			holder.SetActive(false);
 		}
 
-		internal void init(int goldReward, int expReward) {
+		internal void init(int goldReward, int expReward, int stageId, int minionId) {
 			EnableRewardUI();
+			currentStageMinion.text = "STAGE " + stageId + " - MINION " + minionId;
 			iTween.ValueTo(gameObject, iTween.Hash(
 				"from", 0,
 				"to", goldReward, 
