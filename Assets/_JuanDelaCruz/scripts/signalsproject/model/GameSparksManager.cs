@@ -75,8 +75,8 @@ namespace JuanDelaCruz {
 			loading.SetActive(false);
 		}
 
-		public void RegisterPlayer() {
-			new GameSparks.Api.Requests.RegistrationRequest().SetDisplayName("Juan").SetPassword("password").SetUserName(GameSparksManager.instance.DEVICE_ID).Send((response) => {
+		public void RegisterPlayer(string playerName) {
+			new GameSparks.Api.Requests.RegistrationRequest().SetDisplayName(playerName).SetPassword("password").SetUserName(playerName).Send((response) => {
 				GSRegistrationResponseEvt(response);
 			});
 		}
@@ -94,8 +94,8 @@ namespace JuanDelaCruz {
 			});
 		}
 
-		public void AuthenticatePlayer() {
-			new GameSparks.Api.Requests.AuthenticationRequest().SetUserName(DEVICE_ID).SetPassword("password").Send((response) => {
+		public void AuthenticatePlayer(string playerName) {
+			new GameSparks.Api.Requests.AuthenticationRequest().SetUserName(playerName).SetPassword("password").Send((response) => {
 				GSAuthenticationResponseEvt(response);
 			});	
 		}

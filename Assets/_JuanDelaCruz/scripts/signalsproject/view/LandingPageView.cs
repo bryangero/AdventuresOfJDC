@@ -21,8 +21,6 @@ namespace JuanDelaCruz {
 		public Signal<DIALOGUE_TYPE, string> loadDialogueBoxSignal = new Signal<DIALOGUE_TYPE, string>();
 		public Signal<GAME_WINDOWS> showWindowSignal = new Signal<GAME_WINDOWS> ();
 
-
-		public Signal clickNewGameSignal = new Signal();
 		public Signal clickLoadGameSignal = new Signal();
 		[SerializeField] private GameObject holder;
 		[SerializeField] private Instructions instructions;
@@ -41,8 +39,10 @@ namespace JuanDelaCruz {
 		public void OnClickOkNewName() {
 			AudioManager.instance.PlayButton();
 			if (GameSparksManager.instance.isConnected) {
+				GameSparksManager.instance.GSRegistrationResponseEvt += AttemptRegistration;
+				GameSparksManager.instance.RegisterPlayer(newName.text.ToUpper());
 			} else {
-				player.CreateNewPlayer(newName.text);
+				player.CreateNewPlayer(newName.text.ToUpper());
 				player.SavePlayer();
 				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 			}
@@ -57,8 +57,7 @@ namespace JuanDelaCruz {
 					DialogueBoxView.OnClickNoEvent += OnClickNo;
 					loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.YES_NO, "There is currently a saved game. Continuing will erase all saved data. Proceed?");
 				} else {
-					GameSparksManager.instance.GSRegistrationResponseEvt += AttemptRegistration;
-					GameSparksManager.instance.RegisterPlayer();
+					enterNameGO.SetActive(true);
 				}
 			} else {
 				if(PlayerPrefs.HasKey("PLAYER")) {
@@ -84,14 +83,13 @@ namespace JuanDelaCruz {
 		public void AttemptRegistration(RegistrationResponse response) {
 			GameSparksManager.instance.GSRegistrationResponseEvt -= AttemptRegistration;
 			if (!response.HasErrors) {
-				player = new Player();
+				player.CreateNewPlayer(newName.text.ToUpper());
 				player.SavePlayer();
 				GameSparksManager.instance.GsLogEventResponseEvt += AttemptSavePlayer;
 				GameSparksManager.instance.SavePlayer(player);
 				Debug.Log("Player Registered Successfully");
 			} else {
-				GameSparksManager.instance.GSAuthenticationResponseEvt += AttemptAuthentication;
-				GameSparksManager.instance.AuthenticatePlayer();
+				loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.OK, "Player with that name already exists");
 				Debug.Log("Error Registering Player");
 			}
 		}
@@ -100,7 +98,7 @@ namespace JuanDelaCruz {
 			GameSparksManager.instance.GSAuthenticationResponseEvt -= AttemptAuthentication;
 			if (!response.HasErrors) {
 				if (PlayerPrefs.HasKey ("PLAYER")) {
-					player = new Player();
+					player.CreateNewPlayer(newName.text.ToUpper());
 					player.SavePlayer();
 					GameSparksManager.instance.GsLogEventResponseEvt += AttemptSavePlayer;
 					GameSparksManager.instance.SavePlayer(player);
@@ -127,8 +125,7 @@ namespace JuanDelaCruz {
 
 		private void OnClickYesOnline() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYesOnline;
-			GameSparksManager.instance.GSRegistrationResponseEvt += AttemptRegistration;
-			GameSparksManager.instance.RegisterPlayer();
+			enterNameGO.SetActive(true);
 		}
 
 		private void OnClickYesOnlineAlreadyRegistered() {
@@ -138,8 +135,6 @@ namespace JuanDelaCruz {
 			GameSparksManager.instance.GsLogEventResponseEvt += AttemptSavePlayer;
 			GameSparksManager.instance.SavePlayer(player);
 		}
-
-
 
 		public void OnClickLoadGame() {
 			AudioManager.instance.PlayButton ();

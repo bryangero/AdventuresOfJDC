@@ -11,6 +11,7 @@ namespace JuanDelaCruz {
 		public NeedHelpUIView needHelpUIView;
 
 		public int id;
+		public UILabel playerNameLbl;
 		public UILabel levelLbl;
 		public UILabel weaponLbl;
 		public GameObject character;
@@ -19,9 +20,10 @@ namespace JuanDelaCruz {
 			onClickHelper += needHelpUIView.OnChosenHelper;
 		}
 
-		public void Init(int level, WEAPON_TYPE weapon) {
-			levelLbl.text = "Level: " + level;
-			switch (weapon) {
+		public void Init(Player player) {
+			playerNameLbl.text = player.name;
+			levelLbl.text = "Level: " + player.level;
+			switch (player.weapon) {
 			case WEAPON_TYPE.SWORD:
 				weaponLbl.text = "sword";
 				break;

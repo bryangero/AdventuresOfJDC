@@ -63,6 +63,21 @@ namespace JuanDelaCruz {
 			ComputeHp();
 		}
 
+		public Player(string playerName, int level, WEAPON_TYPE weapon) {
+			name = playerName;
+			stage = 1;
+			this.level = level;
+			this.weapon = weapon;
+			weaponsBought =  new bool[6];
+			for (int i = 0; i < weaponsBought.Length; i++) {
+				weaponsBought[i] = false;
+				if (i == (int)weapon) {
+					weaponsBought[i] = true;
+				}
+			}
+			ComputeHp();
+		}
+
 		public void CreateNewPlayer(string newName) {
 			name = newName;
 			Debug.Log (name);
@@ -141,7 +156,6 @@ namespace JuanDelaCruz {
 				this.gold = newGoldVal;
 				return true;
 			}
-			return false;
 		}
 
 		private void ComputeHp() {

@@ -48,9 +48,6 @@ namespace JuanDelaCruz {
 			injectionBinder.Bind<ShowWindowSignal>().ToSingleton();
 			commandBinder.Bind<ShowWindowSignal>().To<ShowWindowCommand>();
 
-			injectionBinder.Bind<CreateNewGameSignal>().ToSingleton();
-			commandBinder.Bind<CreateNewGameSignal>().To<CreateNewGameCommand>();
-
 			injectionBinder.Bind<LoadGameSignal>().ToSingleton();
 			commandBinder.Bind<LoadGameSignal>().To<LoadGameCommand>();
 

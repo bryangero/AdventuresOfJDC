@@ -17,7 +17,6 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IPlayer player {get;set;}
 
-		public Signal noHelperSignal = new Signal();
 		public Signal<DIALOGUE_TYPE, string> loadDialogueBoxSignal = new Signal<DIALOGUE_TYPE, string>();
 
 		public Player[] helpers;
@@ -41,6 +40,8 @@ namespace JuanDelaCruz {
 				GameSparksManager.instance.GsLogEventResponseEvt += AttemptLoadPlayers;
 				GameSparksManager.instance.LoadPlayers();
 			} else {
+				cover.SetActive (false);
+				coverLbl.gameObject.SetActive (false);
 				DialogueBoxView.OnClickOKEvent += OnClickOK;
 				loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.OK, "Need Internet Connection to use this Feature.");
 			}
@@ -60,29 +61,27 @@ namespace JuanDelaCruz {
 			AudioManager.instance.PlayButton ();
 			int nullHelperCtr = 0;
 			for (int i = 0; i < helpers.Length; i++) {
+				playerHelpers[i].gameObject.SetActive(true);
 				if (helpers [i] == null) {
 					nullHelperCtr++;
-					playerHelpers [i].gameObject.SetActive (false);
+					playerHelpers[i].gameObject.SetActive(false);
 				}
 			}
 			if (nullHelperCtr == 3) {
-				noHelperSignal.Dispatch();
-				Debug.Log ("no help");
+				DialogueBoxView.OnClickOKEvent += OnClickOK;
+				loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.OK, "No available helper");
 			} else if (nullHelperCtr == 2) {
 				grid.transform.localPosition = grid1Pos;
-				playerHelpers[0].Init(helpers[0].level, helpers[0].weapon);
-				Debug.Log ("1 help");
+				playerHelpers[0].Init(helpers[0]);
 			} else if (nullHelperCtr == 1) {
 				grid.transform.localPosition = grid2Pos;
-				playerHelpers[0].Init(helpers[0].level, helpers[0].weapon);
-				playerHelpers[1].Init(helpers[1].level, helpers[0].weapon);
-				Debug.Log ("2 help");
+				playerHelpers[0].Init(helpers[0]);
+				playerHelpers[1].Init(helpers[1]);
 			} else {
 				grid.transform.localPosition = grid3Pos;
-				playerHelpers[0].Init(helpers[0].level, helpers[0].weapon);
-				playerHelpers[1].Init(helpers[1].level, helpers[0].weapon);
-				playerHelpers[2].Init(helpers[2].level, helpers[0].weapon);
-				Debug.Log ("3 help");
+				playerHelpers[0].Init(helpers[0]);
+				playerHelpers[1].Init(helpers[1]);
+				playerHelpers[2].Init(helpers[2]);
 			}
 
 			helperHolder.SetActive(true);
@@ -114,13 +113,12 @@ namespace JuanDelaCruz {
 
 				int helpersIdx = 0;
 				for (int i = 0; i < data.Length; i++) {
+					string playerName = data [i].GetString ("playerName");
 					int playerLevel = (int)data [i].GetInt ("playerLevel");
 					WEAPON_TYPE playerWeapon = (WEAPON_TYPE)data [i].GetInt ("playerWeapon");
-					if (playerLevel > player.level - 2 && playerLevel < player.level + 2) {
-						Debug.Log (playerLevel);
-						helpers [helpersIdx] = new Player (playerLevel, playerWeapon);
+					if (playerLevel > player.level - 2 && playerLevel < player.level + 2 && player.name != playerName) {
+						helpers [helpersIdx] = new Player (playerName, playerLevel, playerWeapon);
 						helpersIdx++;
-						Debug.Log ("helpersIdx " + helpersIdx);
 						if (helpersIdx >= helpers.Length) {
 							break;
 						}

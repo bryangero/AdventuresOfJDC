@@ -17,9 +17,6 @@ namespace JuanDelaCruz {
 		public ShowWindowSignal showWindowSignal { get; set; }
 
 		[Inject]
-		public CreateNewGameSignal createNewGameSignal { get; set; }
-
-		[Inject]
 		public LoadGameSignal loadGameSignal { get; set; }
 
 		[Inject]
@@ -31,7 +28,6 @@ namespace JuanDelaCruz {
 		public override void OnRegister() {
 //			showWindowSignal.AddListener(OnShowWindow);
 //			loadEnterNameSignal.AddListener (OnLoadEnterNameSignal);
-			view.clickNewGameSignal.AddListener(ClickNewGame);
 			view.clickLoadGameSignal.AddListener(ClickLoadGame);
 			view.showWindowSignal.AddListener (OnViewShowWindow);
 			view.loadDialogueBoxSignal.AddListener (OnViewLoadDialogueBox);
@@ -40,16 +36,11 @@ namespace JuanDelaCruz {
 		public override void OnRemove() {
 //			showWindowSignal.RemoveListener(OnShowWindow);
 //			loadEnterNameSignal.RemoveListener (OnLoadEnterNameSignal);
-			view.clickNewGameSignal.RemoveListener(ClickNewGame);
 			view.clickLoadGameSignal.RemoveListener(ClickLoadGame);
 			view.showWindowSignal.RemoveListener (OnViewShowWindow);
 			view.loadDialogueBoxSignal.RemoveListener (OnViewLoadDialogueBox);
 		}
-
-		private void ClickNewGame() {
-//			createNewGameSignal.Dispatch();
-		}
-
+			
 		private void ClickLoadGame() {
 			loadGameSignal.Dispatch();
 		}

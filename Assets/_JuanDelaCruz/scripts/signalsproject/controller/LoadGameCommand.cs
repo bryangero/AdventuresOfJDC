@@ -36,8 +36,15 @@ namespace JuanDelaCruz {
 		public IEnumerator ExecuteInOrder() {
 			yield return null;
 			if(GameSparksManager.instance.isConnected) {
-				GameSparksManager.instance.GSAuthenticationResponseEvt += AttemptAuthentication;
-				GameSparksManager.instance.AuthenticatePlayer();
+				if(PlayerPrefs.HasKey("PLAYER")) {
+					player.LoadPlayer();
+					yield return null;
+					GameSparksManager.instance.GSAuthenticationResponseEvt += AttemptAuthentication;
+					GameSparksManager.instance.AuthenticatePlayer(player.name);
+				} else {
+					DialogueBoxView.OnClickOKEvent += OnClickOK;
+					loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.OK, "There is no saved game. Please select New Game.");
+				}
 			} else {
 				if(PlayerPrefs.HasKey("PLAYER")) {
 					player.LoadPlayer();
