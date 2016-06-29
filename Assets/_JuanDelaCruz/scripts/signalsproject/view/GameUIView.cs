@@ -261,6 +261,7 @@ namespace JuanDelaCruz {
 			enemyDamageTaken += ApplyWeaponBonus();
 			if(enemyDamageTaken >= enemyHpHolder) {
 				enemyDamageTaken = enemyHpHolder;
+				enemyDisplay.DeathAnim();
 			}
 			enemyConvertedHp =((float)enemyHpHolder -(float)enemyDamageTaken)/(float)enemyHpHolder;
 			iTween.ValueTo(gameObject, iTween.Hash(
@@ -293,8 +294,7 @@ namespace JuanDelaCruz {
 		}
 
 		public IEnumerator EnemyDeath() {
-			yield return new WaitForSeconds (0.5f);
-			enemyDisplay.DeathAnim();
+//			yield return new WaitForSeconds (0.5f);
 			yield return new WaitForSeconds (0.5f);
 			winLoseLbl.text = "You Win!";
 			winLoseTweenScale.PlayForward();
