@@ -205,7 +205,7 @@ namespace JuanDelaCruz {
 		}
 
 		private IEnumerator UpdateTimer() {
-			int timer = 3;
+			int timer = 99;
 			while(timer > 0 && gameView.isRoundEnd == false) {
 				timer--;
 				if (timer%5 == 0) {
@@ -261,7 +261,6 @@ namespace JuanDelaCruz {
 			enemyDamageTaken += ApplyWeaponBonus();
 			if(enemyDamageTaken >= enemyHpHolder) {
 				enemyDamageTaken = enemyHpHolder;
-				enemyDisplay.DeathAnim ();
 			}
 			enemyConvertedHp =((float)enemyHpHolder -(float)enemyDamageTaken)/(float)enemyHpHolder;
 			iTween.ValueTo(gameObject, iTween.Hash(
@@ -282,18 +281,26 @@ namespace JuanDelaCruz {
 
 		public void FinishedUpdateEnemyHpBarFillAmount() {
 			if(enemyHp.fillAmount <= 0) {
-				winLoseLbl.text = "You Win!";
-				winLoseTweenScale.PlayForward();
-				gameView.isRoundEnd = true;
-
+				StartCoroutine(EnemyDeath());
 			} else {
-				EnemyAttack();
+				StartCoroutine(EnemyAttack());
 			}
 		}
 
-		public void EnemyAttack() {
+		public IEnumerator EnemyAttack() {
+			yield return new WaitForSeconds (0.5f);
 			enemyDisplay.AttackAnim();
 		}
+
+		public IEnumerator EnemyDeath() {
+			yield return new WaitForSeconds (0.5f);
+			enemyDisplay.DeathAnim();
+			yield return new WaitForSeconds (0.5f);
+			winLoseLbl.text = "You Win!";
+			winLoseTweenScale.PlayForward();
+			gameView.isRoundEnd = true;
+		}
+
 
 		public void DealDamage() {
 			int enemyDamage = UnityEngine.Random.Range(monster.minDamage, monster.maxDamage);
