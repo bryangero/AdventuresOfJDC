@@ -40,10 +40,14 @@ namespace JuanDelaCruz {
 		}
 
 		private void OnClickYes() {
+			DialogueBoxView.OnClickYesEvent -= OnClickYes;
+			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			view.RestartRound();
 		}
 
 		private void OnClickNo() {
+			DialogueBoxView.OnClickYesEvent -= OnClickYes;
+			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			OnReturnToMapSignal();
 		}
 

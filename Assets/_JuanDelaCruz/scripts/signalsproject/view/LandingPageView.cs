@@ -33,6 +33,7 @@ namespace JuanDelaCruz {
 		}
 
 		public void DisableLandingPage() {
+			enterNameGO.SetActive(false);
 			holder.SetActive(false);
 		}
 
@@ -73,11 +74,13 @@ namespace JuanDelaCruz {
 
 		private void OnClickYes() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYes;
+			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			enterNameGO.SetActive(true);
 		}
 
 		private void OnClickNo() {
-			DialogueBoxView.OnClickYesEvent -= OnClickNo;
+			DialogueBoxView.OnClickYesEvent -= OnClickYes;
+			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 		}
 
 		public void AttemptRegistration(RegistrationResponse response) {
@@ -125,11 +128,13 @@ namespace JuanDelaCruz {
 
 		private void OnClickYesOnline() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYesOnline;
+			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			enterNameGO.SetActive(true);
 		}
 
 		private void OnClickYesOnlineAlreadyRegistered() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYesOnlineAlreadyRegistered;
+			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			player = new Player();
 			player.SavePlayer();
 			GameSparksManager.instance.GsLogEventResponseEvt += AttemptSavePlayer;

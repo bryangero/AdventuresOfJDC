@@ -75,7 +75,6 @@ namespace JuanDelaCruz {
 				break;
 
 			}
-
 			StartCoroutine (WaitFrameEnd ());
 			playerNameLbl.text = player.name;
 			enemyNameLbl.text = monster.name;
@@ -96,6 +95,8 @@ namespace JuanDelaCruz {
 			enemyHp.fillAmount = 1;
 			enemyDamageTaken = 0;
 			playerDamageTaken = 0;
+			timeToCompleteVariable = 1;
+			isTimesUp = false;
 			isAttacking = false;
 			StartCoroutine("UpdateTimer");
 			winLoseLbl.gameObject.transform.localScale = Vector3.zero;
@@ -108,9 +109,10 @@ namespace JuanDelaCruz {
 			isActive = true;
 		}
 
+		public float timeToCompleteVariable = 1f;
 		public void MoveAttackBarUp() {
 			float barVal = scrollbar.value;
-			float timeToComplete = 1 - barVal;
+			float timeToComplete = timeToCompleteVariable - (barVal * timeToCompleteVariable);
 			isDirUp = true;
 			iTween.ValueTo(gameObject, iTween.Hash(
 				"name", "MoveAttackBarUp",
@@ -125,7 +127,7 @@ namespace JuanDelaCruz {
 
 		public void MoveAttackBarDown() {
 			float barVal = scrollbar.value;
-			float timeToComplete = barVal;
+			float timeToComplete = barVal * timeToCompleteVariable;
 			isDirUp = false;
 			iTween.ValueTo(gameObject, iTween.Hash(
 				"name", "MoveAttackBarDown",
@@ -203,13 +205,17 @@ namespace JuanDelaCruz {
 		}
 
 		private IEnumerator UpdateTimer() {
-			int timer = 99;
+			int timer = 3;
 			while(timer > 0 && gameView.isRoundEnd == false) {
 				timer--;
+				if (timer%5 == 0) {
+					timeToCompleteVariable -= 0.05f;
+				}
 				timerLabel.text = timer.ToString("00");
 				yield return new WaitForSeconds(1);
 			}
 			if(gameView.isRoundEnd != true) {
+				StopCoroutine("UpdateTimer");
 				gameView.isRoundEnd = true;
 				winLoseLbl.text = "Times Up!";
 				winLoseTweenScale.PlayForward();
@@ -300,12 +306,16 @@ namespace JuanDelaCruz {
 			if (isTimesUp == true) {
 				if (playerHp.fillAmount > enemyHp.fillAmount) {
 					winLoseLbl.text = "You Win!";
+					winLoseTweenScale.ResetToBeginning ();
 					winLoseTweenScale.PlayForward ();
-					gameView.OnFinishedRound (true);
+					isTimesUp = false;
+//					gameView.OnFinishedRound (true);
 				} else {
 					winLoseLbl.text = "You Lose!";
+					winLoseTweenScale.ResetToBeginning ();
 					winLoseTweenScale.PlayForward ();
-					gameView.OnFinishedRound (false);
+					isTimesUp = false;
+//					gameView.OnFinishedRound (false);
 				}
 			} else {
 				if (playerHp.fillAmount > enemyHp.fillAmount) {
@@ -313,8 +323,8 @@ namespace JuanDelaCruz {
 				} else {
 					gameView.OnFinishedRound (false);
 				}
+				DisableGameUI();
 			}
-			DisableGameUI();
 		}
 
 		public int ApplyWeaponBonus() {
