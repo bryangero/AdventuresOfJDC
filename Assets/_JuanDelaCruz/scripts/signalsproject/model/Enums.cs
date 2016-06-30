@@ -10,6 +10,7 @@ namespace JuanDelaCruz {
 		REWARD,
 		SHOP,
 		MAP,
+		CONGRATULATIONS,
 	}
 		
 	public enum MONSTER_TYPE {

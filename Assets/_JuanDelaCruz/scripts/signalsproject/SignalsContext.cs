@@ -66,6 +66,7 @@ namespace JuanDelaCruz {
 			mediationBinder.Bind<MapView>().To<MapMediator>();
 			mediationBinder.Bind<DialogueBoxView>().To<DialogueBoxMediator>();
 			mediationBinder.Bind<NeedHelpUIView>().To<NeedHelpUIMediator>();
+			mediationBinder.Bind<CongratulationsUIView>().To<CongratulationsUIMediator>();
 
 			//StartSignal is now fired instead of the START event.
 			//Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.

@@ -23,32 +23,44 @@ namespace JuanDelaCruz {
 					GameObject.FindObjectOfType<LandingPageView>().EnableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().DisableCongratulationsUI();
 					break;
 				case GAME_WINDOWS.CHARACTER_SELECT: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().DisableCongratulationsUI();
 					break;
 				case GAME_WINDOWS.GAME: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().EnableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().DisableCongratulationsUI();
 					break;
 				case GAME_WINDOWS.REWARD: 
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().DisableCongratulationsUI();
 					break;
 				case GAME_WINDOWS.SHOP:
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().DisableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().DisableCongratulationsUI();
 					break;
 				case GAME_WINDOWS.MAP:
 					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
 					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
 					GameObject.FindObjectOfType<MapView>().EnableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().DisableCongratulationsUI();
 					break;
+				case GAME_WINDOWS.CONGRATULATIONS:
+					GameObject.FindObjectOfType<LandingPageView>().DisableLandingPage();
+					GameObject.FindObjectOfType<GameUIView>().DisableGameUI();
+					GameObject.FindObjectOfType<MapView>().DisableMap();
+					GameObject.FindObjectOfType<CongratulationsUIView>().EnableCongratulationsUI();
+				break;
 			}
 		}
 

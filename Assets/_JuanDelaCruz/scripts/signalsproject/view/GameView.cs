@@ -23,6 +23,7 @@ namespace JuanDelaCruz {
 		[Inject]
 		public IStage stage { get; set; }
 
+		public Signal<GAME_WINDOWS> showWindowSignal = new Signal<GAME_WINDOWS> ();
 		public Signal returnToMapSignal = new Signal();
 		public Signal displayContinueSignal = new Signal();
 
@@ -76,7 +77,7 @@ namespace JuanDelaCruz {
 				player.lives--;
 				if (player.lives <= 0) {
 					DisableGame();
-					returnToMapSignal.Dispatch();
+					showWindowSignal.Dispatch (GAME_WINDOWS.MAP);
 				} else {
 					displayContinueSignal.Dispatch();
 				}
@@ -103,7 +104,11 @@ namespace JuanDelaCruz {
 					rewardUIView.DisableRewardUI();
 					shopUIView.DisableShopUI();
 				}
-				returnToMapSignal.Dispatch();
+				if (player.stage > 5) {
+					showWindowSignal.Dispatch (GAME_WINDOWS.CONGRATULATIONS);
+				} else {
+					showWindowSignal.Dispatch (GAME_WINDOWS.MAP);
+				}
 			} else {
 				if (round <= 3) {
 					SavePlayer();

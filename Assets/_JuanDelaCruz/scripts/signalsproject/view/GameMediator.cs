@@ -22,11 +22,17 @@ namespace JuanDelaCruz {
 		public override void OnRegister() {
 			view.returnToMapSignal.AddListener(OnReturnToMapSignal);
 			view.displayContinueSignal.AddListener(OnDisplayContinueSignal);
+			view.showWindowSignal.AddListener (OnViewShowWindow);
 		}
 		
 		public override void OnRemove() {
 			view.returnToMapSignal.RemoveListener(OnReturnToMapSignal);
 			view.displayContinueSignal.RemoveListener(OnDisplayContinueSignal);
+			view.showWindowSignal.RemoveListener (OnViewShowWindow);
+		}
+
+		private void OnViewShowWindow(GAME_WINDOWS gameWindow) {
+			showWindowSignal.Dispatch (gameWindow);
 		}
 
 		public void OnReturnToMapSignal() {
