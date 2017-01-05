@@ -25,7 +25,10 @@ namespace JuanDelaCruz {
 		[SerializeField] private GameObject holder;
 		[SerializeField] private Instructions instructions;
 
-		[SerializeField] private GameObject enterNameGO;
+        [SerializeField]
+        private Instructions credits;
+
+        [SerializeField] private GameObject enterNameGO;
 		[SerializeField] private UILabel newName;
 
 		public void EnableLandingPage() {
@@ -153,6 +156,7 @@ namespace JuanDelaCruz {
 
 		public void OnClickCredits() {
 			AudioManager.instance.PlayButton ();
+            credits.ShowInstruction();
 		}
 
 		public void OnClickAudio() {
