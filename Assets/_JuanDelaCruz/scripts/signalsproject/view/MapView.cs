@@ -14,13 +14,16 @@ namespace JuanDelaCruz {
 		public Signal<int> loadStage = new Signal<int>();
 		public Signal<GAME_WINDOWS> showWindowSignal = new Signal<GAME_WINDOWS> ();
 		[SerializeField] GameObject holder;
-		public UISprite[] stageSprites;
+        [SerializeField] GameObject mapCamera;
+        public UISprite[] stageSprites;
 		public bool isActive;
 
 		public void EnableMap() {
 			StartCoroutine (WaitFrameEnd());
 			holder.SetActive(true);
-			for(int i = 0; i < stageSprites.Length; i++) {
+            mapCamera.SetActive(true);
+
+            for (int i = 0; i < stageSprites.Length; i++) {
 				if (Int32.Parse (stageSprites [i].name) > player.stage) {
 					stageSprites [i].color = Color.gray;
 				} else {
@@ -43,9 +46,10 @@ namespace JuanDelaCruz {
 		public void DisableMap() {
 			isActive = false;
 			holder.SetActive(false);
-		}
+            mapCamera.SetActive(false);
+        }
 
-		public void LoadStage(int stageId) {
+        public void LoadStage(int stageId) {
 			loadStage.Dispatch (stageId);
 		}
 
