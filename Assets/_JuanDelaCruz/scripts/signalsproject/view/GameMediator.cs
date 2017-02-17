@@ -39,22 +39,30 @@ namespace JuanDelaCruz {
 			showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
 		}
 
+		public void OnReturnToLandingPageSignal()
+		{
+			showWindowSignal.Dispatch(GAME_WINDOWS.LANDING_PAGE);
+		}
+
 		public void OnDisplayContinueSignal() {
 			DialogueBoxView.OnClickYesEvent += OnClickYes;
 			DialogueBoxView.OnClickNoEvent += OnClickNo;
-			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.CONTINUE,"Continue?\n10");
+			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.YES_NO,"Continue?");
+//			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.CONTINUE,"Continue?\n10");
 		}
 
 		private void OnClickYes() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYes;
 			DialogueBoxView.OnClickNoEvent -= OnClickNo;
-			view.RestartRound();
+			OnReturnToMapSignal();
+//			view.RestartRound();
 		}
 
 		private void OnClickNo() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYes;
 			DialogueBoxView.OnClickNoEvent -= OnClickNo;
-			OnReturnToMapSignal();
+			OnReturnToLandingPageSignal ();
+//			OnReturnToMapSignal();
 		}
 
 	}

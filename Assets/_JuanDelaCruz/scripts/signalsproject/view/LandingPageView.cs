@@ -26,7 +26,7 @@ namespace JuanDelaCruz {
 		[SerializeField] private Instructions instructions;
 
         [SerializeField]
-        private Instructions credits;
+        private Credits credits;
 
         [SerializeField] private GameObject enterNameGO;
 		[SerializeField] private UILabel newName;
