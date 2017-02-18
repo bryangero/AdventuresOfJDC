@@ -31,6 +31,7 @@ namespace JuanDelaCruz {
 			view.clickLoadGameSignal.AddListener(ClickLoadGame);
 			view.showWindowSignal.AddListener (OnViewShowWindow);
 			view.loadDialogueBoxSignal.AddListener (OnViewLoadDialogueBox);
+			view.isActive = true;
 		}
 		
 		public override void OnRemove() {

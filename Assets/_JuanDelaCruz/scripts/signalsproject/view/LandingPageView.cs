@@ -31,13 +31,40 @@ namespace JuanDelaCruz {
         [SerializeField] private GameObject enterNameGO;
 		[SerializeField] private UILabel newName;
 
-		public void EnableLandingPage() {
-			holder.SetActive(true);
+		public bool isActive = false;
+
+		public void FixedUpdate() {
+			if (Input.GetKeyUp (KeyCode.Escape) && isActive) {
+				DialogueBoxView.OnClickYesEvent += OnEscYes;
+				DialogueBoxView.OnClickNoEvent += OnEscNo;
+				loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.YES_NO, "Close Application?");
+			}
 		}
 
+		public void OnEscYes(){
+			DialogueBoxView.OnClickYesEvent -= OnEscYes;
+			DialogueBoxView.OnClickNoEvent -= OnEscNo;
+			Application.Quit();
+		}
+		public void OnEscNo(){
+			DialogueBoxView.OnClickYesEvent -= OnEscYes;
+			DialogueBoxView.OnClickNoEvent -= OnEscNo;
+		}
+
+		public void EnableLandingPage() {
+			StartCoroutine (WaitFrameEnd ());
+			holder.SetActive(true);
+		}
+			
 		public void DisableLandingPage() {
+			isActive = false;
 			enterNameGO.SetActive(false);
 			holder.SetActive(false);
+		}
+
+		public IEnumerator WaitFrameEnd() {
+			yield return null;	
+			isActive = true;
 		}
 
 		public void OnClickOkNewName() {
