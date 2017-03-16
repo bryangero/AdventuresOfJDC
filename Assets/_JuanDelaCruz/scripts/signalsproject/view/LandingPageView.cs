@@ -38,6 +38,9 @@ namespace JuanDelaCruz {
 				DialogueBoxView.OnClickYesEvent += OnEscYes;
 				DialogueBoxView.OnClickNoEvent += OnEscNo;
 				loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.YES_NO, "Close Application?");
+			} else if (Input.GetKeyUp (KeyCode.Escape) && isActive == false && enterNameGO.activeSelf == true){
+				enterNameGO.SetActive (false);
+				isActive = true;
 			}
 		}
 
@@ -89,6 +92,7 @@ namespace JuanDelaCruz {
 					loadDialogueBoxSignal.Dispatch(DIALOGUE_TYPE.YES_NO, "There is currently a saved game. Continuing will erase all saved data. Proceed?");
 				} else {
 					enterNameGO.SetActive(true);
+					isActive = false;
 				}
 			} else {
 				if(PlayerPrefs.HasKey("PLAYER")) {
@@ -97,6 +101,7 @@ namespace JuanDelaCruz {
 					loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.YES_NO, "There is currently a saved game. Continuing will erase all saved data. Proceed?");
 				} else {
 					enterNameGO.SetActive(true);
+					isActive = false;
 				}
 			}
 		}
@@ -106,6 +111,7 @@ namespace JuanDelaCruz {
 			DialogueBoxView.OnClickYesEvent -= OnClickYes;
 			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			enterNameGO.SetActive(true);
+			isActive = false;
 		}
 
 		private void OnClickNo() {
@@ -160,6 +166,7 @@ namespace JuanDelaCruz {
 			DialogueBoxView.OnClickYesEvent -= OnClickYesOnline;
 			DialogueBoxView.OnClickNoEvent -= OnClickNo;
 			enterNameGO.SetActive(true);
+			isActive = false;
 		}
 
 		private void OnClickYesOnlineAlreadyRegistered() {
