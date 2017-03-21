@@ -19,7 +19,9 @@ namespace JuanDelaCruz {
 		public bool isActive;
 		public UITexture script;
 		public Texture[] scriptsTextures;
-
+		public GameObject instructions1;
+		public GameObject instructions2;
+		public GameObject instructions3;
 		public void EnableMap() {
 			StartCoroutine (WaitFrameEnd());
 			holder.SetActive(true);
@@ -42,7 +44,20 @@ namespace JuanDelaCruz {
 				script.mainTexture = scriptsTextures [scriptIndex];
 			} else {
 				script.gameObject.SetActive (false);
+				instructions1.SetActive (true);
 			}
+		}
+
+		public void ShowInstructions2() {
+			instructions1.SetActive (false);
+			instructions2.SetActive (true);
+		}
+		public void ShowInstructions3() {
+			instructions2.SetActive (false);
+			instructions3.SetActive (true);
+		}
+		public void CloseInstructions() {
+			instructions3.SetActive (false);
 		}
 
 		public IEnumerator WaitFrameEnd() {
