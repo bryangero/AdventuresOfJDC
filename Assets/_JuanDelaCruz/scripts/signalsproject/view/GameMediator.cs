@@ -19,6 +19,9 @@ namespace JuanDelaCruz {
 		[Inject]
 		public LoadDialogueBoxSignal loadDialogueBoxSignal { get; set; }
 
+		[Inject]
+		public IPlayer player { get; set;}
+
 		public override void OnRegister() {
 			view.returnToMapSignal.AddListener(OnReturnToMapSignal);
 			view.displayContinueSignal.AddListener(OnDisplayContinueSignal);
@@ -45,17 +48,20 @@ namespace JuanDelaCruz {
 		}
 
 		public void OnDisplayContinueSignal() {
-			DialogueBoxView.OnClickYesEvent += OnClickYes;
-			DialogueBoxView.OnClickNoEvent += OnClickNo;
-			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.YES_NO,"Continue?");
-//			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.CONTINUE,"Continue?\n10");
+			loadDialogueBoxSignal.Dispatch (DIALOGUE_TYPE.CONTINUE,"Continue?\n10");
+			if (player.lives <= 0) {
+				DialogueBoxView.OnClickYesEvent += OnClickYesNoLife;
+				DialogueBoxView.OnClickNoEvent += OnClickNoNoLife;
+			} else {
+				DialogueBoxView.OnClickYesEvent += OnClickYes;
+				DialogueBoxView.OnClickNoEvent += OnClickNo;
+			}
 		}
-
 		private void OnClickYes() {
 			DialogueBoxView.OnClickYesEvent -= OnClickYes;
 			DialogueBoxView.OnClickNoEvent -= OnClickNo;
-			OnReturnToMapSignal();
-//			view.RestartRound();
+//			OnReturnToMapSignal();
+			view.RestartRound();
 		}
 
 		private void OnClickNo() {
@@ -64,6 +70,23 @@ namespace JuanDelaCruz {
 			OnReturnToLandingPageSignal ();
 //			OnReturnToMapSignal();
 		}
+
+
+			private void OnClickYesNoLife() {
+				DialogueBoxView.OnClickYesEvent -= OnClickYesNoLife;
+				DialogueBoxView.OnClickNoEvent -= OnClickNoNoLife;
+				view.DisableGame ();
+				OnReturnToMapSignal();
+//				view.RestartRound();
+			}
+
+			private void OnClickNoNoLife() {
+				DialogueBoxView.OnClickYesEvent -= OnClickYesNoLife;
+				DialogueBoxView.OnClickNoEvent -= OnClickNoNoLife;
+//				OnReturnToLandingPageSignal ();
+				view.DisableGame ();
+				OnReturnToMapSignal();
+			}
 
 	}
 }

@@ -75,12 +75,12 @@ namespace JuanDelaCruz {
 				rewardUIView.init(stage.monsters[round].goldReward, stage.monsters[round].expReward, stage.level, round + 1);
 			} else {
 				player.lives--;
-				if (player.lives <= 0) {
-					DisableGame();
-					showWindowSignal.Dispatch (GAME_WINDOWS.MAP);
-				} else {
+//				if (player.lives <= 0) {
+//					DisableGame();
+//					showWindowSignal.Dispatch (GAME_WINDOWS.MAP);
+//				} else {
 					displayContinueSignal.Dispatch();
-				}
+//				}
 			}
 		}
 
