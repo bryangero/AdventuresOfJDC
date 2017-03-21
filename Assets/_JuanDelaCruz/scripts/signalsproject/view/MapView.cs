@@ -22,6 +22,9 @@ namespace JuanDelaCruz {
 		public GameObject instructions1;
 		public GameObject instructions2;
 		public GameObject instructions3;
+
+		public UILabel scriptLbl;
+
 		public void EnableMap() {
 			StartCoroutine (WaitFrameEnd());
 			holder.SetActive(true);
@@ -40,11 +43,20 @@ namespace JuanDelaCruz {
 		int scriptIndex = 0;
 		public void UpdateScriptTextures() {
 			scriptIndex++;
-			if (scriptIndex < scriptsTextures.Length) {
-				script.mainTexture = scriptsTextures [scriptIndex];
-			} else {
-				script.gameObject.SetActive (false);
+			switch (scriptIndex) {
+			case 1:
+				scriptLbl.text = "You have to kill the \"aswangs\" to be able to protect the humans and your hometown";
+				break;
+			case 2:
+				scriptLbl.text = "Every stage you will meet different kinds of \"aswangs\". You will be provided with proper weapon to defeat them.";
+				break;
+			case 3:
+				scriptLbl.text = "The game has 5 stages. You will encounter 4 minions and 1 Boss per stage.";
+				break;
+			default:
+				scriptLbl.transform.parent.gameObject.SetActive (false);
 				instructions1.SetActive (true);
+				break;
 			}
 		}
 
@@ -64,11 +76,13 @@ namespace JuanDelaCruz {
 			yield return null;
 			isActive = true;
 			if (!PlayerPrefs.HasKey ("First")) {
-				script.gameObject.SetActive (true);
+				scriptLbl.text = "Hi! " + player.name + "!\nYou are half-human and half-aswang";
+				scriptLbl.transform.parent.gameObject.SetActive (true);
 				PlayerPrefs.SetInt ("First", 1);
 			} else {
 				if (PlayerPrefs.GetInt ("First") == 0) {
-					script.gameObject.SetActive (true);
+					scriptLbl.text = "Hi! " + player.name + "!\nYou are half-human and half-aswang";
+					scriptLbl.transform.parent.gameObject.SetActive (true);
 					PlayerPrefs.SetInt ("First", 1);
 				}
 			}
