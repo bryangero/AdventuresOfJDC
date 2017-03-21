@@ -79,6 +79,10 @@ namespace JuanDelaCruz {
 				player.CreateNewPlayer(newName.text.ToUpper());
 				player.SavePlayer();
 				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+				if (PlayerPrefs.HasKey ("First")) {
+					PlayerPrefs.SetInt ("First", 0);
+					PlayerPrefs.Save ();
+				}
 			}
 		}
 
@@ -156,6 +160,11 @@ namespace JuanDelaCruz {
 			GameSparksManager.instance.GsLogEventResponseEvt -= AttemptSavePlayer;
 			if (!response.HasErrors) {
 				showWindowSignal.Dispatch(GAME_WINDOWS.MAP);
+				if (PlayerPrefs.HasKey ("First")) {
+					PlayerPrefs.SetInt ("First", 0);
+					PlayerPrefs.Save ();
+				}
+
 				Debug.Log("Player Saved To GameSparks...");
 			} else {
 				Debug.Log("Error Saving Player Data...");

@@ -17,6 +17,8 @@ namespace JuanDelaCruz {
         [SerializeField] GameObject mapCamera;
         public UISprite[] stageSprites;
 		public bool isActive;
+		public UITexture script;
+		public Texture[] scriptsTextures;
 
 		public void EnableMap() {
 			StartCoroutine (WaitFrameEnd());
@@ -30,11 +32,31 @@ namespace JuanDelaCruz {
 					stageSprites [i].color = Color.white;
 				}
 			}
+
+		}
+
+		int scriptIndex = 0;
+		public void UpdateScriptTextures() {
+			scriptIndex++;
+			if (scriptIndex < scriptsTextures.Length) {
+				script.mainTexture = scriptsTextures [scriptIndex];
+			} else {
+				script.gameObject.SetActive (false);
+			}
 		}
 
 		public IEnumerator WaitFrameEnd() {
 			yield return null;
 			isActive = true;
+			if (!PlayerPrefs.HasKey ("First")) {
+				script.gameObject.SetActive (true);
+				PlayerPrefs.SetInt ("First", 1);
+			} else {
+				if (PlayerPrefs.GetInt ("First") == 0) {
+					script.gameObject.SetActive (true);
+					PlayerPrefs.SetInt ("First", 1);
+				}
+			}
 		}
 
 		public void FixedUpdate() {

@@ -80,7 +80,6 @@ namespace JuanDelaCruz {
 
 		public void CreateNewPlayer(string newName) {
 			name = newName;
-			Debug.Log (name);
 			stage = 1;
 			level = 1;
 			weapon = WEAPON_TYPE.NONE;
